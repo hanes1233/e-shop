@@ -1,0 +1,36 @@
+.floating-text {
+    font-size: 2.5rem;
+}
+
+.letter {
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
+}
+
+.space {
+    display: inline-block;
+    width: 20px;
+}
+
+/* Keyframes to move the letters up, down, left, and right */
+@keyframes float {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(1px, -1px);
+    }
+
+    50% {
+        transform: translate(-1px, 1px);
+    }
+
+    75% {
+        transform: translate(1px, -1px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}

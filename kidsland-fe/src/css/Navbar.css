@@ -1,0 +1,15 @@
+.navbar-inner {
+    background:transparent;
+}
+
+.sub-section {
+    border-radius: 10px; /* Initial rounded corners */
+    transition: border-radius 0.3s ease, background-color 0.3s ease;
+}
+
+
+.sub-section:hover {
+    background-color: rgb(255, 255, 187);
+    border-radius: 75%;
+    transition: border-radius 0.3s ease, background-color 0.3s ease;
+}
