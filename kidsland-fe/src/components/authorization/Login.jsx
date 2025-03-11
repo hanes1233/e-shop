@@ -1,11 +1,14 @@
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CloseButton, Col, Container, Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 function Login(props) {
     const [showModal, setShowModal] = useState(props.toggleModal);
+    const navigate = useNavigate();
+
     const handleClose = props.handleClose;
 
     return (
@@ -39,17 +42,14 @@ function Login(props) {
                                 <Button className='mx-5' variant="primary" type="submit">
                                     Submit
                                 </Button>
-                                <Button className='mx-5' variant="success" type="button">
+                                <Button className='mx-5' variant="success" type="button" onClick={() => navigate("/registration")}>
                                     Registration
                                 </Button>
                             </Col>
                         </Form>
                     </Modal.Body>
                 </Modal>
-
-
             </Container>
-
         </div>
     );
 }

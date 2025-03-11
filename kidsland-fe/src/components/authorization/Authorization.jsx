@@ -1,9 +1,14 @@
 import { Button } from "react-bootstrap";
 import '../../css/Authorization.css';
+import { useNavigate } from 'react-router-dom';
 
 function Authorization(props) {
-
     const onLogin = props.onLogin;
+    const navigate = useNavigate();
+
+    function onRegistration() {
+        navigate('/registration');
+    }
 
     return (
         <div className="authorization-container">
@@ -22,6 +27,7 @@ function Authorization(props) {
                 size="md"
                 style={{ backgroundColor: 'var(--bs-danger-bg-subtle)', color: 'black' }}
                 active
+                onClick={onRegistration}
             >
                 Sign in
             </Button>
