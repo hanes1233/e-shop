@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Container from 'react-bootstrap/Container';
 import FloatingText from "./components/design/text/FloatingText";
 import Navigation from "./components/navigation/Navigation";
@@ -6,6 +6,8 @@ import WallpaperSlideShow from "./components/design/WallpaperSlideShow";
 import Authorization from "./components/authorization/Authorization";
 import { ACCESSORIES, BABIES, FURNITURE, TOYS } from "./constants/defaultSubsections";
 import Login from "./components/authorization/Login";
+import Logo from "./components/design/Logo";
+import SearchBar from "./components/design/SearchBar";
 
 function Main() {
 
@@ -21,9 +23,11 @@ function Main() {
 
     return (
         <>
+            <Logo />
             <Authorization onLogin={onLogin} />
             {showLogin && <Login toggleModal={showLogin} handleClose={handleClose} />}
             <Container>
+                <SearchBar />
                 <FloatingText text="Welcome to KidsLand! Everything for your kid in one place" />
                 <WallpaperSlideShow />
                 <Navigation
