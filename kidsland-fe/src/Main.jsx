@@ -8,6 +8,7 @@ import { ACCESSORIES, BABIES, FURNITURE, TOYS } from "./constants/defaultSubsect
 import Login from "./components/authorization/Login";
 import Logo from "./components/design/Logo";
 import SearchBar from "./components/design/SearchBar";
+import Footer from "./components/navigation/Footer";
 
 function Main() {
 
@@ -69,7 +70,7 @@ function Main() {
                     specialOffer={true}
                 />
                 <br />
-
+                <Footer />
             </Container>
         </>
     );
