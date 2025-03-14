@@ -70,7 +70,6 @@ function Registration() {
                     </Col >
                 </Row >
             </Container>
-
         </>
     )
 }
