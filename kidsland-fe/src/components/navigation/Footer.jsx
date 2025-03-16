@@ -1,9 +1,33 @@
 import React from "react";
 import '../../css/Footer.css';
 import { Col, Container, Row } from "react-bootstrap";
-import { FACEBOOK, INSTAGRAM, TWITTER, YOUTUBE } from "../../constants/Images";
+import { facebookImg, instagramImg, twitterImg, youtubeImg } from "../../constants/images";
 
 function Footer() {
+
+    const handleClick = (e) => {
+        const elementId = e.currentTarget.id;
+        switch (elementId) {
+            case 'youtube' : {
+                window.location.href = 'https://www.youtube.com';
+                break;
+            }
+            case 'twitter' : {
+                window.location.href = 'https://www.x.com';
+                break;
+            }
+            case 'instagram' : {
+                window.location.href = 'https://www.instagram.com';
+                break;
+            }
+            case 'facebook' : {
+                window.location.href = 'https://www.facebook.com';
+                break;
+            }
+            default: return(<h4>Unknown operation</h4>);
+        }
+    };
+
     return (
         <>
             <Container className="footer">
@@ -21,33 +45,36 @@ function Footer() {
                         <span className="footer-items">Follow us</span>
                     </Col>
                 </Row>
-                <Row>
+                <Row className="mb-4">
                     <Col><span className="footer-items">one</span></Col>
-                    <Col><span className="footer-items">two</span></Col>
-                    <Col><span className="footer-items">three</span></Col>
+                    <Col><span className="footer-items">one</span></Col>
+                    <Col><span className="footer-items">one</span></Col>
                     <Col>
-                        <img src={FACEBOOK} width={50} height={50}/>
-                        <img src={INSTAGRAM} width={50} height={50}/>
+                        <span id="facebook" className="me-4" onClick={handleClick}>
+                            {facebookImg}
+                        </span>
+                        <span id="instagram" className="ms-2" onClick={handleClick}>
+                            {instagramImg}
+                        </span>
                     </Col>
                 </Row>
-                <Row>
-                    <Col><span className="footer-items">one</span></Col>
+                <Row className="mb-4">
                     <Col><span className="footer-items">two</span></Col>
-                    <Col><span className="footer-items">three</span></Col>
+                    <Col><span className="footer-items">two</span></Col>
+                    <Col><span className="footer-items">two</span></Col>
                     <Col>
-                        <img src={TWITTER} width={50} height={50}/>
-                        <img src={YOUTUBE} width={50} height={50}/>
+                        <span id="twitter" className="me-4" onClick={handleClick}>
+                            {twitterImg}
+                        </span>
+                        <span id="youtube" className="ms-2" onClick={handleClick}>
+                            {youtubeImg}
+                        </span>
                     </Col>
                 </Row>
-                <Row>
-                    <Col className="col-3"><span className="footer-items">one</span></Col>
-                    <Col className="col-3"><span className="footer-items">two</span></Col>
+                <Row className="mb-4">
                     <Col className="col-3"><span className="footer-items">three</span></Col>
-                </Row>
-                <Row className="mt-4">
-                    <Col className="col-3"><span className="footer-items">one</span></Col>
-                    <Col className="col-3"><span className="footer-items">two</span></Col>
                     <Col className="col-3"><span className="footer-items">three</span></Col>
+                    <Col><span className="footer-items">three</span></Col>
                 </Row>
             </Container>
         </>

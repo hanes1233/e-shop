@@ -4,8 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
 import '../../css/Navbar.css';
-import { GIRL_ICON, TAG } from "../../constants/Images";
-import { BOY_ICON } from "../../constants/Images";
+import { tagImg, boyImg, girlImg } from "../../constants/images";
 
 function Navigation(props) {
     const backgroundColor = props.backgroundColor;
@@ -21,8 +20,8 @@ function Navigation(props) {
     function getGenderChoice() {
         return (
             <>
-                <Link className="nav-link mx-3 sub-section" to={`${path}/boys`}> <img src={BOY_ICON} width={23} height={23} /> Boys </Link>
-                <Link className="nav-link mx-3 sub-section" to={`${path}/girls`}> <img src={GIRL_ICON} width={23} height={23} /> Girls </Link>
+                <Link className="nav-link mx-3 sub-section" to={`${path}/boys`}> {boyImg} Boys </Link>
+                <Link className="nav-link mx-3 sub-section" to={`${path}/girls`}> {girlImg} Girls </Link>
             </>
         )
     }
@@ -31,7 +30,7 @@ function Navigation(props) {
         return (
             <>
                 <Link className="nav-link mx-5 sub-section" to={`${path}/offer`}>
-                    <img src={TAG} width={23} height={23} alt="tag" />SPECIAL OFFER
+                    {tagImg} SPECIAL OFFER
                 </Link>
             </>
         )

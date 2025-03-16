@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
-import { LOGO } from "../../constants/Images";
 
 function Logo() {
     const navigate = useNavigate();
@@ -11,7 +10,7 @@ function Logo() {
 
     return (
         <>
-            <img src={LOGO} alt='logo' onClick={backHome} className="ms-3 mb-4 mt-2" />
+            <img src="/icons/logo.png" alt='logo' onClick={backHome} className="ms-3 mb-4 mt-2" />
         </>
     );
 }
