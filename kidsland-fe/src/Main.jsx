@@ -4,7 +4,7 @@ import FloatingText from "./components/design/text/FloatingText";
 import Navigation from "./components/navigation/Navigation";
 import WallpaperSlideShow from "./components/design/WallpaperSlideShow";
 import Authorization from "./components/authorization/Authorization";
-import { ACCESSORIES, BABIES, FURNITURE, TOYS } from "./constants/defaultSubsections";
+import { ACCESSORIES, BABIES, FURNITURE, TOYS } from "./constants/categories";
 import Login from "./components/authorization/Login";
 import Logo from "./components/design/Logo";
 import SearchBar from "./components/design/SearchBar";
@@ -33,7 +33,7 @@ function Main() {
                 <WallpaperSlideShow />
                 <Navigation
                     section={{ name: "Toys", path: "/toys" }}
-                    category={TOYS}
+                    categories={TOYS}
                 />
                 <br />
                 <Navigation
@@ -50,18 +50,18 @@ function Main() {
                 <br />
                 <Navigation
                     section={{ name : 'Accessories', path : '/accessories' }}
-                    category={ACCESSORIES}
+                    categories={ACCESSORIES}
                 />
                 <br />
                 <Navigation
                     section={{ name : 'Furniture', path : '/furniture' }}
-                    category={FURNITURE}
+                    categories={FURNITURE}
                     specialOffer={true}
                 />
                 <br />
                 <Navigation
                     section={{ name : 'For babies', path : '/baby' }}
-                    category={BABIES}
+                    categories={BABIES}
                 />
                 <br />
                 <Navigation

@@ -13,3 +13,8 @@
     border-radius: 75%;
     transition: border-radius 0.3s ease, background-color 0.3s ease;
 }
+
+.category-container {
+    display: flex;
+    justify-content: center;
+}

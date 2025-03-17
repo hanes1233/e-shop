@@ -7,20 +7,14 @@ import '../../css/Navbar.css';
 import { tagImg, boyImg, girlImg } from "../../constants/images";
 
 function Navigation(props) {
-    const backgroundColor = props.backgroundColor;
-    const bsTheme = props.bsTheme;
-
-    const section = props.section;
-    const specialOffer = props.specialOffer;
-    const category = props.category;
-    const enableGenderSections = props.enableGenderSections;
+    const { categories, backgroundColor, bsTheme, section, specialOffer, enableGenderSections } = props;
 
     const path = section.path ? section.path : "home";
 
     function getGenderChoice() {
         return (
             <>
-                <Link className="nav-link mx-3 sub-section" to={`${path}/boys`}> {boyImg} Boys </Link>
+                <Link className="nav-link mx-3 sub-section" to={`${path}/boys`} > {boyImg} Boys </Link>
                 <Link className="nav-link mx-3 sub-section" to={`${path}/girls`}> {girlImg} Girls </Link>
             </>
         )
@@ -44,7 +38,7 @@ function Navigation(props) {
                         <Navbar.Brand href={path}>{section.name ? section.name : "Default section name"}</Navbar.Brand>
                         <Nav className="me-auto">
                             {enableGenderSections ? getGenderChoice() : null}
-                            {category ? category.map((category, index) => (
+                            {categories ? categories.map((category, index) => (
                                 <Link key={index + 1} className="nav-link mx-3 sub-section" to={category.path} >{category.name}</Link>
                             )) : null}
                             {specialOffer ? getSpecialOfferSection() : null}

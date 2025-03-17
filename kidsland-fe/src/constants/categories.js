@@ -29,3 +29,24 @@ export const BABIES = [
     { name: "Feeding", path: "/baby/feeding" },
     { name: "Bath & Skincare", path: "/baby/bath"}
 ]
+
+export function getCategories(category) {
+    switch(category) {
+        case 'toys' : return TOYS;
+        case 'accessories' : return ACCESSORIES;
+        case 'furniture' : return FURNITURE;
+        case 'baby' : return BABIES;
+        default: return checkDefaultSections(category);
+    }
+}
+
+const checkDefaultSections = (category) => {
+    if (category === 'shoes' || category === 'dress' || category === 'sport') {
+        const defaultSections = [
+            { name: "Boys", path: `/${category}/boys`},
+            { name: "Girls", path: `/${category}/girls`}
+        ]
+        return defaultSections;
+    }
+    return null;
+}
