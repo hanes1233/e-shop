@@ -1,7 +1,7 @@
 // Internal
-export const boyImg = <img src="/icons/boy.png" width={23} height={23} />
-export const girlImg = <img src="/icons/girl.png" width={23} height={23} />
-export const tagImg = <img src="/icons/tag.png" width={23} height={23} alt="tag" />
+export const boyImg = <img className="ms-2" src="/icons/boy.png" width={23} height={23} />
+export const girlImg = <img className="ms-2" src="/icons/girl.png" width={23} height={23} />
+export const tagImg = <img className="ms-2" src="/icons/tag.png" width={23} height={23} alt="tag" />
 
 // Social media
 export const facebookImg = <img className="footer-social-media" src="/icons/facebook.png" atl="facebook-logo" width={50} height={50} />;

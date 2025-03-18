@@ -4,7 +4,7 @@ import FloatingText from "./components/design/text/FloatingText";
 import Navigation from "./components/navigation/Navigation";
 import WallpaperSlideShow from "./components/design/WallpaperSlideShow";
 import Authorization from "./components/authorization/Authorization";
-import { ACCESSORIES, BABIES, FURNITURE, TOYS } from "./constants/categories";
+import { ACCESSORIES, BABIES, DRESS, FURNITURE, SHOES, SPORT, TOYS } from "./constants/sections";
 import Login from "./components/authorization/Login";
 import Logo from "./components/design/Logo";
 import SearchBar from "./components/design/SearchBar";
@@ -32,42 +32,31 @@ function Main() {
                 <FloatingText text="Welcome to KidsLand! Everything for your kid in one place" />
                 <WallpaperSlideShow />
                 <Navigation
-                    section={{ name: "Toys", path: "/toys" }}
-                    categories={TOYS}
+                    section={TOYS}
                 />
                 <br />
                 <Navigation
-                    section={{ name: 'Dress', path: '/dress' }}
-                    specialOffer={true}
-                    enableGenderSections={true}
+                    section={DRESS}
                 />
                 <br />
                 <Navigation
-                    section={{ name : 'Shoes', path : '/shoes' }}
-                    specialOffer={true}
-                    enableGenderSections={true}
+                    section={SHOES}
                 />
                 <br />
                 <Navigation
-                    section={{ name : 'Accessories', path : '/accessories' }}
-                    categories={ACCESSORIES}
+                    section={ACCESSORIES}
                 />
                 <br />
                 <Navigation
-                    section={{ name : 'Furniture', path : '/furniture' }}
-                    categories={FURNITURE}
-                    specialOffer={true}
+                    section={FURNITURE}
                 />
                 <br />
                 <Navigation
-                    section={{ name : 'For babies', path : '/baby' }}
-                    categories={BABIES}
+                    section={BABIES}
                 />
                 <br />
                 <Navigation
-                    section={{ name : 'Sport', path : '/sport' }}
-                    enableGenderSections={true}
-                    specialOffer={true}
+                    section={SPORT}
                 />
                 <br />
                 <Footer />

@@ -3,15 +3,16 @@ import { useLocation } from 'react-router-dom';
 import { Button, Col, Container, Row } from "react-bootstrap";
 import "../../css/Navbar.css";
 import Logo from "../design/Logo";
-import { getCategories } from "../../constants/categories";
+import { getSection } from "../../constants/sections";
 
 function Category() {
     const location = useLocation();
     const path = location.pathname.split('/')[1];
 
-    const categories = getCategories(path);
+    const section = getSection(path);
+    const categories = section.categories;
 
-    if (!categories) {
+    if (!section || !categories) {
         return (
             <>
                 <Logo />
