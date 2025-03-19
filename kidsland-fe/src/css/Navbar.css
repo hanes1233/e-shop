@@ -1,9 +1,10 @@
 .navbar-inner {
-    background:transparent;
+    background: transparent;
 }
 
 .sub-section {
-    border-radius: 10px; /* Initial rounded corners */
+    border-radius: 10px;
+    /* Initial rounded corners */
     transition: border-radius 0.3s ease, background-color 0.3s ease;
 }
 
@@ -17,4 +18,10 @@
 .category-container {
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
+}
+
+.btn-dark-mode {
+    background-color: #85bdf5;
+    color: rgb(255, 244, 244);
 }

@@ -90,3 +90,7 @@ export function getSection(section) {
         default: return null;
     }
 }
+
+export function getAllSections() {
+    return [TOYS, SHOES, ACCESSORIES, FURNITURE, BABIES, DRESS, SPORT];
+}

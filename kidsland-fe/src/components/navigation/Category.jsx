@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { Button, Col, Container, Row } from "react-bootstrap";
 import "../../css/Navbar.css";
 import Logo from "../design/Logo";
@@ -7,6 +7,7 @@ import { getSection } from "../../constants/sections";
 
 function Category() {
     const location = useLocation();
+    const navigate = useNavigate();
     const path = location.pathname.split('/')[1];
 
     const section = getSection(path);
@@ -20,6 +21,10 @@ function Category() {
             </>
         );
     }
+
+    const handleClick = (path) => {
+        navigate(path); // Navigate to the clicked category's path
+    };
 
     return (
         <>
@@ -36,7 +41,15 @@ function Category() {
                             <Col className="col-6">
                                 <Container fluid="sm">
                                     <div className="category-container">
-                                        <Button size="lg" className="w-100">{category.name}</Button>
+                                        <Button
+                                            size="lg"
+                                            variant="outline-info"
+                                            className="w-100 btn-dark-mode"
+                                            onClick={() => handleClick(category.path)}
+                                            >
+                                            {category.name}
+                                            {category.image ? category.image : null}
+                                        </Button>
                                     </div>
                                 </Container>
                             </Col>
@@ -45,7 +58,15 @@ function Category() {
                                 <Col className="col-6">
                                     <Container fluid="sm">
                                         <div className="category-container">
-                                            <Button size="lg" className="w-100">{categories[index + 1].name}</Button>
+                                            <Button
+                                                size="lg"
+                                                variant="outline-info"
+                                                className="w-100 btn-dark-mode"
+                                                onClick={() => handleClick(categories[index + 1].path)}
+                                            >
+                                                {categories[index + 1].name}
+                                                {categories[index + 1].image ? categories[index + 1].image : null}
+                                            </Button>
                                         </div>
                                     </Container>
                                 </Col>
@@ -54,6 +75,7 @@ function Category() {
                     ) : null;
                 })}
             </Container>
+            <Outlet />
         </>
     )
 }
