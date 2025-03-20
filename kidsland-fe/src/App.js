@@ -6,10 +6,10 @@ import Registration from './components/authorization/Registration';
 import Category from './components/navigation/Category';
 import { getAllSections } from './constants/sections';
 import ItemsTable from './components/ItemsTable';
+import React from 'react';
 
 function App() {
 
-  const categories = ['/toys', '/dress', '/shoes', '/accessories', '/furniture', '/baby', '/sport'];
   const sections = getAllSections();
 
   return (
@@ -18,16 +18,20 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/registration" element={<Registration />} />
-          {/* {categories.map((category, index) => {
-            return <Route key={index} path={category} element={<Category />} />
-          })} */}
-          {sections.map((section, index) => {
-            return <Route key={index} path={section.path} element={<Category />} >
-              {section.categories.map((category, key) => {
-                return <Route key={key} path={category.path} element={<ItemsTable />} />
-              })}
-            </Route>
-          })}
+        </Routes>
+        <Routes>
+          {/* Route for section */}
+          {sections.map((section, index) => (
+            <Route key={index} path={section.path} element={<Category />} />
+          ))}
+          {/*Route for categories of each section */}
+          {sections.map((section, index) => (
+            <React.Fragment key={index}>
+              {section.categories.map((category, key) => (
+                <Route key={key} path={category.path} element={<ItemsTable />} />
+              ))}
+            </React.Fragment>
+          ))}
         </Routes>
       </BrowserRouter>
     </>

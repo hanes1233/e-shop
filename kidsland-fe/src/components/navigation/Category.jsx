@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { Button, Col, Container, Row } from "react-bootstrap";
 import "../../css/Navbar.css";
@@ -12,6 +12,11 @@ function Category() {
 
     const section = getSection(path);
     const categories = section.categories;
+
+    useEffect(() => {
+        // Logic to handle cleanup or reset when the route changes
+        console.log('Path changed to:', location.pathname);
+    }, [location.pathname]);
 
     if (!section || !categories) {
         return (

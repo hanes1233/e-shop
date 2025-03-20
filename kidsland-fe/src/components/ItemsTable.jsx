@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Logo from "./design/Logo";
 
 function ItemsTable() {
-    useEffect(() => {}, []);
 
     return(
         <>
