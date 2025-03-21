@@ -7,6 +7,7 @@
 
 .footer-items {
     font-size: 20px;
+    transition: transform .2s;
 }
 
 .footer-header {
@@ -18,8 +19,39 @@
     transition: transform .2s;
 }
 
+.footer-headers {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    position: relative;
+    background: linear-gradient(90deg, #ff2713, #162d7a, #ff1601);
+    background-clip: padding;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.kidsland {
+    background: linear-gradient(90deg, #080808, #797d86, #000000);
+    background-clip: padding;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
 /* hovers */
 
 .footer-social-media:hover {
     transform: scale(1.5);
+}
+
+.footer-items:hover {
+    cursor: pointer;
+    transform: scale(1.5);
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    position: relative;
+    background: linear-gradient(90deg, #ff6f61, #ffbd44, #ff6f61);
+    background-clip: padding;
+    -webkit-background-clip: text;
+    color: transparent;
 }
