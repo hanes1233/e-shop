@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: pavel
+      changes:
+        - sqlFile:
+            path: liquibase/classpath/0.0.1-init-kidsland-structure.sql
+            encoding: UTF-8

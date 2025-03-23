@@ -1,0 +1,83 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=kidsland'
+      - 'POSTGRES_PASSWORD=15995153'
+      - 'POSTGRES_USER=pavel'
+    ports:
+      - '5433:5432'
+
+  liquibase:
+    image: liquibase/liquibase:4.14
+    container_name: liquibase
+    depends_on:
+      - postgres
+    environment:
+      - LIQUIBASE_URL=jdbc:postgresql://postgres:5432/kidsland
+      - LIQUIBASE_USERNAME=pavel
+      - LIQUIBASE_PASSWORD=15995153
+      - LIQUIBASE_CHANGELOG_FILE=/liquibase/changelog/changelog-master.yaml  # Updated to correct path
+    volumes:
+      - ./liquibase/changelog:/liquibase/changelog  # Correct mapping of the local folder to the container
+    command: [ "liquibase", "--url=jdbc:postgresql://postgres:5432/kidsland", "--username=pavel", "--password=15995153", "--changeLogFile=/liquibase/changelog/changelog-master.yaml", "update" ]
+
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    networks:
+      - kafka-network
+    hostname: kafka
+    container_name: kafka
+    links:
+      - zookeeper
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL=PLAINTEXT
+      - KAFKA_LISTENER_NAME_INTERNAL=PLAINTEXT
+      - KAFKA_ADVERTISED_LISTENER_SECURITY_PROTOCOL=PLAINTEXT
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - kafka-network
+
+  akhq:
+    image: tchiotludo/akhq
+    restart: unless-stopped
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            docker-kafka-server:
+              properties:
+                bootstrap.servers: "kafka:9092"
+              schema-registry:
+                url: "http://schema-registry:8085"
+
+    ports:
+      - "8080:8080"
+    networks:
+      - kafka-network
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:${CONFLUENT_VERSION:-latest}
+    restart: unless-stopped
+    depends_on:
+      - kafka
+    networks:
+      - kafka-network
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka:9092'
+      SCHEMA_REGISTRY_HOST_NAME: 'schema-registry'
+      SCHEMA_REGISTRY_LISTENERS: 'http://0.0.0.0:8085'
+      SCHEMA_REGISTRY_LOG4J_ROOT_LOGLEVEL: 'INFO'
+
+networks:
+  kafka-network:
+    driver: bridge
