@@ -124,7 +124,7 @@
 					<driver>org.postgresql.Driver</driver>
 					<url>jdbc:postgresql://localhost:5432/kidsland</url>
 					<username>pavel</username>
-					<password>15995153</password>
+					<password></password>
 					<changeLogFile>liquibase/changelog/changelog-master.yaml</changeLogFile>
 				</configuration>
 			</plugin>
