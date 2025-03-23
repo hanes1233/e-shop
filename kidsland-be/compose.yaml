@@ -17,9 +17,9 @@ services:
       - LIQUIBASE_URL=jdbc:postgresql://postgres:5432/kidsland
       - LIQUIBASE_USERNAME=pavel
       - LIQUIBASE_PASSWORD=15995153
-      - LIQUIBASE_CHANGELOG_FILE=/liquibase/changelog/changelog-master.yaml  # Updated to correct path
+      - LIQUIBASE_CHANGELOG_FILE=/liquibase/changelog/changelog-master.yaml
     volumes:
-      - ./liquibase/changelog:/liquibase/changelog  # Correct mapping of the local folder to the container
+      - ./liquibase/changelog:/liquibase/changelog
     command: [ "liquibase", "--url=jdbc:postgresql://postgres:5432/kidsland", "--username=pavel", "--password=15995153", "--changeLogFile=/liquibase/changelog/changelog-master.yaml", "update" ]
 
   kafka:
@@ -61,7 +61,7 @@ services:
                 url: "http://schema-registry:8085"
 
     ports:
-      - "8080:8080"
+      - "8081:8082"
     networks:
       - kafka-network
 

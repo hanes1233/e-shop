@@ -14,3 +14,14 @@ spring:
     password: 15995153
     change-log: classpath:liquibase/changelog/changelog-master.yaml
     enabled: false
+  docker:
+    compose:
+      enabled: false
+  profiles:
+    active: local
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8083/auth/realms/baeldung
+          jwk-set-uri: http://localhost:8083/auth/realms/baeldung/protocol/openid-connect/certs
