@@ -20,8 +20,6 @@ spring:
   profiles:
     active: local
   security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8083/auth/realms/baeldung
-          jwk-set-uri: http://localhost:8083/auth/realms/baeldung/protocol/openid-connect/certs
+    jwt:
+      secret-key: ${SECRET-KEY:3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b}
+      expiration-time: ${EXPIRATION-TIME:3600000}

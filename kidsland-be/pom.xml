@@ -29,6 +29,8 @@
 	<properties>
 		<java.version>17</java.version>
 		<org.mapstruct.version>1.6.3</org.mapstruct.version>
+		<io.jsonwebtoken.version>0.11.5</io.jsonwebtoken.version>
+		<org.proectlombok.version>1.18.30</org.proectlombok.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -37,13 +39,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-docker-compose</artifactId>
@@ -64,7 +65,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.30</version>
+			<version>${org.proectlombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -93,6 +94,21 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>${io.jsonwebtoken.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>${io.jsonwebtoken.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>${io.jsonwebtoken.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -148,7 +164,7 @@
 					<driver>org.postgresql.Driver</driver>
 					<url>jdbc:postgresql://localhost:5432/kidsland</url>
 					<username>pavel</username>
-					<password></password>
+					<password>15995153</password>
 					<changeLogFile>liquibase/changelog/changelog-master.yaml</changeLogFile>
 				</configuration>
 			</plugin>
