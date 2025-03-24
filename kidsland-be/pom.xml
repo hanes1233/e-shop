@@ -31,6 +31,8 @@
 		<org.mapstruct.version>1.6.3</org.mapstruct.version>
 		<io.jsonwebtoken.version>0.11.5</io.jsonwebtoken.version>
 		<org.proectlombok.version>1.18.30</org.proectlombok.version>
+		<db.password>${env.DB_PASSWORD}</db.password>
+		<db.username>${env.DB_USERNAME}</db.username>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -163,8 +165,8 @@
 				<configuration>
 					<driver>org.postgresql.Driver</driver>
 					<url>jdbc:postgresql://localhost:5432/kidsland</url>
-					<username>pavel</username>
-					<password>15995153</password>
+					<username>${db.username}</username>
+					<password>${db.password}</password>
 					<changeLogFile>liquibase/changelog/changelog-master.yaml</changeLogFile>
 				</configuration>
 			</plugin>
