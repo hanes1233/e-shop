@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from 'react-bootstrap/Container';
 import FloatingText from "./components/design/text/FloatingText";
 import Navigation from "./components/navigation/Navigation";
@@ -9,10 +9,12 @@ import Login from "./components/authorization/Login";
 import Logo from "./components/design/Logo";
 import SearchBar from "./components/design/SearchBar";
 import Footer from "./components/navigation/Footer";
+import { apiGet } from "./utils/api";
 
 function Main() {
 
     const [showLogin, setShowLogin] = useState(false);
+    const [categories, setCategories] = useState([]);
 
     const onLogin = () => {
         setShowLogin(true);
@@ -21,6 +23,20 @@ function Main() {
     const handleClose = () => {
         setShowLogin(false);
     };
+
+    useEffect(() => {
+        apiGet("/api/v1/categories").then((data) => setCategories(data));
+    }, []);
+
+    if (!categories) {
+        return(
+            <>
+                <h3>Loading data...</h3>
+            </>
+        )
+    }
+
+    console.log(categories);
 
     return (
         <>
