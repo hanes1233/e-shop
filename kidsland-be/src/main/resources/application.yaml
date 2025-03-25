@@ -2,16 +2,16 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/kidsland
     driverClassName: org.postgresql.Driver
-    username: pavel
-    password: 15995153
+    username: ${DB_USERNAME:pavel}
+    password: ${DB_PASSWORD:1234}
   jpa:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   liquibase:
     url: jdbc:postgresql://localhost:5432/kidsland
-    user: pavel
-    password: 15995153
+    user: ${LIQUIBASE_USERNAME:pavel}
+    password: ${LIQUIBASE_PASSWORD:1111}
     change-log: classpath:liquibase/changelog/changelog-master.yaml
     enabled: false
   docker:
