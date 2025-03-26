@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResponseEntity<ResultDTO> getCategories() {
-        List<Category> categories = categoryRepository.findAll();
+        List<Category> categories = categoryRepository.findTopTenVisible();
         List<CategoryDTO> categoryDTOS = categories.stream()
                 .map(categoryMapper::mapToCategoryDTO)
                 .toList();

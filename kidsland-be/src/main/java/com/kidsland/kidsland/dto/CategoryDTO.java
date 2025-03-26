@@ -3,6 +3,7 @@ package com.kidsland.kidsland.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -17,4 +18,5 @@ public class CategoryDTO {
 
     private String name;
 
+    private List<SubcategoryDTO> subcategories;
 }

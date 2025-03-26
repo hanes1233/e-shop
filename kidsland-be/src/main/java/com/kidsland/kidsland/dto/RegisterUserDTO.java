@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class RegisterUserDto {
+public class RegisterUserDTO {
 
     private String username;
 

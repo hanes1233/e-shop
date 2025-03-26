@@ -2,8 +2,8 @@ package com.kidsland.kidsland.security;
 
 import com.kidsland.kidsland.data.entity.User;
 import com.kidsland.kidsland.data.repository.UserRepository;
-import com.kidsland.kidsland.dto.LoginUserDto;
-import com.kidsland.kidsland.dto.RegisterUserDto;
+import com.kidsland.kidsland.dto.LoginUserDTO;
+import com.kidsland.kidsland.dto.RegisterUserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +18,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-    public User signup(RegisterUserDto userToRegister) {
+    public User signup(RegisterUserDTO userToRegister) {
         var validFrom = userToRegister.getValidFrom();
         var validTo = userToRegister.getValidTo();
         var updateDate = userToRegister.getTechUpdateDate();
@@ -38,7 +38,7 @@ public class AuthenticationService {
         return userRepository.save(user);
     }
 
-    public User authenticate(LoginUserDto input) {
+    public User authenticate(LoginUserDTO input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         input.getEmail(),

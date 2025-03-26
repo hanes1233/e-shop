@@ -29,15 +29,25 @@ CREATE TABLE fc.category
 (
     id BIGSERIAL PRIMARY KEY,
     description VARCHAR (250),
+    hidden BOOLEAN NOT NULL DEFAULT FALSE,
+    is_gender_specific BOOLEAN DEFAULT FALSE,
+    is_special_offer BOOLEAN DEFAULT FALSE,
     category_id UUID NOT NULL DEFAULT gen_random_uuid(),
     name VARCHAR (30) NOT NULL
 );
 
-INSERT INTO fc.category (name)
-VALUES ( 'Toys'),
-       ( 'Dress'),
-       ( 'Shoes'),
-       ( 'Accessories'),
-       ( 'Furniture'),
-       ( 'For babies'),
-       ( 'Sport');
+CREATE TABLE fc.subcategory
+(
+    id BIGSERIAL PRIMARY KEY,
+    category_id BIGINT NOT NULL,
+    description VARCHAR(250),
+    hidden BOOLEAN NOT NULL DEFAULT FALSE,
+    subcategory_id UUID NOT NULL DEFAULT gen_random_uuid(),
+    name VARCHAR(30) NOT NULL
+);
+
+ALTER TABLE fc.subcategory
+    ADD CONSTRAINT fk_category_subcategory
+        FOREIGN KEY (category_id)
+            REFERENCES fc.category(id)
+            ON DELETE CASCADE;
