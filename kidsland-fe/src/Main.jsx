@@ -10,6 +10,7 @@ import Logo from "./components/design/Logo";
 import SearchBar from "./components/design/SearchBar";
 import Footer from "./components/navigation/Footer";
 import { apiGet } from "./utils/api";
+import LoadingPage from "./components/design/LoadingPage";
 
 function Main() {
 
@@ -28,55 +29,52 @@ function Main() {
         apiGet("/api/v1/categories").then((data) => setCategories(data));
     }, []);
 
-    if (!categories) {
-        return(
-            <>
-                <h3>Loading data...</h3>
-            </>
-        )
-    }
-
     console.log(categories);
 
     return (
         <>
-            <Logo />
-            <Authorization onLogin={onLogin} />
-            {showLogin && <Login toggleModal={showLogin} handleClose={handleClose} />}
-            <Container>
-                <SearchBar />
-                <FloatingText text="Welcome to KidsLand! Everything for your kid in one place" />
-                <WallpaperSlideShow />
-                <Navigation
-                    section={TOYS}
-                />
-                <br />
-                <Navigation
-                    section={DRESS}
-                />
-                <br />
-                <Navigation
-                    section={SHOES}
-                />
-                <br />
-                <Navigation
-                    section={ACCESSORIES}
-                />
-                <br />
-                <Navigation
-                    section={FURNITURE}
-                />
-                <br />
-                <Navigation
-                    section={BABIES}
-                />
-                <br />
-                <Navigation
-                    section={SPORT}
-                />
-                <br />
-                <Footer />
-            </Container>
+            {!categories ? <LoadingPage />
+                :
+                <div>
+                    <Logo />
+                    <Authorization onLogin={onLogin} />
+                    {showLogin && <Login toggleModal={showLogin} handleClose={handleClose} />}
+                    <Container>
+                        <SearchBar />
+                        <FloatingText text="Welcome to KidsLand! Everything for your kid in one place" />
+                        <WallpaperSlideShow />
+                        <Navigation
+                            section={TOYS}
+                        />
+                        <br />
+                        <Navigation
+                            section={DRESS}
+                        />
+                        <br />
+                        <Navigation
+                            section={SHOES}
+                        />
+                        <br />
+                        <Navigation
+                            section={ACCESSORIES}
+                        />
+                        <br />
+                        <Navigation
+                            section={FURNITURE}
+                        />
+                        <br />
+                        <Navigation
+                            section={BABIES}
+                        />
+                        <br />
+                        <Navigation
+                            section={SPORT}
+                        />
+                        <br />
+                        <Footer />
+                    </Container>
+                </div>
+            }
         </>
     );
 }

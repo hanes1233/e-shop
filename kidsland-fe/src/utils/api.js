@@ -17,7 +17,7 @@ const fetchData = (url, requestOptions) => {
         });
 };
 
-export const apiGet = (url, params) => {
+export const apiGet = async (url, params) => {
     const filteredParams = Object.fromEntries(
         Object.entries(params || {}).filter(([_, value]) => value != null)
     );
@@ -27,5 +27,10 @@ export const apiGet = (url, params) => {
         method: "GET",
     };
 
-    return fetchData(apiUrl, requestOptions);
+    try {
+        const data = await fetchData(apiUrl, requestOptions);
+        return data;
+    } catch(error) {
+        return null;
+    }
 };

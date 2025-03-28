@@ -16,6 +16,8 @@ public class SubcategoryDTO {
 
     private String description;
 
+    private String url;
+
     private Boolean hidden;
 
     private UUID subcategoryId;

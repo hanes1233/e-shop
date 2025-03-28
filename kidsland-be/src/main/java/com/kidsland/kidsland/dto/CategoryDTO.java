@@ -1,5 +1,6 @@
 package com.kidsland.kidsland.dto;
 
+import com.kidsland.kidsland.data.entity.Subcategory;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,9 +15,13 @@ public class CategoryDTO {
 
     private String description;
 
+    private Boolean hidden;
+
+    private String url;
+
     private UUID categoryId;
 
     private String name;
 
-    private List<SubcategoryDTO> subcategories;
+    private List<Subcategory> subcategories;
 }

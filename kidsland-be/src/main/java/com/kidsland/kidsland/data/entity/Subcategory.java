@@ -28,6 +28,9 @@ public class Subcategory {
     @Column(name = "description", length = 250)
     private String description;
 
+    @Column(name = "url", nullable = false, length = 50)
+    private String url;
+
     @ColumnDefault("false")
     @Column(name = "hidden", nullable = false)
     private Boolean hidden = false;

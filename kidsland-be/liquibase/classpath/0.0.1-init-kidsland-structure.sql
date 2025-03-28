@@ -30,8 +30,7 @@ CREATE TABLE fc.category
     id BIGSERIAL PRIMARY KEY,
     description VARCHAR (250),
     hidden BOOLEAN NOT NULL DEFAULT FALSE,
-    is_gender_specific BOOLEAN DEFAULT FALSE,
-    is_special_offer BOOLEAN DEFAULT FALSE,
+    url VARCHAR (50) NOT NULL,
     category_id UUID NOT NULL DEFAULT gen_random_uuid(),
     name VARCHAR (30) NOT NULL
 );
@@ -41,6 +40,7 @@ CREATE TABLE fc.subcategory
     id BIGSERIAL PRIMARY KEY,
     category_id BIGINT NOT NULL,
     description VARCHAR(250),
+    url VARCHAR(50) NOT NULL,
     hidden BOOLEAN NOT NULL DEFAULT FALSE,
     subcategory_id UUID NOT NULL DEFAULT gen_random_uuid(),
     name VARCHAR(30) NOT NULL

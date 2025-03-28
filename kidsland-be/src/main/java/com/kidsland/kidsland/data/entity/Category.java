@@ -26,13 +26,8 @@ public class Category {
     @Column(name = "hidden", nullable = false)
     private Boolean hidden = false;
 
-    @ColumnDefault("false")
-    @Column(name = "is_gender_specific")
-    private Boolean isGenderSpecific;
-
-    @ColumnDefault("false")
-    @Column(name = "is_special_offer")
-    private Boolean isSpecialOffer;
+    @Column(name = "url", nullable = false, length = 50)
+    private String url;
 
     @ColumnDefault("gen_random_uuid()")
     @Column(name = "category_id", nullable = false)
