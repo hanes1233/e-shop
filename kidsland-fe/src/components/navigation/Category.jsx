@@ -14,7 +14,6 @@ function Category() {
     const categories = section.categories;
 
     useEffect(() => {
-        // Logic to handle cleanup or reset when the route changes
         console.log('Path changed to:', location.pathname);
     }, [location.pathname]);
 

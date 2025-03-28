@@ -54,3 +54,9 @@ VALUES
     ((SELECT id FROM fc.category WHERE name = 'For babies'), 'Toys & Games', '/entertainment'),
     ((SELECT id FROM fc.category WHERE name = 'For babies'), 'Feeding', '/feeding'),
     ((SELECT id FROM fc.category WHERE name = 'For babies'), 'Bath & Skincare', '/bath');
+
+INSERT INTO fc.subcategory (category_id, name, url)
+VALUES
+    ((SELECT id FROM fc.category WHERE name = 'Sport'), 'Boys', '/boys'),
+    ((SELECT id FROM fc.category WHERE name = 'Sport'), 'Girls', '/girls'),
+    ((SELECT id FROM fc.category WHERE name = 'Sport'), 'Special offer', '/special');

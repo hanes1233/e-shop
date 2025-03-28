@@ -26,10 +26,14 @@ function Main() {
     };
 
     useEffect(() => {
-        apiGet("/api/v1/categories").then((data) => setCategories(data));
+        apiGet("/api/v1/categories").then((data) => {
+            if (data != null) {
+                setCategories(data.categories)
+            } else {
+                setCategories(null);
+            }
+        });
     }, []);
-
-    console.log(categories);
 
     return (
         <>
@@ -43,34 +47,14 @@ function Main() {
                         <SearchBar />
                         <FloatingText text="Welcome to KidsLand! Everything for your kid in one place" />
                         <WallpaperSlideShow />
-                        <Navigation
-                            section={TOYS}
-                        />
-                        <br />
-                        <Navigation
-                            section={DRESS}
-                        />
-                        <br />
-                        <Navigation
-                            section={SHOES}
-                        />
-                        <br />
-                        <Navigation
-                            section={ACCESSORIES}
-                        />
-                        <br />
-                        <Navigation
-                            section={FURNITURE}
-                        />
-                        <br />
-                        <Navigation
-                            section={BABIES}
-                        />
-                        <br />
-                        <Navigation
-                            section={SPORT}
-                        />
-                        <br />
+                        {categories.slice().reverse().map((category, index) => {
+                            return (
+                                <div key={index}>
+                                    <Navigation section={category} />
+                                    <br />
+                                </div>
+                            )
+                        })}
                         <Footer />
                     </Container>
                 </div>
