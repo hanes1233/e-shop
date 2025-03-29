@@ -1,21 +1,15 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate, Outlet } from 'react-router-dom';
+import React from "react";
+import { useNavigate, Outlet } from 'react-router-dom';
 import { Button, Col, Container, Row } from "react-bootstrap";
 import "../../css/Navbar.css";
 import Logo from "../design/Logo";
 
 function Category({ category }) {
-    const location = useLocation();
     const navigate = useNavigate();
-    const path = location.pathname.split('/')[1];
 
     const subcategories = category.subcategories;
     console.log(subcategories);
     console.log(category);
-
-    useEffect(() => {
-        console.log('Path changed to:', location.pathname);
-    }, [location.pathname]);
 
     if (!subcategories) {
         return (

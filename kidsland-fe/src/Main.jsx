@@ -8,13 +8,10 @@ import Login from "./components/authorization/Login";
 import Logo from "./components/design/Logo";
 import SearchBar from "./components/design/SearchBar";
 import Footer from "./components/navigation/Footer";
-import { apiGet } from "./utils/api";
-import LoadingPage from "./components/design/LoadingPage";
 
 function Main(props) {
 
     const [showLogin, setShowLogin] = useState(false);
-    // const [categories, setCategories] = useState([]);
     const categories = props.categories;
 
     const onLogin = () => {
@@ -27,7 +24,7 @@ function Main(props) {
 
     return (
         <>
-            {!categories ? <LoadingPage />
+            {!categories ? null
                 :
                 <div>
                     <Logo />
