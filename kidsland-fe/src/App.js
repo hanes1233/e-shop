@@ -4,31 +4,40 @@ import Main from './Main';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Registration from './components/authorization/Registration';
 import Category from './components/navigation/Category';
-import { getAllSections } from './constants/sections';
 import ItemsTable from './components/ItemsTable';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { apiGet } from './utils/api';
 
 function App() {
+  const [categories, setCategories] = useState([]);
 
-  const sections = getAllSections();
+  useEffect(() => {
+        apiGet("/api/v1/categories").then((data) => {
+            if (data != null) {
+                setCategories(data.categories)
+            } else {
+                setCategories(null);
+            }
+        });
+    }, []);
 
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main categories={categories} />} />
           <Route path="/registration" element={<Registration />} />
         </Routes>
         <Routes>
           {/* Route for section */}
-          {sections.map((section, index) => (
-            <Route key={index} path={section.path} element={<Category />} />
+          {categories.map((category, index) => (
+            <Route key={index} path={category.url} element={<Category category={category} />} />
           ))}
           {/*Route for categories of each section */}
-          {sections.map((section, index) => (
+          {categories.map((category, index) => (
             <React.Fragment key={index}>
-              {section.categories.map((category, key) => (
-                <Route key={key} path={category.path} element={<ItemsTable />} />
+              {category.subcategories.map((subcategory, key) => (
+                <Route key={key} path={category.url + subcategory.url} element={<ItemsTable />} />
               ))}
             </React.Fragment>
           ))}

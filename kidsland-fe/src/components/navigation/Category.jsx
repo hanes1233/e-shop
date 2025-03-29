@@ -3,21 +3,21 @@ import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { Button, Col, Container, Row } from "react-bootstrap";
 import "../../css/Navbar.css";
 import Logo from "../design/Logo";
-import { getSection } from "../../constants/sections";
 
-function Category() {
+function Category({ category }) {
     const location = useLocation();
     const navigate = useNavigate();
     const path = location.pathname.split('/')[1];
 
-    const section = getSection(path);
-    const categories = section.categories;
+    const subcategories = category.subcategories;
+    console.log(subcategories);
+    console.log(category);
 
     useEffect(() => {
         console.log('Path changed to:', location.pathname);
     }, [location.pathname]);
 
-    if (!section || !categories) {
+    if (!subcategories) {
         return (
             <>
                 <Logo />
@@ -35,13 +35,13 @@ function Category() {
             <Logo />
             <Container>
                 <h3 className="text-center mb-5">Categories</h3>
-                {categories.map((category, index) => {
-                    // Render every two categories in a single row
-                    const rowIndex = Math.floor(index / 2); // This will group categories into rows
+                {subcategories.map((subcategory, index) => {
+                    // Render every two subcategories in a single row
+                    const rowIndex = Math.floor(index / 2); // This will group subcategories into rows
                     return index % 2 === 0 ? (
                         // Start a new row
                         <Row key={rowIndex} className="mb-3">
-                            {/* First column (category 1) */}
+                            {/* First column (subcategories 1) */}
                             <Col className="col-6">
                                 <Container fluid="sm">
                                     <div className="category-container">
@@ -49,16 +49,16 @@ function Category() {
                                             size="lg"
                                             variant="outline-info"
                                             className="w-100 btn-dark-mode"
-                                            onClick={() => handleClick(category.path)}
+                                            onClick={() => handleClick(category.url + subcategory.url)}
                                             >
-                                            {category.name}
-                                            {category.image ? category.image : null}
+                                            {subcategory.name}
+                                            {subcategory.image ? subcategory.image : null}
                                         </Button>
                                     </div>
                                 </Container>
                             </Col>
-                            {/* Second column (category 2) */}
-                            {categories[index + 1] && (
+                            {/* Second column (subcategories 2) */}
+                            {subcategories[index + 1] && (
                                 <Col className="col-6">
                                     <Container fluid="sm">
                                         <div className="category-container">
@@ -66,10 +66,10 @@ function Category() {
                                                 size="lg"
                                                 variant="outline-info"
                                                 className="w-100 btn-dark-mode"
-                                                onClick={() => handleClick(categories[index + 1].path)}
+                                                onClick={() => handleClick(category.url + subcategories[index + 1].url)}
                                             >
-                                                {categories[index + 1].name}
-                                                {categories[index + 1].image ? categories[index + 1].image : null}
+                                                {subcategories[index + 1].name}
+                                                {subcategories[index + 1].image ? subcategories[index + 1].image : null}
                                             </Button>
                                         </div>
                                     </Container>

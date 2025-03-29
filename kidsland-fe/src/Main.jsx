@@ -4,7 +4,6 @@ import FloatingText from "./components/design/text/FloatingText";
 import Navigation from "./components/navigation/Navigation";
 import WallpaperSlideShow from "./components/design/WallpaperSlideShow";
 import Authorization from "./components/authorization/Authorization";
-import { ACCESSORIES, BABIES, DRESS, FURNITURE, SHOES, SPORT, TOYS } from "./constants/sections";
 import Login from "./components/authorization/Login";
 import Logo from "./components/design/Logo";
 import SearchBar from "./components/design/SearchBar";
@@ -12,10 +11,11 @@ import Footer from "./components/navigation/Footer";
 import { apiGet } from "./utils/api";
 import LoadingPage from "./components/design/LoadingPage";
 
-function Main() {
+function Main(props) {
 
     const [showLogin, setShowLogin] = useState(false);
-    const [categories, setCategories] = useState([]);
+    // const [categories, setCategories] = useState([]);
+    const categories = props.categories;
 
     const onLogin = () => {
         setShowLogin(true);
@@ -24,16 +24,6 @@ function Main() {
     const handleClose = () => {
         setShowLogin(false);
     };
-
-    useEffect(() => {
-        apiGet("/api/v1/categories").then((data) => {
-            if (data != null) {
-                setCategories(data.categories)
-            } else {
-                setCategories(null);
-            }
-        });
-    }, []);
 
     return (
         <>
