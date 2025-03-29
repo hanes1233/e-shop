@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Container from 'react-bootstrap/Container';
 import FloatingText from "./components/design/text/FloatingText";
 import Navigation from "./components/navigation/Navigation";
@@ -37,7 +37,7 @@ function Main(props) {
                         {categories.slice().reverse().map((category, index) => {
                             return (
                                 <div key={index}>
-                                    <Navigation section={category} />
+                                    <Navigation category={category} />
                                     <br />
                                 </div>
                             )

@@ -11,16 +11,29 @@ import LoadingPage from './components/design/LoadingPage';
 
 function App() {
   const [categories, setCategories] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
-    apiGet("/api/v1/categories").then((data) => {
-      if (data != null) {
-        setCategories(data.categories)
-      } else {
-        setCategories(null);
-      }
-    });
-  }, []);
+    if (!isLoaded) {
+      apiGet("/api/v1/categories").then((data) => {
+        if (data != null) {
+          setCategories(data.categories)
+          setIsLoaded(true);
+        } else {
+          setCategories(null);
+          const refreshInterval = setInterval(() => {
+            if (!categories && !isRefreshing) {
+              setIsRefreshing(true);
+              window.location.reload();
+            }
+          }, 5000);
+
+          return () => clearInterval(refreshInterval);
+        }
+      });
+    }
+  }, [categories, isRefreshing, isLoaded]);
 
   return (
     <>
