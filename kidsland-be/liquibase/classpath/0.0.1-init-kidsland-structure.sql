@@ -51,3 +51,136 @@ ALTER TABLE fc.subcategory
         FOREIGN KEY (category_id)
             REFERENCES fc.category(id)
             ON DELETE CASCADE;
+
+CREATE TABLE fc.rel_item
+(
+    id BIGSERIAL PRIMARY KEY,
+    subcategory_id BIGINT NOT NULL,
+    category_id BIGINT NOT NULL,
+    item_name VARCHAR(30) NOT NULL,
+    brand VARCHAR(30) NOT NULL,
+    reserved INTEGER NOT NULL DEFAULT 0,
+    quantity INTEGER NOT NULL DEFAULT 0,
+    is_available BOOLEAN default FALSE,
+    item_create_date TIMESTAMPTZ NOT NULL DEFAULT '2025-03-03 00:00:00.000 +01:00',
+    description VARCHAR(250),
+    size INTEGER,
+    item_id UUID NOT NULL DEFAULT gen_random_uuid()
+);
+
+ALTER TABLE fc.rel_item
+    ADD CONSTRAINT  fk_category_rel_item
+        FOREIGN KEY (category_id)
+            REFERENCES fc.category(id)
+            ON DELETE CASCADE,
+    ADD CONSTRAINT  fk_subcategory_rel_item
+        FOREIGN KEY (subcategory_id)
+            REFERENCES fc.subcategory(id)
+            ON DELETE CASCADE;
+
+CREATE TABLE fc.toy
+(
+    id             BIGSERIAL PRIMARY KEY,
+    item           BIGINT NOT NULL,
+    is_available   BOOLEAN default FALSE,
+    toy_id         UUID NOT NULL DEFAULT gen_random_uuid()
+);
+
+ALTER TABLE fc.toy
+    ADD CONSTRAINT  fk_rel_item_toy
+        FOREIGN KEY (item)
+            REFERENCES fc.rel_item(id)
+            ON DELETE CASCADE;
+
+CREATE TABLE fc.dress
+(
+    id             BIGSERIAL PRIMARY KEY,
+    item           BIGINT NOT NULL,
+    colors         VARCHAR(30)[],
+    type           VARCHAR(30) NOT NULL,
+    seasons        VARCHAR(30)[],
+    dress_id       UUID NOT NULL DEFAULT gen_random_uuid()
+);
+
+ALTER TABLE fc.dress
+    ADD CONSTRAINT  fk_rel_item_dress
+        FOREIGN KEY (item)
+            REFERENCES fc.rel_item(id)
+            ON DELETE CASCADE;
+
+CREATE TABLE fc.shoes
+(
+    id             BIGSERIAL PRIMARY KEY,
+    item           BIGINT NOT NULL,
+    colors         VARCHAR(30)[],
+    type           VARCHAR(30) NOT NULL,
+    seasons        VARCHAR(30)[],
+    description    VARCHAR(250),
+    shoes_id       UUID NOT NULL DEFAULT gen_random_uuid()
+);
+
+ALTER TABLE fc.shoes
+    ADD CONSTRAINT  fk_rel_item_shoes
+        FOREIGN KEY (item)
+            REFERENCES fc.rel_item(id)
+            ON DELETE CASCADE;
+
+CREATE TABLE fc.accessories
+(
+    id BIGSERIAL PRIMARY KEY,
+    item BIGINT NOT NULL,
+    colors VARCHAR(30)[],
+    type VARCHAR(30) NOT NULL,
+    accessories_id UUID NOT NULL DEFAULT gen_random_uuid()
+);
+
+ALTER TABLE fc.accessories
+    ADD CONSTRAINT  fk_rel_item_accessories
+        FOREIGN KEY (item)
+            REFERENCES fc.rel_item(id)
+            ON DELETE CASCADE;
+
+CREATE TABLE fc.furniture
+(
+  id BIGSERIAL PRIMARY KEY,
+  item BIGINT NOT NULL,
+  colors VARCHAR(30)[],
+  type VARCHAR(30) NOT NULL,
+  furniture_id UUID NOT NULL DEFAULT gen_random_uuid()
+);
+
+ALTER TABLE fc.furniture
+    ADD CONSTRAINT fk_rel_item_furniture
+        FOREIGN KEY (item)
+            REFERENCES fc.rel_item(id)
+            ON DELETE CASCADE;
+
+CREATE TABLE fc.baby
+(
+    id BIGSERIAL PRIMARY KEY,
+    item BIGINT NOT NULL,
+    colors VARCHAR(30)[],
+    type VARCHAR(30) NOT NULL,
+    baby_id UUID NOT NULL DEFAULT gen_random_uuid()
+);
+
+ALTER TABLE fc.baby
+    ADD CONSTRAINT fk_rel_item_baby
+        FOREIGN KEY (item)
+            REFERENCES fc.rel_item(id)
+            ON DELETE CASCADE;
+
+CREATE TABLE fc.sport
+(
+    id BIGSERIAL PRIMARY KEY,
+    item BIGINT NOT NULL,
+    colors VARCHAR(30)[],
+    type VARCHAR(30),
+    sport_id UUID NOT NULL DEFAULT gen_random_uuid()
+);
+
+ALTER TABLE fc.sport
+    ADD CONSTRAINT fk_rel_item_sport
+        FOREIGN KEY (item)
+            REFERENCES fc.rel_item(id)
+            ON DELETE CASCADE;
