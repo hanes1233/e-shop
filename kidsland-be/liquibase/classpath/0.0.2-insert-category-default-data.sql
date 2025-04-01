@@ -1,6 +1,6 @@
 --liquibase formatted sql
---changeset pavel:initial_script
---comment Initial script
+--changeset pavel:fill_data_script
+--comment fill_data script
 
 INSERT INTO fc.category (name, url)
 VALUES ( 'Toys', '/toys'),

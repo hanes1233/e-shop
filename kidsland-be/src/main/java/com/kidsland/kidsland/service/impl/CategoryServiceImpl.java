@@ -1,4 +1,4 @@
-package com.kidsland.kidsland.service;
+package com.kidsland.kidsland.service.impl;
 
 import com.kidsland.kidsland.data.entity.Category;
 import com.kidsland.kidsland.data.repository.CategoryRepository;

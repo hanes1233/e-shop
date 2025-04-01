@@ -7,5 +7,5 @@ databaseChangeLog:
             path: liquibase/classpath/0.0.1-init-kidsland-structure.sql
             encoding: UTF-8
         - sqlFile:
-            path: liquibase/classpath/0.0.2-insert-default-data.sql
+            path: liquibase/classpath/0.0.2-insert-category-default-data.sql
             encoding: UTF-8

@@ -87,6 +87,7 @@ CREATE TABLE fc.toy
 );
 
 ALTER TABLE fc.toy
+    ADD CONSTRAINT unique_toy UNIQUE (item),
     ADD CONSTRAINT  fk_rel_item_toy
         FOREIGN KEY (item)
             REFERENCES fc.rel_item(id)
@@ -103,6 +104,7 @@ CREATE TABLE fc.dress
 );
 
 ALTER TABLE fc.dress
+    ADD CONSTRAINT unique_dress UNIQUE (item),
     ADD CONSTRAINT  fk_rel_item_dress
         FOREIGN KEY (item)
             REFERENCES fc.rel_item(id)
@@ -120,6 +122,7 @@ CREATE TABLE fc.shoes
 );
 
 ALTER TABLE fc.shoes
+    ADD CONSTRAINT unique_shoes UNIQUE (item),
     ADD CONSTRAINT  fk_rel_item_shoes
         FOREIGN KEY (item)
             REFERENCES fc.rel_item(id)
@@ -135,6 +138,7 @@ CREATE TABLE fc.accessories
 );
 
 ALTER TABLE fc.accessories
+    ADD CONSTRAINT unique_accessories UNIQUE (item),
     ADD CONSTRAINT  fk_rel_item_accessories
         FOREIGN KEY (item)
             REFERENCES fc.rel_item(id)
@@ -150,6 +154,7 @@ CREATE TABLE fc.furniture
 );
 
 ALTER TABLE fc.furniture
+    ADD CONSTRAINT unique_furniture UNIQUE (item),
     ADD CONSTRAINT fk_rel_item_furniture
         FOREIGN KEY (item)
             REFERENCES fc.rel_item(id)
@@ -165,6 +170,7 @@ CREATE TABLE fc.baby
 );
 
 ALTER TABLE fc.baby
+    ADD CONSTRAINT unique_baby UNIQUE (item),
     ADD CONSTRAINT fk_rel_item_baby
         FOREIGN KEY (item)
             REFERENCES fc.rel_item(id)
@@ -180,6 +186,7 @@ CREATE TABLE fc.sport
 );
 
 ALTER TABLE fc.sport
+    ADD CONSTRAINT unique_sport UNIQUE (item),
     ADD CONSTRAINT fk_rel_item_sport
         FOREIGN KEY (item)
             REFERENCES fc.rel_item(id)
