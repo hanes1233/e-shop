@@ -1,10 +1,10 @@
 package com.kidsland.kidsland.service.api;
 
-import com.kidsland.kidsland.data.entity.subcategories.Accessory;
-import com.kidsland.kidsland.dto.ResultDTO;
+import com.kidsland.kidsland.dto.AccessoryDTO;
+import com.kidsland.kidsland.dto.response.Result;
 import org.springframework.http.ResponseEntity;
 
 public interface AccessoryService {
 
-    ResponseEntity<ResultDTO> registerOneAccessory(Accessory accessoryToRegister);
+    ResponseEntity<Result> registerOneAccessory(AccessoryDTO accessoryToRegister);
 }

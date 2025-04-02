@@ -1,7 +1,7 @@
 package com.kidsland.kidsland.rest;
 
-import com.kidsland.kidsland.data.entity.subcategories.Accessory;
-import com.kidsland.kidsland.dto.ResultDTO;
+import com.kidsland.kidsland.dto.AccessoryDTO;
+import com.kidsland.kidsland.dto.response.Result;
 import com.kidsland.kidsland.service.api.AccessoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class SubcategoryController {
     private final AccessoryService accessoryService;
 
     @PostMapping("/accessory")
-    public ResponseEntity<ResultDTO> registerItem(@RequestBody Accessory accessory) {
+    public ResponseEntity<Result> registerItem(@RequestBody AccessoryDTO accessory) {
         return accessoryService.registerOneAccessory(accessory);
     }
 }

@@ -3,7 +3,7 @@ package com.kidsland.kidsland.service.impl;
 import com.kidsland.kidsland.data.entity.Category;
 import com.kidsland.kidsland.data.repository.CategoryRepository;
 import com.kidsland.kidsland.dto.CategoryDTO;
-import com.kidsland.kidsland.dto.ResultDTO;
+import com.kidsland.kidsland.dto.response.Result;
 import com.kidsland.kidsland.dto.mapper.CategoryMapper;
 import com.kidsland.kidsland.service.api.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +20,12 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
 
     @Override
-    public ResponseEntity<ResultDTO> getCategories() {
+    public ResponseEntity<Result> getCategories() {
         List<Category> categories = categoryRepository.findTopTenVisible();
         List<CategoryDTO> categoryDTOS = categories.stream()
                 .map(categoryMapper::mapToCategoryDTO)
                 .toList();
-        ResultDTO result = new ResultDTO()
+        Result result = new Result()
                 .setCategories(categoryDTOS);
         return ResponseEntity.ok(result);
     }

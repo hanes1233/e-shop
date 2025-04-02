@@ -191,3 +191,15 @@ ALTER TABLE fc.sport
         FOREIGN KEY (item)
             REFERENCES fc.rel_item(id)
             ON DELETE CASCADE;
+
+CREATE SCHEMA IF NOT EXISTS db;
+
+CREATE TABLE db.obj_error
+(
+    id BIGSERIAL PRIMARY KEY,
+    error_content VARCHAR(100),
+    stack_trace TEXT,
+    item_id UUID,
+    category_id BIGINT,
+    subcategory_id BIGINT
+);

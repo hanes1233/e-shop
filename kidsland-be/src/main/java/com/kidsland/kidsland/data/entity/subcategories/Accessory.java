@@ -1,6 +1,7 @@
 package com.kidsland.kidsland.data.entity.subcategories;
 
 import com.kidsland.kidsland.constants.Colors;
+import com.kidsland.kidsland.data.entity.ItemEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,7 +17,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "accessories", schema = "fc")
-public class Accessory {
+public class Accessory implements Serializable, ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
