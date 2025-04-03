@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,7 +14,10 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "category", schema = "fc")
-public class Category {
+public class Category implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 5L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_id_gen")
     @SequenceGenerator(name = "category_id_gen", sequenceName = "category_id_seq", allocationSize = 1)

@@ -1,4 +1,4 @@
 package com.kidsland.kidsland.constants;
 
-public enum Seasons {
+public enum Color {
 }

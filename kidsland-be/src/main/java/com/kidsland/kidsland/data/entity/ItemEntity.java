@@ -1,4 +1,9 @@
 package com.kidsland.kidsland.data.entity;
 
-public interface ItemEntity {
+import java.io.Serial;
+import java.io.Serializable;
+
+public interface ItemEntity extends Serializable {
+    @Serial
+    long serialVersionUID = 1L;
 }

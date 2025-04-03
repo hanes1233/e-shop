@@ -1,6 +1,6 @@
 package com.kidsland.kidsland.constants;
 
-public enum Roles {
+public enum Role {
     USER,
     ADMIN
 }

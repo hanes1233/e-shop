@@ -60,6 +60,8 @@ CREATE TABLE fc.rel_item
     item_name VARCHAR(30) NOT NULL,
     brand VARCHAR(30) NOT NULL,
     reserved INTEGER NOT NULL DEFAULT 0,
+    colors VARCHAR(50) NOT NULL,
+    type VARCHAR(30) NOT NULL,
     quantity INTEGER NOT NULL DEFAULT 0,
     is_available BOOLEAN default FALSE,
     item_create_date TIMESTAMPTZ NOT NULL DEFAULT '2025-03-03 00:00:00.000 +01:00',
@@ -97,9 +99,7 @@ CREATE TABLE fc.dress
 (
     id             BIGSERIAL PRIMARY KEY,
     item           BIGINT NOT NULL,
-    colors         VARCHAR(30)[],
-    type           VARCHAR(30) NOT NULL,
-    seasons        VARCHAR(30)[],
+    seasons        VARCHAR(50) NOT NULL,
     dress_id       UUID NOT NULL DEFAULT gen_random_uuid()
 );
 
@@ -114,9 +114,7 @@ CREATE TABLE fc.shoes
 (
     id             BIGSERIAL PRIMARY KEY,
     item           BIGINT NOT NULL,
-    colors         VARCHAR(30)[],
-    type           VARCHAR(30) NOT NULL,
-    seasons        VARCHAR(30)[],
+    seasons        VARCHAR(50),
     description    VARCHAR(250),
     shoes_id       UUID NOT NULL DEFAULT gen_random_uuid()
 );
@@ -132,8 +130,6 @@ CREATE TABLE fc.accessories
 (
     id BIGSERIAL PRIMARY KEY,
     item BIGINT NOT NULL,
-    colors VARCHAR(30)[],
-    type VARCHAR(30) NOT NULL,
     accessories_id UUID NOT NULL DEFAULT gen_random_uuid()
 );
 
@@ -148,8 +144,6 @@ CREATE TABLE fc.furniture
 (
   id BIGSERIAL PRIMARY KEY,
   item BIGINT NOT NULL,
-  colors VARCHAR(30)[],
-  type VARCHAR(30) NOT NULL,
   furniture_id UUID NOT NULL DEFAULT gen_random_uuid()
 );
 
@@ -164,8 +158,6 @@ CREATE TABLE fc.baby
 (
     id BIGSERIAL PRIMARY KEY,
     item BIGINT NOT NULL,
-    colors VARCHAR(30)[],
-    type VARCHAR(30) NOT NULL,
     baby_id UUID NOT NULL DEFAULT gen_random_uuid()
 );
 
@@ -180,8 +172,6 @@ CREATE TABLE fc.sport
 (
     id BIGSERIAL PRIMARY KEY,
     item BIGINT NOT NULL,
-    colors VARCHAR(30)[],
-    type VARCHAR(30),
     sport_id UUID NOT NULL DEFAULT gen_random_uuid()
 );
 

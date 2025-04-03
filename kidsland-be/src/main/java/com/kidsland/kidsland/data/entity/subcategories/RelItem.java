@@ -3,20 +3,27 @@ package com.kidsland.kidsland.data.entity.subcategories;
 import com.kidsland.kidsland.data.entity.Category;
 import com.kidsland.kidsland.data.entity.Subcategory;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "rel_item", schema = "fc")
-public class RelItem {
+public class RelItem implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -42,6 +49,12 @@ public class RelItem {
     @Column(name = "reserved", nullable = false)
     private Integer reserved;
 
+    @Column(name = "colors", nullable = false, length = 50)
+    private String colors;
+
+    @Column(name = "type", nullable = false, length = 30)
+    private String type;
+
     @ColumnDefault("0")
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
@@ -65,23 +78,23 @@ public class RelItem {
     private UUID itemId;
 
     @OneToOne(mappedBy = "item")
-    private Toy toy;
-
-    @OneToOne(mappedBy = "item")
-    private Dress dress;
+    private Accessory accessory;
 
     @OneToOne(mappedBy = "item")
     private Baby baby;
 
     @OneToOne(mappedBy = "item")
-    private Furniture furniture;
+    private Dress dress;
 
     @OneToOne(mappedBy = "item")
-    private Accessory accessory;
+    private Furniture furniture;
 
     @OneToOne(mappedBy = "item")
     private Shoe shoe;
 
     @OneToOne(mappedBy = "item")
     private Sport sport;
+
+    @OneToOne(mappedBy = "item")
+    private Toy toy;
 }
