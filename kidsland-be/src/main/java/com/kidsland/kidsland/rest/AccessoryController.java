@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/subcategory/items/register")
-public class SubcategoryController {
+public class AccessoryController {
 
     private final AccessoryService accessoryService;
 

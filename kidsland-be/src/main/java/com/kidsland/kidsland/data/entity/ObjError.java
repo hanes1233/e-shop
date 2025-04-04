@@ -1,20 +1,20 @@
 package com.kidsland.kidsland.data.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
+@Accessors(chain = true)
 @Table(name = "obj_error", schema = "db")
 public class ObjError {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -24,6 +24,10 @@ public class ObjError {
     @Column(name = "stack_trace", length = Integer.MAX_VALUE)
     private String stackTrace;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "request_id")
+    private ObjRegistrationRequest request;
+
     @Column(name = "item_id")
     private UUID itemId;
 
@@ -32,4 +36,5 @@ public class ObjError {
 
     @Column(name = "subcategory_id")
     private Long subcategoryId;
+
 }

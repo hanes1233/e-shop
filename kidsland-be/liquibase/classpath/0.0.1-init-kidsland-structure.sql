@@ -184,12 +184,27 @@ ALTER TABLE fc.sport
 
 CREATE SCHEMA IF NOT EXISTS db;
 
+CREATE TABLE db.obj_registration_request
+(
+    id BIGSERIAL PRIMARY KEY,
+    item BIGINT NOT NULL,
+    processing_status INTEGER,
+    tech_create_date TIMESTAMPTZ NOT NULL,
+    tech_create_identity_id UUID NOT NULL
+);
+
 CREATE TABLE db.obj_error
 (
     id BIGSERIAL PRIMARY KEY,
     error_content VARCHAR(100),
     stack_trace TEXT,
+    request_id BIGINT,
     item_id UUID,
     category_id BIGINT,
     subcategory_id BIGINT
 );
+
+ALTER TABLE db.obj_error
+    ADD CONSTRAINT fk_obj_registration_request_obj_error
+        FOREIGN KEY (request_id)
+            REFERENCES db.obj_registration_request(id);
