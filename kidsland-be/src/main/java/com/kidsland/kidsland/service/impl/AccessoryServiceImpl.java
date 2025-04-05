@@ -1,6 +1,8 @@
 package com.kidsland.kidsland.service.impl;
 
 import com.kidsland.kidsland.data.entity.subcategories.Accessory;
+import com.kidsland.kidsland.data.repository.ObjErrorRepository;
+import com.kidsland.kidsland.data.repository.ObjRegistrationRequestRepository;
 import com.kidsland.kidsland.data.repository.subcategories.AccessoryRepository;
 import com.kidsland.kidsland.dto.AccessoryDTO;
 import com.kidsland.kidsland.dto.mapper.CategoryMapper;
@@ -19,9 +21,11 @@ public class AccessoryServiceImpl extends AbstractSubcategoryService<Accessory> 
     public AccessoryServiceImpl
             (
                 AccessoryRepository itemRepository,
-                CategoryMapper categoryMapper
+                CategoryMapper categoryMapper,
+                ObjRegistrationRequestRepository objRegistrationRequestRepository,
+                ObjErrorRepository objErrorRepository
             ) {
-        super(itemRepository);
+        super(objErrorRepository, objRegistrationRequestRepository, itemRepository);
         this.categoryMapper = categoryMapper;
     }
 

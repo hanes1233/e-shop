@@ -2,7 +2,9 @@ package com.kidsland.kidsland.service;
 
 import com.kidsland.kidsland.data.entity.ItemEntity;
 import com.kidsland.kidsland.data.entity.ObjError;
+import com.kidsland.kidsland.data.entity.ObjRegistrationRequest;
 import com.kidsland.kidsland.data.repository.ObjErrorRepository;
+import com.kidsland.kidsland.data.repository.ObjRegistrationRequestRepository;
 import com.kidsland.kidsland.dto.response.Error;
 import com.kidsland.kidsland.dto.response.ErrorResult;
 import com.kidsland.kidsland.dto.response.Result;
@@ -11,10 +13,13 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+import static com.kidsland.kidsland.constants.Status.ERROR;
+
 @RequiredArgsConstructor
 public abstract class AbstractResponseService<ITEM extends ItemEntity> {
 
     private final ObjErrorRepository objErrorRepository;
+    private final ObjRegistrationRequestRepository objRegistrationRequestRepository;
 
     protected ResponseEntity<Result> constructResponse(ITEM item) {
         if (item == null) {
@@ -33,37 +38,41 @@ public abstract class AbstractResponseService<ITEM extends ItemEntity> {
         return ResponseEntity.badRequest().body(result);
     }
 
-    protected ResponseEntity<Result> createUnexpectedErrorResponse(ITEM item) {
+    protected ResponseEntity<Result> createUnexpectedErrorResponse(
+            ITEM item,
+            ObjRegistrationRequest registrationRequest,
+            Exception e) {
+        if (item == null) {
+            return createNullItemResponse();
+        }
+        objRegistrationRequestRepository.updateStatus(registrationRequest.getId(), ERROR.getCode());
+        registrationRequest.setProcessingStatus(ERROR.getCode());
         Result result = new Result();
+        ObjError objError = createObjError(item, registrationRequest, e);
+        objErrorRepository.saveAndFlush(objError);
 
-        Error error = buildUnexpectedError(item);
+        Error error = createError(item, e);
+        error.setErrorContent("Unexpected error");
+        result.setErrorResult(new ErrorResult().setError(List.of(error)));
+        return ResponseEntity.badRequest().body(result);
     }
 
-    private Error buildUnexpectedError(ITEM item) {
-        Error error = new Error();
-        Long itemId = item.getId();
-        Long subcategoryId = item.getSubcategoryId();
-        Long categoryId = item.getCategoryId();
-        ObjError objError = new ObjError().setStackTrace("Unexpected error");
-        String content;
-        if (itemId == null && subcategoryId == null && categoryId == null) {
-            content = "Incoming item does not contains data, necessary for registration: " +
-                    "category, subcategory and item id was not provided.";
+    private ObjError createObjError(ITEM item, ObjRegistrationRequest registrationRequest, Exception e) {
+        return new ObjError()
+                .setItemId(item.getItemId())
+                .setRequest(registrationRequest)
+                .setItemId(item.getItemId())
+                .setCategoryId(item.getCategoryId())
+                .setSubcategoryId(item.getSubcategoryId())
+                .setErrorContent(e.getClass().getSimpleName())
+                .setStackTrace(e.getMessage());
+    }
 
-            objError.setErrorContent(content);
-            objErrorRepository.save(objError);
-            error.setErrorContent(content);
-            return error;
-        } else if (itemId == null) {
-            content = "Error during saving item " + item.getClass().getSimpleName() + " with name " + item.getItemName()
-                    + " and id " + item.getItemId() + " in database.";
-            objError.setErrorContent(content);
-            objErrorRepository.save(objError);
-            error.setErrorContent(content);
-            return error;
-        }
-        // TODO : finish block
-
+    private Error createError(ITEM item, Exception e) {
+        return new Error()
+                .setCategoryId(item.getCategoryId())
+                .setSubcategoryId(item.getSubcategoryId())
+                .setStackTrace(e.getMessage());
     }
 
 }
