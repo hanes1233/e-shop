@@ -86,4 +86,9 @@ public class Toy implements ItemEntity {
         return toyId;
     }
 
+    @Override
+    public void setItem(RelItem item) {
+        this.item = item;
+    }
+
 }

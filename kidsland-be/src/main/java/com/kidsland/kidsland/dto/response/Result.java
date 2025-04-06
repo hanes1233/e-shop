@@ -1,6 +1,7 @@
 package com.kidsland.kidsland.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.kidsland.kidsland.data.entity.ItemEntity;
 import com.kidsland.kidsland.dto.CategoryDTO;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Accessors(chain = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Result {
 
     @XmlAttribute

@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.OffsetDateTime;
 import java.util.LinkedHashSet;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @Entity
 @Accessors(chain = true)
 @Table(name = "obj_registration_request", schema = "db")
+@EntityListeners(AuditingEntityListener.class)
 public class ObjRegistrationRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

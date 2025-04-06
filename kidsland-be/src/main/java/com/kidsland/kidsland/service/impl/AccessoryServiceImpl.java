@@ -3,30 +3,37 @@ package com.kidsland.kidsland.service.impl;
 import com.kidsland.kidsland.data.entity.subcategories.Accessory;
 import com.kidsland.kidsland.data.repository.ObjErrorRepository;
 import com.kidsland.kidsland.data.repository.ObjRegistrationRequestRepository;
+import com.kidsland.kidsland.data.repository.RelItemRepository;
 import com.kidsland.kidsland.data.repository.subcategories.AccessoryRepository;
 import com.kidsland.kidsland.dto.AccessoryDTO;
-import com.kidsland.kidsland.dto.mapper.CategoryMapper;
+import com.kidsland.kidsland.dto.mapper.subcategories.AccessoryMapper;
+import com.kidsland.kidsland.dto.mapper.subcategories.RelItemMapper;
 import com.kidsland.kidsland.dto.response.Result;
 import com.kidsland.kidsland.service.AbstractSubcategoryService;
 import com.kidsland.kidsland.service.api.AccessoryService;
-import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class AccessoryServiceImpl extends AbstractSubcategoryService<Accessory> implements AccessoryService {
-
-    private final CategoryMapper categoryMapper;
+public class AccessoryServiceImpl extends AbstractSubcategoryService<Accessory, AccessoryDTO> implements AccessoryService {
 
     public AccessoryServiceImpl
             (
                 AccessoryRepository itemRepository,
-                CategoryMapper categoryMapper,
+                AccessoryMapper accessoryMapper,
                 ObjRegistrationRequestRepository objRegistrationRequestRepository,
-                ObjErrorRepository objErrorRepository
+                ObjErrorRepository objErrorRepository,
+                RelItemRepository relItemRepository,
+                RelItemMapper relItemMapper
             ) {
-        super(objErrorRepository, objRegistrationRequestRepository, itemRepository);
-        this.categoryMapper = categoryMapper;
+        super(
+                objErrorRepository,
+                objRegistrationRequestRepository,
+                itemRepository,
+                relItemRepository,
+                accessoryMapper,
+                relItemMapper);
     }
 
     @Override
@@ -35,7 +42,6 @@ public class AccessoryServiceImpl extends AbstractSubcategoryService<Accessory> 
         if (accessoryToRegister == null) {
             return createNullItemResponse();
         }
-        Accessory accessory = categoryMapper.mapToAccessory(accessoryToRegister);
-        return processOneItem(accessory);
+        return processOneItem(accessoryToRegister);
     }
 }

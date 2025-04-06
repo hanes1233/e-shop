@@ -87,4 +87,9 @@ public class Shoe implements ItemEntity {
     public UUID getItemId() {
         return shoesId;
     }
+
+    @Override
+    public void setItem(RelItem item) {
+        this.item = item;
+    }
 }

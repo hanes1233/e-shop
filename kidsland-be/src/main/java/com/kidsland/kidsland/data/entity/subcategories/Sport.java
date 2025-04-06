@@ -82,4 +82,9 @@ public class Sport implements ItemEntity {
         return sportId;
     }
 
+    @Override
+    public void setItem(RelItem item) {
+        this.item = item;
+    }
+
 }

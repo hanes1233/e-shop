@@ -81,4 +81,9 @@ public class Accessory implements ItemEntity {
     public UUID getItemId() {
         return accessoriesId;
     }
+
+    @Override
+    public void setItem(RelItem item) {
+        this.item = item;
+    }
 }

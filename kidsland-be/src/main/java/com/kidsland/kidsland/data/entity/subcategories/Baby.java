@@ -80,4 +80,9 @@ public class Baby implements ItemEntity {
     public UUID getItemId() {
         return babyId;
     }
+
+    @Override
+    public void setItem(RelItem item) {
+        this.item = item;
+    }
 }

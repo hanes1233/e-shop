@@ -81,4 +81,9 @@ public class Furniture implements ItemEntity {
     public UUID getItemId() {
         return furnitureId;
     }
+
+    @Override
+    public void setItem(RelItem item) {
+        this.item = item;
+    }
 }
