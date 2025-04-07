@@ -18,4 +18,9 @@ public class AccessoryDTO implements DTO {
     private UUID accessoriesId;
 
     private List<Color> colors;
+
+    @Override
+    public UUID getItemId() {
+        return this.accessoriesId;
+    }
 }

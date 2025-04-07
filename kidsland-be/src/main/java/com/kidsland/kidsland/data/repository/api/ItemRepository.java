@@ -5,4 +5,6 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface ItemRepository<ITEM> extends JpaRepository<ITEM, Long> {
+
+    boolean existsByItemId(java.util.UUID itemId);
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.kidsland.kidsland.data.entity.ItemEntity;
 import com.kidsland.kidsland.dto.CategoryDTO;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Setter
 @Accessors(chain = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@NoArgsConstructor
 public class Result {
 
     @XmlAttribute
@@ -32,4 +34,8 @@ public class Result {
     @XmlAttribute
     @JsonFormat
     private List<CategoryDTO> categories;
+
+    public Result(ErrorResult errorResult) {
+        this.errorResult = errorResult;
+    }
 }

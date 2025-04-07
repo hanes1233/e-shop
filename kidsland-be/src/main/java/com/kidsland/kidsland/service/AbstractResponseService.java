@@ -8,7 +8,9 @@ import com.kidsland.kidsland.data.repository.ObjRegistrationRequestRepository;
 import com.kidsland.kidsland.dto.response.Error;
 import com.kidsland.kidsland.dto.response.ErrorResult;
 import com.kidsland.kidsland.dto.response.Result;
+import com.kidsland.kidsland.utils.KidslandUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 import static com.kidsland.kidsland.constants.Status.ERROR;
 
 @RequiredArgsConstructor
+@Slf4j
 public abstract class AbstractResponseService<ITEM extends ItemEntity> {
 
     private final ObjErrorRepository objErrorRepository;
@@ -48,31 +51,34 @@ public abstract class AbstractResponseService<ITEM extends ItemEntity> {
         objRegistrationRequestRepository.updateStatus(registrationRequest.getId(), ERROR.getCode());
         registrationRequest.setProcessingStatus(ERROR.getCode());
         Result result = new Result();
-        ObjError objError = createObjError(item, registrationRequest, e);
+        ObjError objError = KidslandUtils.createObjError(item, registrationRequest, e);
         objErrorRepository.saveAndFlush(objError);
 
-        Error error = createError(item, e);
+        Error error = KidslandUtils.createError(item, e);
         error.setErrorContent("Unexpected error");
         result.setErrorResult(new ErrorResult().setError(List.of(error)));
         return ResponseEntity.badRequest().body(result);
     }
 
-    private ObjError createObjError(ITEM item, ObjRegistrationRequest registrationRequest, Exception e) {
-        return new ObjError()
-                .setItemId(item.getItemId())
-                .setRequest(registrationRequest)
-                .setItemId(item.getItemId())
-                .setCategoryId(item.getCategoryId())
-                .setSubcategoryId(item.getSubcategoryId())
-                .setErrorContent(e.getClass().getSimpleName())
-                .setStackTrace(e.getMessage());
-    }
+    protected ResponseEntity<Result> constructDuplicateResponse(
+            ITEM item,
+            ObjRegistrationRequest registrationRequest) {
+        log.warn("Duplicate - item with provided itemId already exists");
 
-    private Error createError(ITEM item, Exception e) {
-        return new Error()
-                .setCategoryId(item.getCategoryId())
-                .setSubcategoryId(item.getSubcategoryId())
-                .setStackTrace(e.getMessage());
-    }
+        // Create Error DTO
+        Error error = KidslandUtils.createError(item);
+        error.setErrorContent("Duplicate - item with provided itemId already exists");
+        error.setStackTrace("Id: " + item.getItemId());
 
+        // Create and save ObjError
+        log.info("Saving error...");
+        ObjError objError = KidslandUtils.createObjError(item, registrationRequest);
+        objErrorRepository.saveAndFlush(objError);
+
+        // Create Result DTO
+        ErrorResult errorResult = new ErrorResult(List.of(error));
+        Result result = new Result(errorResult);
+        log.warn("Item was not registered");
+        return ResponseEntity.badRequest().body(result);
+    }
 }

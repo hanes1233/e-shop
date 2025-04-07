@@ -10,6 +10,7 @@ import com.kidsland.kidsland.data.repository.api.ItemRepository;
 import com.kidsland.kidsland.dto.mapper.ItemMapper;
 import com.kidsland.kidsland.dto.mapper.subcategories.RelItemMapper;
 import com.kidsland.kidsland.dto.response.Result;
+import com.kidsland.kidsland.service.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 
@@ -43,9 +44,22 @@ public abstract class AbstractSubcategoryService<ITEM extends ItemEntity, DTO ex
     }
 
     protected ResponseEntity<Result> processOneItem(DTO dto) {
+        // Validation phase
+        log.info("Validation phase started");
+        Validator<DTO> validator = new Validator<>(dto);
+        if (validator.isInvalid()) {
+            log.warn("Validation failed.");
+            return ResponseEntity.badRequest().body(new Result().setErrorResult(validator.getErrorResult()));
+        }
+
+        // Processing phase
         log.info("Beginning of item registration");
         ObjRegistrationRequest registrationRequest = createRequest();
         ITEM item = itemMapper.mapToEntity(dto);
+        if (isItemExists(item)) {
+            log.warn("Registration failed.");
+            return constructDuplicateResponse(item, registrationRequest);
+        }
         ITEM savedItem;
         RelItem relItem= relItemMapper.mapToRelItem(dto.getItem());
         RelItem savedRelItem;
@@ -69,5 +83,13 @@ public abstract class AbstractSubcategoryService<ITEM extends ItemEntity, DTO ex
     protected ObjRegistrationRequest createRequest() {
         return new ObjRegistrationRequest()
                 .setProcessingStatus(CREATED.getCode());
+    }
+
+    private boolean isItemExists(ITEM item) {
+        var itemId = item.getItemId();
+        if (itemId == null) {
+            return false;
+        }
+        return itemRepository.existsByItemId(itemId);
     }
 }
