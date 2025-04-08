@@ -2,8 +2,9 @@ package com.kidsland.kidsland.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.kidsland.kidsland.data.entity.ItemEntity;
+import com.kidsland.kidsland.dto.AccessoryDTO;
 import com.kidsland.kidsland.dto.CategoryDTO;
+import com.kidsland.kidsland.dto.DTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,7 +30,11 @@ public class Result {
 
     @XmlAttribute
     @JsonFormat
-    private List<ItemEntity> itemEntities;
+    private List<AccessoryDTO> accessoryDTOS;
+
+    @XmlAttribute
+    @JsonFormat
+    private List<DTO> dtos;
 
     @XmlAttribute
     @JsonFormat

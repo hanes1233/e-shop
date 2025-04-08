@@ -9,12 +9,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/subcategory/register")
+@RequestMapping("/api/subcategory")
 public class AccessoryController {
 
     private final AccessoryService accessoryService;
 
-    @PostMapping("/accessory")
+    @GetMapping("/find/accessory")
+    public ResponseEntity<Result> getItems() {
+        return accessoryService.getAllItems();
+    }
+
+    @PostMapping("/register/accessory")
     public ResponseEntity<Result> registerItem(@RequestBody AccessoryDTO accessory) {
         return accessoryService.registerOneAccessory(accessory);
     }

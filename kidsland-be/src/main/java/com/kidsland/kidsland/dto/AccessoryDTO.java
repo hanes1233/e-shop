@@ -20,7 +20,44 @@ public class AccessoryDTO implements DTO {
     private List<Color> colors;
 
     @Override
+    public Long getCategoryId() {
+        if (item == null) {
+            return null;
+        }
+        var category = item.getCategory();
+        if (category == null) {
+            return null;
+        }
+        return category.getId();
+    }
+
+    @Override
+    public Long getSubcategoryId() {
+        if (item == null) {
+            return null;
+        }
+        var subcategory = item.getSubcategory();
+        if (subcategory == null) {
+            return null;
+        }
+        return subcategory.getId();
+    }
+
+    @Override
+    public String getItemName() {
+        if (item == null) {
+            return null;
+        }
+        return item.getItemName();
+    }
+
+    @Override
     public UUID getItemId() {
-        return this.accessoriesId;
+        return accessoriesId;
+    }
+
+    @Override
+    public void setItem(RelItemDTO item) {
+        this.item = item;
     }
 }

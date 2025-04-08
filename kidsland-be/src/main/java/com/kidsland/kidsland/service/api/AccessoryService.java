@@ -7,4 +7,6 @@ import org.springframework.http.ResponseEntity;
 public interface AccessoryService {
 
     ResponseEntity<Result> registerOneAccessory(AccessoryDTO accessoryToRegister);
+
+    ResponseEntity<Result> getAllItems();
 }

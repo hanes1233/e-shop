@@ -1,6 +1,5 @@
 package com.kidsland.kidsland.service;
 
-import com.kidsland.kidsland.data.entity.ItemEntity;
 import com.kidsland.kidsland.data.entity.ObjError;
 import com.kidsland.kidsland.data.entity.ObjRegistrationRequest;
 import com.kidsland.kidsland.data.repository.ObjErrorRepository;
@@ -19,18 +18,18 @@ import static com.kidsland.kidsland.constants.Status.ERROR;
 
 @RequiredArgsConstructor
 @Slf4j
-public abstract class AbstractResponseService<ITEM extends ItemEntity> {
+public abstract class AbstractResponseService<DTO extends com.kidsland.kidsland.dto.DTO> {
 
     private final ObjErrorRepository objErrorRepository;
     private final ObjRegistrationRequestRepository objRegistrationRequestRepository;
 
-    protected ResponseEntity<Result> constructResponse(ITEM item) {
-        if (item == null) {
+    protected ResponseEntity<Result> constructResponse(DTO dto) {
+        if (dto == null) {
             return createNullItemResponse();
         }
         Result result = new Result()
-                .setMessage("Item of type " + item.getClass().getSimpleName() + " successfully registered.")
-                .setItemEntities(List.of(item));
+                .setMessage("Item of type " + dto.getClass().getSimpleName() + " successfully registered.")
+                .setDtos(List.of(dto));
         return ResponseEntity.status(201).body(result);
     }
 
@@ -42,37 +41,37 @@ public abstract class AbstractResponseService<ITEM extends ItemEntity> {
     }
 
     protected ResponseEntity<Result> createUnexpectedErrorResponse(
-            ITEM item,
+            DTO dto,
             ObjRegistrationRequest registrationRequest,
             Exception e) {
-        if (item == null) {
+        if (dto == null) {
             return createNullItemResponse();
         }
         objRegistrationRequestRepository.updateStatus(registrationRequest.getId(), ERROR.getCode());
         registrationRequest.setProcessingStatus(ERROR.getCode());
         Result result = new Result();
-        ObjError objError = KidslandUtils.createObjError(item, registrationRequest, e);
+        ObjError objError = KidslandUtils.createObjError(dto, registrationRequest, e);
         objErrorRepository.saveAndFlush(objError);
 
-        Error error = KidslandUtils.createError(item, e);
+        Error error = KidslandUtils.createError(dto, e);
         error.setErrorContent("Unexpected error");
         result.setErrorResult(new ErrorResult().setError(List.of(error)));
         return ResponseEntity.badRequest().body(result);
     }
 
     protected ResponseEntity<Result> constructDuplicateResponse(
-            ITEM item,
+            DTO dto,
             ObjRegistrationRequest registrationRequest) {
         log.warn("Duplicate - item with provided itemId already exists");
 
         // Create Error DTO
-        Error error = KidslandUtils.createError(item);
+        Error error = KidslandUtils.createError(dto);
         error.setErrorContent("Duplicate - item with provided itemId already exists");
-        error.setStackTrace("Id: " + item.getItemId());
+        error.setStackTrace("Id: " + dto.getItemId());
 
         // Create and save ObjError
         log.info("Saving error...");
-        ObjError objError = KidslandUtils.createObjError(item, registrationRequest);
+        ObjError objError = KidslandUtils.createObjError(dto, registrationRequest);
         objErrorRepository.saveAndFlush(objError);
 
         // Create Result DTO

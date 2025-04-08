@@ -18,7 +18,9 @@ import static com.kidsland.kidsland.constants.Status.CREATED;
 import static com.kidsland.kidsland.constants.Status.PROCESSED;
 
 @Slf4j
-public abstract class AbstractSubcategoryService<ITEM extends ItemEntity, DTO extends com.kidsland.kidsland.dto.DTO> extends AbstractResponseService<ITEM> {
+public abstract class AbstractSubcategoryService<
+        ITEM extends ItemEntity,
+        DTO extends com.kidsland.kidsland.dto.DTO> extends AbstractResponseService<DTO> {
 
     private final ItemRepository<ITEM> itemRepository;
     private final ObjRegistrationRequestRepository objRegistrationRequestRepository;
@@ -58,7 +60,7 @@ public abstract class AbstractSubcategoryService<ITEM extends ItemEntity, DTO ex
         ITEM item = itemMapper.mapToEntity(dto);
         if (isItemExists(item)) {
             log.warn("Registration failed.");
-            return constructDuplicateResponse(item, registrationRequest);
+            return constructDuplicateResponse(dto, registrationRequest);
         }
         ITEM savedItem;
         RelItem relItem= relItemMapper.mapToRelItem(dto.getItem());
@@ -71,13 +73,14 @@ public abstract class AbstractSubcategoryService<ITEM extends ItemEntity, DTO ex
             savedItem = itemRepository.save(item);
         } catch (Exception e) {
             log.warn("Exception caught while saving item with id {} and name {} to database", item.getItemId(), item.getItemName());
-            return createUnexpectedErrorResponse(item, registrationRequest, e);
+            return createUnexpectedErrorResponse(dto, registrationRequest, e);
         }
         registrationRequest.setItem(savedItem.getId());
         registrationRequest.setProcessingStatus(PROCESSED.getCode());
         objRegistrationRequestRepository.save(registrationRequest);
         log.info("Item was successfully saved.");
-        return constructResponse(savedItem);
+        DTO itemToReturn = itemMapper.mapToDTO(savedItem);
+        return constructResponse(itemToReturn);
     }
 
     protected ObjRegistrationRequest createRequest() {
