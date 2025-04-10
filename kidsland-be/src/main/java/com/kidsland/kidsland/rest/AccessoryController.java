@@ -1,11 +1,16 @@
 package com.kidsland.kidsland.rest;
 
+import com.kidsland.kidsland.data.entity.subcategories.Accessory;
 import com.kidsland.kidsland.dto.AccessoryDTO;
 import com.kidsland.kidsland.dto.response.Result;
 import com.kidsland.kidsland.service.api.AccessoryService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static com.kidsland.kidsland.data.repository.specification.ItemSpecification.hasUrl;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,9 +19,10 @@ public class AccessoryController {
 
     private final AccessoryService accessoryService;
 
-    @GetMapping("/find/accessory")
-    public ResponseEntity<Result> getItems() {
-        return accessoryService.getAllItems();
+    @GetMapping("/find/accessory/{url}")
+    public ResponseEntity<Result> getItems(@PathVariable @NonNull String url) {
+        Specification<Accessory> specification = hasUrl(url);
+        return accessoryService.getAccessories(specification);
     }
 
     @PostMapping("/register/accessory")

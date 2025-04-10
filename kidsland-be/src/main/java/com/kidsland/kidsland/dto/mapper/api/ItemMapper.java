@@ -1,4 +1,4 @@
-package com.kidsland.kidsland.dto.mapper;
+package com.kidsland.kidsland.dto.mapper.api;
 
 public interface ItemMapper<DTO, ENTITY> {
 

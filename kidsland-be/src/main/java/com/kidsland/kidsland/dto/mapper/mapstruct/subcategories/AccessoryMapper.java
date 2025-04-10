@@ -1,8 +1,8 @@
-package com.kidsland.kidsland.dto.mapper.subcategories;
+package com.kidsland.kidsland.dto.mapper.mapstruct.subcategories;
 
 import com.kidsland.kidsland.data.entity.subcategories.Accessory;
 import com.kidsland.kidsland.dto.AccessoryDTO;
-import com.kidsland.kidsland.dto.mapper.ItemMapper;
+import com.kidsland.kidsland.dto.mapper.api.ItemMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

@@ -1,4 +1,4 @@
-package com.kidsland.kidsland.dto.mapper;
+package com.kidsland.kidsland.dto.mapper.mapstruct;
 
 import com.kidsland.kidsland.data.entity.Category;
 import com.kidsland.kidsland.dto.CategoryDTO;

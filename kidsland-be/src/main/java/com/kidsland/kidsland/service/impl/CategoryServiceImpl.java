@@ -4,7 +4,7 @@ import com.kidsland.kidsland.data.entity.Category;
 import com.kidsland.kidsland.data.repository.CategoryRepository;
 import com.kidsland.kidsland.dto.CategoryDTO;
 import com.kidsland.kidsland.dto.response.Result;
-import com.kidsland.kidsland.dto.mapper.CategoryMapper;
+import com.kidsland.kidsland.dto.mapper.mapstruct.CategoryMapper;
 import com.kidsland.kidsland.service.api.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

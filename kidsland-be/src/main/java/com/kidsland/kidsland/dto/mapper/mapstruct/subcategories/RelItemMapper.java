@@ -1,4 +1,4 @@
-package com.kidsland.kidsland.dto.mapper.subcategories;
+package com.kidsland.kidsland.dto.mapper.mapstruct.subcategories;
 
 import com.kidsland.kidsland.data.entity.subcategories.RelItem;
 import com.kidsland.kidsland.dto.RelItemDTO;

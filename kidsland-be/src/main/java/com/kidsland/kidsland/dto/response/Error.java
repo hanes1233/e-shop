@@ -1,6 +1,7 @@
 package com.kidsland.kidsland.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -11,6 +12,7 @@ import java.util.UUID;
 @Accessors(chain = true)
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Error {
 
     @XmlAttribute
