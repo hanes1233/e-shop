@@ -52,7 +52,7 @@ function App() {
             {categories.map((category, index) => (
               <React.Fragment key={index}>
                 {category.subcategories.map((subcategory, key) => (
-                  <Route key={key} path={category.url + subcategory.url} element={<ItemsTable />} />
+                  <Route key={key} path={category.url + subcategory.url} element={<ItemsTable url={subcategory.url}/>} />
                 ))}
               </React.Fragment>
             ))}
