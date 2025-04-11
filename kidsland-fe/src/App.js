@@ -8,6 +8,8 @@ import ItemsTable from './components/ItemsTable';
 import React, { useEffect, useState } from 'react';
 import { apiGet } from './utils/api';
 import LoadingPage from './components/design/LoadingPage';
+import Logo from './components/design/Logo';
+import NoData from './components/design/NoData';
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -52,10 +54,11 @@ function App() {
             {categories.map((category, index) => (
               <React.Fragment key={index}>
                 {category.subcategories.map((subcategory, key) => (
-                  <Route key={key} path={category.url + subcategory.url} element={<ItemsTable url={subcategory.url}/>} />
+                  <Route key={key} path={category.url + '/' + subcategory.url} element={<ItemsTable url={`${category.url}/${subcategory.url}`}/>} />
                 ))}
               </React.Fragment>
             ))}
+            <Route path='/notfound' element={<NoData />} />
           </Routes>
         }
 

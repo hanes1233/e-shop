@@ -36,7 +36,7 @@ function Navigation(props) {
                         <Navbar.Brand href={url}>{category.name ? category.name : "Default category name"}</Navbar.Brand>
                         <Nav className="me-auto">
                             {subcategories ? sortedSubcategories.map((subcategory, index) => (
-                                <Link key={index + 1} className="nav-link mx-3 sub-section" to={category.url + subcategory.url} >
+                                <Link key={index + 1} className="nav-link mx-3 sub-section" to={category.url + '/' + subcategory.url} >
                                     {subcategory.name}
                                     {addDefaultImages(subcategory.name)}
                                 </Link>

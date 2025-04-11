@@ -1,5 +1,6 @@
 package com.kidsland.kidsland.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.util.List;
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorResult {
 
     private List<Error> error;

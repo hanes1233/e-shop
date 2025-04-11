@@ -19,14 +19,15 @@ public class AccessoryController {
 
     private final AccessoryService accessoryService;
 
-    @GetMapping("/find/accessory/{url}")
+    @GetMapping(value = "/find/accessories/{url}", produces = {"application/json", "application/xml"})
     public ResponseEntity<Result> getItems(@PathVariable @NonNull String url) {
         Specification<Accessory> specification = hasUrl(url);
         return accessoryService.getAccessories(specification);
     }
 
-    @PostMapping("/register/accessory")
-    public ResponseEntity<Result> registerItem(@RequestBody AccessoryDTO accessory) {
+    @PostMapping(value = "/register/accessory", produces = {"application/json", "application/xml"})
+    public ResponseEntity<Result> registerItem(@RequestHeader(value = "X-Correlation-ID", required = false) String correlationId,
+                                               @RequestBody AccessoryDTO accessory) {
         return accessoryService.registerOneAccessory(accessory);
     }
 
