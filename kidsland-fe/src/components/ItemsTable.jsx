@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from "react";
 import Logo from "./design/Logo";
 import { apiGet } from "../utils/api";
-import LoadingPage from "./design/LoadingPage";
 import { useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import FloatingText from "./design/text/FloatingText";
+import Footer from "./navigation/Footer";
+import SandClock from "./design/SandClock";
+import LoginBar from "./navigation/LoginBar";
+import SearchBar from "./design/SearchBar";
 
 function ItemsTable(props) {
     const [items, setItems] = useState([]);
-    const [isRefreshing, setIsRefreshing] = useState(false);
-    const [retryCount, setRetryCount] = useState(0);
+    const [retryCount, setRetryCount] = useState(1);
     const navigate = useNavigate();
 
     const URL = `${props.url}`;
 
     const noData = () => {
-        if (retryCount < 3) {
+        if (retryCount < 6) {
             return (
                 <>
+                    <LoginBar />
                     <Container>
-                        <FloatingText text={`Your data is loading... Attempt ${retryCount}`} />
+                        <SearchBar />
+                        <div className="text-center">
+                            <FloatingText text={`Your data is loading... Attempt ${retryCount}`} />
+                        </div>
                     </Container>
+                    <SandClock />
+                    <Footer />
                 </>
             )
         }
@@ -28,28 +36,42 @@ function ItemsTable(props) {
     }
 
     useEffect(() => {
-        apiGet(`/api/subcategory/find${URL}`).then((data) => {
-            if (data != null) {
-                setItems(data.items);
-            } else {
-                setItems(null);
-                const refreshInterval = setInterval(() => {
-                    if (!items && !isRefreshing) {
-                        setIsRefreshing(true);
-                        window.location.reload();
-                    }
-                }, 5000);
-                return () => clearInterval(refreshInterval);
-            }
-        })
-    }, [])
+        const fetchData = () => {
+            apiGet(`/api/subcategory/find${URL}`).then((data) => {
+                if (data?.items) {
+                    setItems(data.items);
+                } else {
+                    setItems(null);
+                }
+            });
+        };
+
+        fetchData();
+
+        const interval = setInterval(() => {
+            setRetryCount((prev) => {
+                if (prev >= 5) {
+                    clearInterval(interval);
+                    navigate('/notfound');
+                    return prev;
+                }
+                fetchData();
+                return prev + 1;
+            });
+        }, 10000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <>
             <Logo />
+            <LoginBar />
+            <SearchBar />
             {!items ? noData() : items.map((item, index) => {
                 return <p key={index}>{item.name}</p>;
             })}
+            <Footer />
         </>
     )
 }
