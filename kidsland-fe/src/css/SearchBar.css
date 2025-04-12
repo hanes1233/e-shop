@@ -1,7 +1,7 @@
 .search-bar {
     position: absolute;
     top: 12px;
-    right: 200px;
+    right: 250px;
     display: flex;
     flex-direction: row;
 }

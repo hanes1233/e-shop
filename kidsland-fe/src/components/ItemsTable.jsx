@@ -8,6 +8,7 @@ import Footer from "./navigation/Footer";
 import SandClock from "./design/SandClock";
 import LoginBar from "./navigation/LoginBar";
 import SearchBar from "./design/SearchBar";
+import ShoppingCart from "./navigation/ShoppingCart";
 
 function ItemsTable(props) {
     const [items, setItems] = useState([]);
@@ -20,9 +21,9 @@ function ItemsTable(props) {
         if (retryCount < 6) {
             return (
                 <>
+                    <ShoppingCart />
                     <LoginBar />
                     <Container>
-                        <SearchBar />
                         <div className="text-center">
                             <FloatingText text={`Your data is loading... Attempt ${retryCount}`} />
                         </div>
@@ -66,6 +67,7 @@ function ItemsTable(props) {
     return (
         <>
             <Logo />
+            <ShoppingCart />
             <LoginBar />
             <SearchBar />
             {!items ? noData() : items.map((item, index) => {

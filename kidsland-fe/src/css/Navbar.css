@@ -25,3 +25,11 @@
     background-color: #85bdf5;
     color: rgb(255, 244, 244);
 }
+
+.shopping-cart {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    display: flex;
+    flex-direction: row;
+}
