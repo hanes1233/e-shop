@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import FloatingText from "./design/text/FloatingText";
 import Footer from "./navigation/Footer";
-import SandClock from "./design/SandClock";
+import SandClock from "./design/UIStates/SandClock";
 import LoginBar from "./navigation/LoginBar";
-import SearchBar from "./design/SearchBar";
+import SearchBar from "./search/SearchBar";
 import ShoppingCart from "./navigation/ShoppingCart";
 
 function ItemsTable(props) {

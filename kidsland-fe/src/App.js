@@ -2,14 +2,13 @@
 import './App.css';
 import Main from './Main';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Registration from './components/authorization/Registration';
+import Registration from './components/auth/Registration';
 import Category from './components/navigation/Category';
 import ItemsTable from './components/ItemsTable';
 import React, { useEffect, useState } from 'react';
 import { apiGet } from './utils/api';
-import LoadingPage from './components/design/LoadingPage';
-import Logo from './components/design/Logo';
-import NoData from './components/design/NoData';
+import LoadingPage from './components/design/UIStates/LoadingPage';
+import NoData from './components/design/UIStates/NoData';
 
 function App() {
   const [categories, setCategories] = useState([]);

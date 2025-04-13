@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Login from '../authorization/Login';
-import Authorization from '../authorization/Authorization';
+import Login from '../auth/Login';
+import Authorization from '../auth/Authorization';
 
 function LoginBar() {
     const [showLogin, setShowLogin] = useState(false);

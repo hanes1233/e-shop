@@ -43,7 +43,7 @@ function Category({ category }) {
                                             size="lg"
                                             variant="outline-info"
                                             className="w-100 btn-dark-mode"
-                                            onClick={() => handleClick(category.url + subcategory.url)}
+                                            onClick={() => handleClick(category.url + "/" + subcategory.url)}
                                             >
                                             {subcategory.name}
                                             {subcategory.image ? subcategory.image : null}
