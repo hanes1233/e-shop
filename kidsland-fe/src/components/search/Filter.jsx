@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, Navbar } from "react-bootstrap";
 import '../../css/Filter.css';
 
@@ -14,11 +14,19 @@ function Filter() {
         setPriceTo(e.target.value);
     };
 
+    const fillWidth = `${(priceFrom / 100) * 5}%`;
+    const fillColor = priceFrom > 0 ? '#189C43' : '#dc3545';
+
+    useEffect(() => {
+        document.documentElement.style.setProperty('--fill-width', fillWidth);
+        document.documentElement.style.setProperty('--fill-color', fillColor);
+    }, [fillWidth, fillColor]);
+
     return (
         <>
-            <Navbar className="filter" bg="light" expand="lg">
+            <Navbar className="filter ms-1" bg="light" expand="lg">
                 <Form>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3 ms-3" controlId="formBasicEmail">
                         <Form.Label>Category</Form.Label>
                         <Form.Select aria-label="Default select example">
                             <option>Select category</option>
@@ -27,7 +35,7 @@ function Filter() {
                             <option value="3">Three</option>
                         </Form.Select>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3 ms-3" controlId="formBasicEmail">
                         <Form.Label>Subcategory</Form.Label>
                         <Form.Select aria-label="Default select example">
                             <option>Select category</option>
@@ -36,22 +44,28 @@ function Filter() {
                             <option value="3">Three</option>
                         </Form.Select>
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group className="mb-3 ms-3">
                         <Form.Label>Price from: {priceFrom} €</Form.Label>
                         <Form.Range
                             className="range-slider"
                             min={0}
                             max={1900}
                             step={10}
+                            value={priceFrom}
                             onChange={handlePriceFrom}
+                            style={{
+                                '--fill-width': fillWidth,
+                                '--fill-color': fillColor
+                            }}
                         />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group className="mb-3 ms-3">
                         <Form.Label>Price from: {priceTo} €</Form.Label>
                         <Form.Range
                             className="range-slider"
                             min={0}
                             max={2000}
+                            value={priceTo}
                             step={10}
                             onChange={handlePriceTo} />
                     </Form.Group>
