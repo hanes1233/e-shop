@@ -1,0 +1,8 @@
+.filter {
+    top: 208px;
+    width: 19rem;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid;
+}
