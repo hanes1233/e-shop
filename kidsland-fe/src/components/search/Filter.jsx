@@ -1,30 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Navbar } from "react-bootstrap";
 import '../../css/Filter.css';
+import { Slider, Typography } from "@mui/material";
 
 function Filter() {
-    const [priceFrom, setPriceFrom] = useState(0);
-    const [priceTo, setPriceTo] = useState(10);
+    // Separate states for minValue and maxValue
+    const [minValue, setMinValue] = useState(10);
+    const [maxValue, setMaxValue] = useState(35);
 
-    const handlePriceFrom = (e) => {
-        setPriceFrom(e.target.value);
+    // Handle minValue change, ensuring it doesn't exceed maxValue
+    const handleMinChange = (event, newMinValue) => {
+        // Ensure minValue does not exceed maxValue
+        if (newMinValue <= maxValue) {
+            setMinValue(newMinValue);
+        }
     };
 
-    const handlePriceTo = (e) => {
-        setPriceTo(e.target.value);
+    // Handle maxValue change, ensuring it doesn't go below minValue
+    const handleMaxChange = (event, newMaxValue) => {
+        // Ensure maxValue does not go below minValue
+        if (newMaxValue >= minValue) {
+            setMaxValue(newMaxValue);
+        }
     };
-
-    const fillWidth = `${(priceFrom / 100) * 5}%`;
-    const fillColor = priceFrom > 0 ? '#189C43' : '#dc3545';
-
-    useEffect(() => {
-        document.documentElement.style.setProperty('--fill-width', fillWidth);
-        document.documentElement.style.setProperty('--fill-color', fillColor);
-    }, [fillWidth, fillColor]);
 
     return (
         <>
-            <Navbar className="filter ms-1" bg="light" expand="lg">
+            <Navbar className="filter ms-1" expand="lg">
                 <Form>
                     <Form.Group className="mb-3 ms-3" controlId="formBasicEmail">
                         <Form.Label>Category</Form.Label>
@@ -38,36 +40,48 @@ function Filter() {
                     <Form.Group className="mb-3 ms-3" controlId="formBasicEmail">
                         <Form.Label>Subcategory</Form.Label>
                         <Form.Select aria-label="Default select example">
-                            <option>Select category</option>
+                            <option>Select subcategory</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </Form.Select>
                     </Form.Group>
-                    <Form.Group className="mb-3 ms-3">
-                        <Form.Label>Price from: {priceFrom} €</Form.Label>
-                        <Form.Range
-                            className="range-slider"
-                            min={0}
-                            max={1900}
-                            step={10}
-                            value={priceFrom}
-                            onChange={handlePriceFrom}
-                            style={{
-                                '--fill-width': fillWidth,
-                                '--fill-color': fillColor
-                            }}
-                        />
+                    <Form.Group className="mb-3 ms-3" controlId="formBasicEmail">
+                        <Form.Label>Size</Form.Label>
+                        <Form.Select aria-label="Default select example">
+                            <option>Size</option>
+                            <option value="1">XXS</option>
+                            <option value="2">XS</option>
+                            <option value="3">S</option>
+                            <option value="1">M</option>
+                            <option value="2">L</option>
+                            <option value="3">XL</option>
+                            <option value="3">XXL</option>
+                        </Form.Select>
                     </Form.Group>
                     <Form.Group className="mb-3 ms-3">
-                        <Form.Label>Price from: {priceTo} €</Form.Label>
-                        <Form.Range
-                            className="range-slider"
+                        <Form.Label>Price</Form.Label>
+                        <Slider
+                            className="ms-2"
                             min={0}
-                            max={2000}
-                            value={priceTo}
+                            max={500}
                             step={10}
-                            onChange={handlePriceTo} />
+                            value={[minValue, maxValue]}
+                            onChange={(e, newValue) => {
+                                // Prevent the minValue from exceeding maxValue, and vice versa
+                                const [newMin, newMax] = newValue;
+                                if (newMin > maxValue) {
+                                    setMinValue(maxValue); // Prevent minValue from exceeding maxValue
+                                } else if (newMax < minValue) {
+                                    setMaxValue(minValue); // Prevent maxValue from going below minValue
+                                } else {
+                                    setMinValue(newMin);
+                                    setMaxValue(newMax);
+                                }
+                            }}
+                            valueLabelDisplay="auto"
+                            valueLabelFormat={(value) => `${value} €`}
+                        />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
