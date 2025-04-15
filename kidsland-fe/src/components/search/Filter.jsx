@@ -1,28 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, Form, Navbar } from "react-bootstrap";
 import '../../css/Filter.css';
-import { Slider, Typography } from "@mui/material";
+import { Slider } from "@mui/material";
 
 function Filter() {
-    // Separate states for minValue and maxValue
-    const [minValue, setMinValue] = useState(10);
-    const [maxValue, setMaxValue] = useState(35);
+    const SLIDER_MIN = 0;
+    const SLIDER_MAX = 500;
 
-    // Handle minValue change, ensuring it doesn't exceed maxValue
-    const handleMinChange = (event, newMinValue) => {
-        // Ensure minValue does not exceed maxValue
-        if (newMinValue <= maxValue) {
-            setMinValue(newMinValue);
-        }
-    };
-
-    // Handle maxValue change, ensuring it doesn't go below minValue
-    const handleMaxChange = (event, newMaxValue) => {
-        // Ensure maxValue does not go below minValue
-        if (newMaxValue >= minValue) {
-            setMaxValue(newMaxValue);
-        }
-    };
+    const [minValue, setMinValue] = useState(SLIDER_MIN);
+    const [maxValue, setMaxValue] = useState(SLIDER_MAX - 200);
 
     return (
         <>
@@ -68,12 +54,11 @@ function Filter() {
                             step={10}
                             value={[minValue, maxValue]}
                             onChange={(e, newValue) => {
-                                // Prevent the minValue from exceeding maxValue, and vice versa
                                 const [newMin, newMax] = newValue;
                                 if (newMin > maxValue) {
-                                    setMinValue(maxValue); // Prevent minValue from exceeding maxValue
+                                    setMinValue(Math.max(maxValue - 10, SLIDER_MIN));
                                 } else if (newMax < minValue) {
-                                    setMaxValue(minValue); // Prevent maxValue from going below minValue
+                                    setMaxValue(Math.min(minValue + 10, SLIDER_MAX));
                                 } else {
                                     setMinValue(newMin);
                                     setMaxValue(newMax);
