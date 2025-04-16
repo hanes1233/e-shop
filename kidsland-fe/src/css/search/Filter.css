@@ -1,0 +1,25 @@
+.filter {
+    top: 208px;
+    width: 19rem;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+}
+
+.MuiSlider-rail {
+    background-color: #ddd !important;
+    height: px !important;
+}
+
+.MuiSlider-track {
+    background-color: #b1570e !important;
+    height: 2px !important;
+}
+
+.MuiSlider-thumb:first-of-type {
+    background-color: #0eb145 !important;
+}
+
+.MuiSlider-thumb:last-of-type {
+    background-color: #dc3545 !important;
+}

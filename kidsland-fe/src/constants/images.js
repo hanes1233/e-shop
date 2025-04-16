@@ -16,5 +16,6 @@ export const locationImg = <img className="ms-3" src="/icons/location.png" alt="
 // Kidsland logo©
 export const kidslandLogo = <img className="ms-2" src="/icon.png" alt="kidsland-logo" width={25} height={25} />
 
-// Shopping cart logo
+// Shopping cart
 export const shoppingCart = <img className="ms-2" src="/icons/shopping-cart.png" alt="shopping-cart-logo" width={45} height={45} />
+export const emptyCart = <img src="/wallpapers/empty-cart.png" alt="empty-cart" />

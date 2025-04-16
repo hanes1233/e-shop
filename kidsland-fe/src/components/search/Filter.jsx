@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { Button, Form, Navbar } from "react-bootstrap";
-import '../../css/Filter.css';
+import '../../css/search/Filter.css';
 import { Slider } from "@mui/material";
 
 function Filter() {
     const SLIDER_MIN = 0;
     const SLIDER_MAX = 500;
 
-    const [minValue, setMinValue] = useState(SLIDER_MIN);
-    const [maxValue, setMaxValue] = useState(SLIDER_MAX - 200);
+    const [minValue, setMinValue] = useState(SLIDER_MIN + 20);
+    const [maxValue, setMaxValue] = useState(SLIDER_MAX - 300);
 
     return (
         <>
             <Navbar className="filter ms-1" expand="lg">
                 <Form>
-                    <Form.Group className="mb-3 ms-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3 ms-3" >
                         <Form.Label>Category</Form.Label>
                         <Form.Select aria-label="Default select example">
                             <option>Select category</option>
@@ -23,7 +23,7 @@ function Filter() {
                             <option value="3">Three</option>
                         </Form.Select>
                     </Form.Group>
-                    <Form.Group className="mb-3 ms-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3 ms-3" >
                         <Form.Label>Subcategory</Form.Label>
                         <Form.Select aria-label="Default select example">
                             <option>Select subcategory</option>
@@ -32,7 +32,7 @@ function Filter() {
                             <option value="3">Three</option>
                         </Form.Select>
                     </Form.Group>
-                    <Form.Group className="mb-3 ms-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3 ms-3" >
                         <Form.Label>Size</Form.Label>
                         <Form.Select aria-label="Default select example">
                             <option>Size</option>
@@ -68,15 +68,23 @@ function Filter() {
                             valueLabelFormat={(value) => `${value} €`}
                         />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                    <Form.Group className="mb-3 ms-3" >
+                        <Form.Select aria-label="Default select example">
+                            <option value="1">Price - low to high</option>
+                            <option value="2">Price - high to low</option>
+                            <option value="3">Alphabetic</option>
+                            <option value="1">Most popular</option>
+                            <option value="2">Rating - low to high</option>
+                            <option value="3">Rating - high to low</option>
+                            <option value="3">Last added</option>
+                        </Form.Select>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Check me out" />
+                    <Form.Group className="mb-3 ms-3" >
+                        <Form.Label>Brand</Form.Label>
+                        <Form.Control type="text" placeholder="Type brand name" />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
+                    <Button className="mb-3 ms-3" variant="primary" type="submit">
+                        Apply
                     </Button>
                 </Form>
             </Navbar>

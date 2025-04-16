@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Col, Form, InputGroup } from "react-bootstrap";
-import '../../css/SearchBar.css';
+import '../../css/search/SearchBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 

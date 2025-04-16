@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, Outlet } from 'react-router-dom';
 import { Button, Col, Container, Row } from "react-bootstrap";
-import "../../css/Navbar.css";
+import "../../css/navigation/Navbar.css";
 import GuestHeader from "./api/GuestHeader";
 
 function Category({ category }) {

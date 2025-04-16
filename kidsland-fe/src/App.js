@@ -4,11 +4,12 @@ import Main from './Main';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Registration from './components/auth/Registration';
 import Category from './components/navigation/Category';
-import ItemsTable from './components/ItemsTable';
+import ItemsTable from './components/shop/ItemsTable';
 import React, { useEffect, useState } from 'react';
 import { apiGet } from './utils/api';
 import LoadingPage from './components/design/UIStates/LoadingPage';
 import NoData from './components/design/UIStates/NoData';
+import Cart from './components/shop/Cart';
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -42,6 +43,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main categories={categories} />} />
           <Route path="/registration" element={<Registration />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
         {!categories ? <LoadingPage />
           : <Routes>

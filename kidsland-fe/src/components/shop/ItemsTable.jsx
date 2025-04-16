@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Logo from "./design/Logo";
-import { apiGet } from "../utils/api";
+import Logo from "../design/Logo";
+import { apiGet } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import FloatingText from "./design/text/FloatingText";
-import Footer from "./navigation/Footer";
-import SandClock from "./design/UIStates/SandClock";
-import LoginBar from "./navigation/LoginBar";
-import SearchBar from "./search/SearchBar";
-import ShoppingCart from "./navigation/ShoppingCart";
+import FloatingText from "../design/text/FloatingText";
+import Footer from "../navigation/Footer";
+import SandClock from "../design/UIStates/SandClock";
+import LoginBar from "../navigation/LoginBar";
+import SearchBar from "../search/SearchBar";
+import ShoppingCart from "../design/ShoppingCartLogo";
 
 function ItemsTable(props) {
     const [items, setItems] = useState([]);

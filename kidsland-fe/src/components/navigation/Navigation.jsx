@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
-import '../../css/Navbar.css';
+import '../../css/navigation/Navbar.css';
 import { boyImg, girlImg, tagImg } from "../../constants/images";
 
 function Navigation(props) {

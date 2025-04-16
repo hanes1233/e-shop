@@ -1,5 +1,5 @@
 import React from "react";
-import '../../css/Footer.css';
+import '../../css/navigation/Footer.css';
 import { Col, Container, Row } from "react-bootstrap";
 import { facebookImg, instagramImg, kidslandLogo, locationImg, mailImg, twitterImg, youtubeImg } from "../../constants/images";
 
