@@ -8,8 +8,6 @@ function Category({ category }) {
     const navigate = useNavigate();
 
     const subcategories = category.subcategories;
-    console.log(subcategories);
-    console.log(category);
 
     if (!subcategories) {
         return (

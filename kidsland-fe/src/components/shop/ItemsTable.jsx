@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import Logo from "../design/Logo";
 import { apiGet } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
 import FloatingText from "../design/text/FloatingText";
 import Footer from "../navigation/Footer";
 import SandClock from "../design/UIStates/SandClock";
 import LoginBar from "../navigation/LoginBar";
 import SearchBar from "../search/SearchBar";
 import ShoppingCart from "../design/ShoppingCartLogo";
+import Filter from "../search/Filter";
+import '../../css/ItemGrid.css';
 
 function ItemsTable(props) {
     const [items, setItems] = useState([]);
@@ -21,7 +23,6 @@ function ItemsTable(props) {
         if (retryCount < 6) {
             return (
                 <>
-                    <ShoppingCart />
                     <LoginBar />
                     <Container>
                         <div className="text-center">
@@ -48,21 +49,26 @@ function ItemsTable(props) {
         };
 
         fetchData();
+    }, [URL]);
 
-        const interval = setInterval(() => {
-            setRetryCount((prev) => {
-                if (prev >= 5) {
-                    clearInterval(interval);
-                    navigate('/notfound');
-                    return prev;
-                }
-                fetchData();
-                return prev + 1;
-            });
-        }, 10000);
+    useEffect(() => {
+        if (items === null && retryCount <= 5) {
+            const interval = setTimeout(() => {
+                setRetryCount((prev) => prev + 1);
+                apiGet(`/api/subcategory/find${URL}`).then((data) => {
+                    if (data?.items) {
+                        setItems(data.items);
+                    }
+                });
+            }, 10000);
 
-        return () => clearInterval(interval);
-    }, []);
+            return () => clearTimeout(interval);
+        }
+
+        if (retryCount > 5 && items === null) {
+            navigate('/notfound');
+        }
+    }, [retryCount, items, URL, navigate]);
 
     return (
         <>
@@ -70,9 +76,23 @@ function ItemsTable(props) {
             <ShoppingCart />
             <LoginBar />
             <SearchBar />
-            {!items ? noData() : items.map((item, index) => {
-                return <p key={index}>{item.name}</p>;
-            })}
+            {!items ? noData() : (
+                <>
+                    <Filter />
+                    <Container className="item-grid mb-5">
+                        {items.map((item, index) => (
+                            <Card className="item-card" key={index}>
+                                <Card.Img variant="top" src={item.imageUrl} />
+                                <Card.Body>
+                                    <Card.Title>{item.name}</Card.Title>
+                                    <Card.Text>{item.description}</Card.Text>
+                                </Card.Body>
+                            </Card>
+                        ))}
+                    </Container>
+                    <Footer />
+                </>
+            )}
             <Footer />
         </>
     )

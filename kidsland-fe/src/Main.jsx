@@ -5,7 +5,6 @@ import Navigation from "./components/navigation/Navigation";
 import WallpaperSlideShow from "./components/design/WallpaperSlideShow";
 import Footer from "./components/navigation/Footer";
 import GuestHeader from "./components/navigation/api/GuestHeader";
-import Filter from "./components/search/Filter";
 
 function Main(props) {
 
@@ -17,7 +16,6 @@ function Main(props) {
                 :
                 <div>
                     <GuestHeader />
-                    <Filter />
                     <Container>
                         <FloatingText text="Welcome to KidsLand! Everything for your kid in one place" />
                         <WallpaperSlideShow />

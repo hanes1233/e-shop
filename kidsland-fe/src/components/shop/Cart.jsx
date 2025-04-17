@@ -16,7 +16,7 @@ function Cart() {
                 {items.length > 0 ?
                     <FloatingText text={`In my cart ${items} items`} /> :
                     <Container className="ms-5">
-                        <FloatingText text="My cart is currently empty" />
+                        <FloatingText text="Your cart is currently empty :(" />
                         {emptyCart}
                     </Container>
                 }
