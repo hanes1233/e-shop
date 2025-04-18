@@ -34,3 +34,13 @@ export const apiGet = async (url, params) => {
         return null;
     }
 };
+
+export const apiPost = (url, data) => {
+    const requestOptions = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data),
+    };
+
+    return fetchData(url, requestOptions);
+};

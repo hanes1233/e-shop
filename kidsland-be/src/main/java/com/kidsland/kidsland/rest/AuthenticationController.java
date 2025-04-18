@@ -17,9 +17,9 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
         LoginUserDTO loginUserDTO = new LoginUserDTO()
-                .setEmail(username)
+                .setEmail(email)
                 .setPassword(password);
         String token = authenticationService.authenticate(loginUserDTO);
         return ResponseEntity.ok(token);

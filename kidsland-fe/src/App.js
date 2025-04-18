@@ -15,9 +15,15 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  // const [token, setToken] = useState(null);
 
   useEffect(() => {
     if (!isLoaded) {
+      // const jwt = localStorage.getItem('token');
+      // if (!jwt) {
+      //   setToken(jwt);
+      // }
+
       apiGet("/api/v1/categories").then((data) => {
         if (data != null) {
           setCategories(data.categories)
@@ -55,7 +61,7 @@ function App() {
             {categories.map((category, index) => (
               <React.Fragment key={index}>
                 {category.subcategories.map((subcategory, key) => (
-                  <Route key={key} path={category.url + '/' + subcategory.url} element={<ItemsTable url={`${category.url}/${subcategory.url}`}/>} />
+                  <Route key={key} path={category.url + '/' + subcategory.url} element={<ItemsTable url={`${category.url}/${subcategory.url}`} />} />
                 ))}
               </React.Fragment>
             ))}
