@@ -25,10 +25,6 @@ class CacheManager {
         return user.value;
     }
 
-    has(key) {
-        return this.get(key) !== null;
-    }
-
     delete(key) {
         this.cache.delete(key);
     }
@@ -48,16 +44,23 @@ class CacheManager {
                 password: password
             }
 
-            const jwtToken = await apiPost('/api/auth/login', payload);
+            const jwt = await apiPost('/api/auth/login', payload);
 
-            if (!jwtToken) {
+            if (!jwt) {
                 // TODO: fetch(login) was not successful
             } else {
                 // TODO: check if should remember
-                const userToAdd = {
-                    password: password,
-                    token: jwtToken
+                localStorage.setItem("jwtToken", jwt);
+                const userToAdd = await apiGet('/api/users/find', { email: email });
+                if (!userToAdd) {
+                    console.log('User not found: ' + userToAdd);
+                } else {
+                    console.log(userToAdd);
                 }
+                // const userToAdd = {
+                //     password: password,
+                //     token: jwtToken
+                // }
                 this.cache.set(email, userToAdd);
             }
         } else {
@@ -70,7 +73,7 @@ class CacheManager {
         const userPassword = user.password;
         if (password === userPassword) {
             const token = user.token;
-            const isTokenValid = this.validateToken(token);
+            const isTokenValid = this.validateToken(user, token);
             if (isTokenValid) {
                 // redirect to admin panel
             } else {

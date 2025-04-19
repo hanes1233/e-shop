@@ -26,9 +26,16 @@ export const apiGet = async (url, params) => {
         Object.entries(params || {}).filter(([_, value]) => value != null)
     );
 
+    const jwt = localStorage.getItem("jwtToken");
+    console.log('jwt is ' + jwt);
     const apiUrl = `${url}?${new URLSearchParams(filteredParams)}`;
     const requestOptions = {
         method: "GET",
+        headers: {
+            'Authorization': `Bearer ${jwt}`,
+            'Content-Type': 'application/json',
+        },
+        credentials: "include"
     };
 
     try {
