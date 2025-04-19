@@ -1,4 +1,4 @@
-import { apiGet } from "./api";
+import { apiGet, apiPost } from "./api";
 
 class CacheManager {
 
@@ -37,32 +37,33 @@ class CacheManager {
         this.cache.clear();
     }
 
-    validate(data) {
+    async validate(data) {
         const user = this.cache.get(data.email);
-
         if (!user) {
-            const URL = '/api/auth/login?';
-            const email = encodeURIComponent(data.email);
-            const password = encodeURIComponent(data.password);
-            let jwtToken;
+            const email = data.email;
+            const password = data.password;
 
-            apiPost(`${URL}email=${email}&password=${password}`).then((data) => {
-                jwtToken = data;
-                if (!jwtToken) {
-                    // TODO: fetch(login) was not successful
-                } else {
-                    // TODO: check if should remember
-                    const userToAdd = {
-                        password: password,
-                        token: jwtToken
-                    }
-                    this.cache.set(email, userToAdd);
+            const payload = {
+                email: email,
+                password: password
+            }
+
+            const jwtToken = await apiPost('/api/auth/login', payload);
+
+            if (!jwtToken) {
+                // TODO: fetch(login) was not successful
+            } else {
+                // TODO: check if should remember
+                const userToAdd = {
+                    password: password,
+                    token: jwtToken
                 }
-            });
+                this.cache.set(email, userToAdd);
+            }
+        } else {
+            const password = data.password;
+            this.validatePassword(user, password);
         }
-
-        const password = data.password;
-        this.validatePassword(user, password);
     }
 
     validatePassword(user, password) {

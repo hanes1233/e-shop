@@ -15,7 +15,7 @@ function SearchBar() {
         <>
             <div className="search-bar">
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group as={Col} controlId="formBasicEmail">
+                    <Form.Group as={Col} controlId="searchBar">
                         <InputGroup>
                             <InputGroup.Text>
                                 <FontAwesomeIcon

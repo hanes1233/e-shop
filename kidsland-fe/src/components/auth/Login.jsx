@@ -71,6 +71,7 @@ function Login(props) {
                                         type="password"
                                         value={password}
                                         placeholder="Password"
+                                        autoComplete='current-password'
                                         required
                                         minLength={6} // Minimum length of password
                                         onChange={(e) => setPassword(e.target.value)}

@@ -24,8 +24,8 @@ import java.util.UUID;
 @Table(name = "user_h", schema = "fc")
 public class User implements Serializable, UserDetails {
     @Id
-    @Column(name = "username", nullable = false, length = 20)
-    private String username;
+    @Column(name = "email", nullable = false, length = 20)
+    private String email;
 
     @Column(name = "password", nullable = false, length = 250)
     private String password;
@@ -68,6 +68,11 @@ public class User implements Serializable, UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
     }
 
     @Override

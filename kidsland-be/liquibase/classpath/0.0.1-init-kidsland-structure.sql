@@ -8,7 +8,7 @@ CREATE SCHEMA IF NOT EXISTS fc;
 
 CREATE TABLE fc.user_h
 (
-    username VARCHAR (20) NOT NULL,
+    email VARCHAR (20) NOT NULL,
     password VARCHAR (250) NOT NULL,
     identity_id UUID NOT NULL,
     administrator BOOLEAN NOT NULL DEFAULT FALSE,
@@ -23,7 +23,7 @@ CREATE TABLE fc.user_h
 );
 
 ALTER TABLE fc.user_h
-    ADD CONSTRAINT pk_user PRIMARY KEY (username);
+    ADD CONSTRAINT pk_user PRIMARY KEY (email);
 
 CREATE TABLE fc.category
 (

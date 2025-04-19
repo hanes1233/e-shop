@@ -15,14 +15,10 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  // const [token, setToken] = useState(null);
+
 
   useEffect(() => {
     if (!isLoaded) {
-      // const jwt = localStorage.getItem('token');
-      // if (!jwt) {
-      //   setToken(jwt);
-      // }
 
       apiGet("/api/v1/categories").then((data) => {
         if (data != null) {
@@ -47,7 +43,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Main categories={categories} />} />
+          <Route exact path="/" element={<Main categories={categories} />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>
@@ -68,7 +64,6 @@ function App() {
             <Route path='/notfound' element={<NoData />} />
           </Routes>
         }
-
       </BrowserRouter>
     </>
   )

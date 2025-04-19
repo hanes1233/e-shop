@@ -9,8 +9,12 @@ const fetchData = (url, requestOptions) => {
                 throw new Error(`Error response: ${response.status} ${response.statusText}`);
             }
 
-            if (requestOptions.method !== 'DELETE')
+            const contentType = response.headers.get("Content-Type");
+            if (contentType && contentType.includes("application/json")) {
                 return response.json();
+            } else {
+                return response.text();
+            }
         })
         .catch((error) => {
             throw error;
@@ -30,7 +34,7 @@ export const apiGet = async (url, params) => {
     try {
         const data = await fetchData(apiUrl, requestOptions);
         return data;
-    } catch(error) {
+    } catch (error) {
         return null;
     }
 };
@@ -38,8 +42,11 @@ export const apiGet = async (url, params) => {
 export const apiPost = (url, data) => {
     const requestOptions = {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify(data),
+        credentials: "include"
     };
 
     return fetchData(url, requestOptions);

@@ -26,7 +26,7 @@ public class AuthenticationService {
         var updateDate = userToRegister.getTechUpdateDate();
 
         User user = new User()
-                .setUsername(userToRegister.getUsername())
+                .setEmail(userToRegister.getEmail())
                 .setPassword(passwordEncoder.encode(userToRegister.getPassword()))
                 .setAdministrator(userToRegister.getAdministrator())
                 .setIdentityId(userToRegister.getIdentityId())
@@ -50,7 +50,7 @@ public class AuthenticationService {
         );
 
         // Find the user from the database (assuming the username is the email)
-        UserDetails user = userRepository.findByUsername(input.getEmail())
+        UserDetails user = userRepository.findByEmail(input.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
         // Generate and return the JWT token for the authenticated user
         return jwtService.generateToken(user);

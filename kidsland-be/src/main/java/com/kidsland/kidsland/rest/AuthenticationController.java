@@ -4,10 +4,7 @@ import com.kidsland.kidsland.dto.LoginUserDTO;
 import com.kidsland.kidsland.security.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -16,12 +13,12 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
-        LoginUserDTO loginUserDTO = new LoginUserDTO()
-                .setEmail(email)
-                .setPassword(password);
+    @PostMapping(value = "/login", produces = "text/plain")
+    public ResponseEntity<String> login(@RequestBody LoginUserDTO loginUserDTO) {
+        System.out.println("email : " + loginUserDTO.getEmail());
+        System.out.println("password : " + loginUserDTO.getPassword());
         String token = authenticationService.authenticate(loginUserDTO);
+        System.out.println("token is " + token);
         return ResponseEntity.ok(token);
     }
 }
