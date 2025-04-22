@@ -33,6 +33,7 @@ public class SecurityConfiguration {
                         authorizeRequests
                         .requestMatchers("/api/v1/categories", "/api/auth/**", "/api/subcategory/find/**")
                         .permitAll()
+                        .requestMatchers("/api/users/find").hasRole("USER")
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(sessionManagement ->

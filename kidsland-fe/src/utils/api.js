@@ -1,3 +1,5 @@
+import { data } from "react-router-dom";
+
 const API_URL = "http://localhost:8080";
 
 const fetchData = (url, requestOptions) => {
@@ -29,17 +31,21 @@ export const apiGet = async (url, params) => {
     const jwt = localStorage.getItem("jwtToken");
     console.log('jwt is ' + jwt);
     const apiUrl = `${url}?${new URLSearchParams(filteredParams)}`;
+    const headers = jwt ? {
+        'Authorization': `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
+    } : {
+        'Content-Type': 'application/json'
+    }
     const requestOptions = {
         method: "GET",
-        headers: {
-            'Authorization': `Bearer ${jwt}`,
-            'Content-Type': 'application/json',
-        },
+        headers: headers,
         credentials: "include"
     };
 
     try {
         const data = await fetchData(apiUrl, requestOptions);
+        console.log(data);
         return data;
     } catch (error) {
         return null;

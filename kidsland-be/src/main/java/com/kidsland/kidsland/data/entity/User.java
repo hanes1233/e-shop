@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
@@ -16,6 +17,9 @@ import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+
+import static com.kidsland.kidsland.constants.Role.ADMIN;
+import static com.kidsland.kidsland.constants.Role.USER;
 
 @Getter
 @Setter
@@ -67,7 +71,14 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        if (!isAccountNonExpired() || !isAccountNonLocked() || !isCredentialsNonExpired() || !isEnabled()) {
+            return List.of();
+        } else {
+            if (Boolean.TRUE.equals(administrator) || Boolean.TRUE.equals(!readOnly)) {
+                return List.of(new SimpleGrantedAuthority(ADMIN.getRole()));
+            }
+            return List.of(new SimpleGrantedAuthority(USER.getRole()));
+        }
     }
 
     @Override
@@ -77,7 +88,7 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return this.validTo.isAfter(OffsetDateTime.now());
     }
 
     @Override
