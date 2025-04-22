@@ -5,6 +5,7 @@ import { CloseButton, Col, Container, Form, InputGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import cacheManager from '../../utils/CacheManager';
+import userValidations from '../../utils/userValidations';
 
 function Login(props) {
     const [showModal, setShowModal] = useState(props.toggleModal);
@@ -29,6 +30,18 @@ function Login(props) {
                 password: password,
                 token: null
             }
+
+            if (cacheManager.get(email)) {
+                // redirect to main
+            } else {
+                const userData = {
+                    email: email,
+                    password: password,
+                    token: null
+                }
+                userValidations.validate(userData);
+            }
+
             cacheManager.validate(userData);
         }
     };

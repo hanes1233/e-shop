@@ -14,9 +14,8 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping(value = "/find/", produces = {"application/json", "application/xml"})
+    @GetMapping(value = "/find", produces = {"application/json", "application/xml"})
     public ResponseEntity<UserDTO> findByEmail(@RequestParam String email) {
-        System.out.println("IM IN FINDBYEMAIL");
         return userService.findByEmail(email)
                 .map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

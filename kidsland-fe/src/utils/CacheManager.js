@@ -33,6 +33,7 @@ class CacheManager {
         this.cache.clear();
     }
 
+    // FIXME: remove method, use validations.js
     async validate(data) {
         const user = this.cache.get(data.email);
         if (!user) {

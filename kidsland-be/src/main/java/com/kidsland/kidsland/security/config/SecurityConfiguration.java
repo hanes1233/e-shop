@@ -17,6 +17,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+import static com.kidsland.kidsland.constants.Role.ADMIN;
+import static com.kidsland.kidsland.constants.Role.USER;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -33,7 +36,7 @@ public class SecurityConfiguration {
                         authorizeRequests
                         .requestMatchers("/api/v1/categories", "/api/auth/**", "/api/subcategory/find/**")
                         .permitAll()
-                        .requestMatchers("/api/users/find").hasRole("USER")
+                        .requestMatchers("/api/users/find").hasAnyRole(USER.name(), ADMIN.name())
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(sessionManagement ->

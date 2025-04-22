@@ -75,9 +75,9 @@ public class User implements Serializable, UserDetails {
             return List.of();
         } else {
             if (Boolean.TRUE.equals(administrator) || Boolean.TRUE.equals(!readOnly)) {
-                return List.of(new SimpleGrantedAuthority(ADMIN.getRole()));
+                return List.of(new SimpleGrantedAuthority("ROLE_" + ADMIN.name()));
             }
-            return List.of(new SimpleGrantedAuthority(USER.getRole()));
+            return List.of(new SimpleGrantedAuthority("ROLE_" + USER.name()));
         }
     }
 
