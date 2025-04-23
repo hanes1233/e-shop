@@ -1,93 +1,64 @@
-import { apiGet, apiPost } from "./api";
 
 class CacheManager {
 
     constructor() {
+        // Set cache expiry
+        this.expiry = Date.now() + 60 * 60 * 1000;
         this.cache = new Map();
     }
 
     set(key, value) {
+        this.checkExpiration();
         const expiry = Date.now() + 3600 * 1000;
         this.cache.set(key, { value, expiry });
     }
 
-    get(key) {
+    get(key, password) {
+        this.checkExpiration();
         const user = this.cache.get(key);
         if (!user) {
             return null;
         }
 
-        if (Date.now() > user.expiry) {
-            this.cache.delete(key);
+        const isPasswordMatch = this.isPasswordMatch(user.password, password);
+        const isUserExpired = this.isUserExpired(key,user);
+
+        if (isPasswordMatch && !isUserExpired) {
+            return user;
+        } else {
             return null;
         }
-
-        return user.value;
     }
 
     delete(key) {
         this.cache.delete(key);
     }
 
+    checkExpiration() {
+        if (this.expiry < Date.now()) {
+            this.clear();
+            this.expiry = Date.now() + 60 * 60 * 1000;
+        }
+    }
+
     clear() {
         this.cache.clear();
     }
 
-    // FIXME: remove method, use validations.js
-    async validate(data) {
-        const user = this.cache.get(data.email);
-        if (!user) {
-            const email = data.email;
-            const password = data.password;
-
-            const payload = {
-                email: email,
-                password: password
-            }
-
-            const jwt = await apiPost('/api/auth/login', payload);
-
-            if (!jwt) {
-                // TODO: fetch(login) was not successful
-            } else {
-                // TODO: check if should remember
-                localStorage.setItem("jwtToken", jwt);
-                const userToAdd = await apiGet('/api/users/find', { email: email });
-                if (!userToAdd) {
-                    console.log('User not found: ' + userToAdd);
-                } else {
-                    console.log(userToAdd);
-                }
-                // const userToAdd = {
-                //     password: password,
-                //     token: jwtToken
-                // }
-                this.cache.set(email, userToAdd);
-            }
-        } else {
-            const password = data.password;
-            this.validatePassword(user, password);
+    isPasswordMatch(cachedPassword, inputPassword) {
+        if (!cachedPassword || !inputPassword) {
+            return false;
         }
+        return cachedPassword === inputPassword;
     }
 
-    validatePassword(user, password) {
-        const userPassword = user.password;
-        if (password === userPassword) {
-            const token = user.token;
-            const isTokenValid = this.validateToken(user, token);
-            if (isTokenValid) {
-                // redirect to admin panel
-            } else {
-                // redirect to main page
-            }
+    isUserExpired(key,cachedUser) {
+        if (Date.now() > cachedUser.expiry) {
+            this.cache.delete(key);
+            return true;
         }
+        return false;
     }
-
-    validateToken(user, token) {
-        const userToken = user.token;
-        return token === userToken;
-    }
-
 }
 
 const cacheManager = new CacheManager();

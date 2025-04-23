@@ -5,7 +5,7 @@ import { CloseButton, Col, Container, Form, InputGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import cacheManager from '../../utils/CacheManager';
-import userValidations from '../../utils/userValidations';
+import { validate } from '../../utils/userValidations';
 
 function Login(props) {
     const [showModal, setShowModal] = useState(props.toggleModal);
@@ -27,22 +27,14 @@ function Login(props) {
         } else {
             const userData = {
                 email: email,
-                password: password,
-                token: null
+                password: password
             }
-
-            if (cacheManager.get(email)) {
-                // redirect to main
+            const cachedUser = cacheManager.get(email, password);
+            if (cachedUser) {
+                //cachedUser.admin ? //TODO: redirect to admin panel : //TODO: redirect to user panel
             } else {
-                const userData = {
-                    email: email,
-                    password: password,
-                    token: null
-                }
-                userValidations.validate(userData);
+                validate(userData);
             }
-
-            cacheManager.validate(userData);
         }
     };
 

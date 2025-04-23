@@ -16,7 +16,6 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-
   useEffect(() => {
     if (!isLoaded) {
 

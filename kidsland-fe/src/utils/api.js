@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { data } from "react-router-dom";
 
 const API_URL = "http://localhost:8080";
@@ -28,11 +29,11 @@ export const apiGet = async (url, params) => {
         Object.entries(params || {}).filter(([_, value]) => value != null)
     );
 
-    const jwt = localStorage.getItem("jwtToken");
-    console.log('jwt is ' + jwt);
+    const cacheToken = localStorage.getItem("jwtToken");
+    const token = cacheToken ? JSON.parse(cacheToken) : null;
     const apiUrl = `${url}?${new URLSearchParams(filteredParams)}`;
-    const headers = jwt ? {
-        'Authorization': `Bearer ${jwt}`,
+    const headers = token && Date.now() < token.expiry ? {
+        'Authorization': `Bearer ${token.jwt}`,
         'Content-Type': 'application/json'
     } : {
         'Content-Type': 'application/json'

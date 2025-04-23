@@ -1,7 +1,6 @@
 import { apiGet, apiPost } from "./api";
 
-// TODO: rename method
-async function validate(data) {
+export async function validate(data) {
     const email = data.email;
     const password = data.password;
 
@@ -15,24 +14,70 @@ async function validate(data) {
 
     if (!jwt) {
         // TODO: fetch(login) was not successful
+        notifyUser(message);
     } else {
         // TODO: check if should remember
-        localStorage.setItem("jwtToken", jwt);
+        const token = {
+            jwt: jwt,
+            expiry: Date.now() + 60 * 60 * 1000
+        };
+        localStorage.setItem("jwtToken", JSON.stringify(token));
         const fetchedUser = await apiGet('/api/users/find', { email: email });
+        const userToAdd = createUser(fetchedUser, password, token);
+
         if (!fetchedUser) {
             console.log('User not found: ' + userToAdd);
         } else {
             console.log(fetchedUser);
         }
-        const userToAdd = {
-            password: password,
-            token: jwt, // TODO: should be saved?
-            administrator: fetchedUser.administrator,
-            readOnly: fetchedUser.readOnly,
-            expiry: fetchedUser.validTo
-        }
-        // TODO: check is user not expired
-        this.cache.set(email, userToAdd);
-        // TODO: check is user admin or readonly=false and redirect to corresponding page
     }
 }
+
+function createUser(sourceUser, password, token) {
+    try {
+        basicValidations(sourceUser);
+    } catch (error) {
+        // TODO: redirect?
+    }
+
+    const userToCache = {
+        password: password,
+        token: token,
+        admin: validateRole(sourceUser.administrator, sourceUser.readOnly),
+        expiry: sourceUser.validTo
+    }
+    this.cache.set(sourceUser.email, userToCache);
+    return userToCache;
+}
+
+function validateRole(role, readOnly) {
+    if (role || !readOnly) {
+        return true;
+    }
+    return false;
+}
+
+function isExpired(expiry) {
+    if (!expiry) {
+        return false;
+    }
+    return expiry > Date.now();
+}
+
+function basicValidations(sourceUser) {
+    if (!sourceUser) {
+        // TODO: user not found > notifyUser
+        var message;
+        notifyUser();
+        throw new Error("User not found");
+    }
+
+    if (isExpired(sourceUser.validTo)) {
+        // TODO: user is expired
+        var message;
+        notifyUser();
+        throw new Error("User is expired")
+    }
+}
+
+function notifyUser(message) {}
