@@ -33,7 +33,7 @@ function Login(props) {
             if (cachedUser) {
                 //cachedUser.admin ? //TODO: redirect to admin panel : //TODO: redirect to user panel
             } else {
-                validate(userData);
+                validate(userData, rememberMe);
             }
         }
     };

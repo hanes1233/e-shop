@@ -1,6 +1,8 @@
 import { apiGet, apiPost } from "./api";
+import cacheManager from "./CacheManager";
+import { saveToken } from "./jwtService";
 
-export async function validate(data) {
+export const validate = async (data, rememberMe) => {
     const email = data.email;
     const password = data.password;
 
@@ -14,15 +16,19 @@ export async function validate(data) {
 
     if (!jwt) {
         // TODO: fetch(login) was not successful
+        var message;
         notifyUser(message);
     } else {
-        // TODO: check if should remember
         const token = {
             jwt: jwt,
             expiry: Date.now() + 60 * 60 * 1000
         };
-        localStorage.setItem("jwtToken", JSON.stringify(token));
+        // Save token to session or local storage, depending on rememberMe value
+        saveToken(token, rememberMe);
+
         const fetchedUser = await apiGet('/api/users/find', { email: email });
+
+        // TODO: check if should save first ! (depends on rememberMe value)
         const userToAdd = createUser(fetchedUser, password, token);
 
         if (!fetchedUser) {
@@ -33,7 +39,7 @@ export async function validate(data) {
     }
 }
 
-function createUser(sourceUser, password, token) {
+const createUser = (sourceUser, password, token) => {
     try {
         basicValidations(sourceUser);
     } catch (error) {
@@ -46,25 +52,25 @@ function createUser(sourceUser, password, token) {
         admin: validateRole(sourceUser.administrator, sourceUser.readOnly),
         expiry: sourceUser.validTo
     }
-    this.cache.set(sourceUser.email, userToCache);
+    cacheManager.set(sourceUser.email, userToCache);
     return userToCache;
 }
 
-function validateRole(role, readOnly) {
+const validateRole = (role, readOnly) => {
     if (role || !readOnly) {
         return true;
     }
     return false;
 }
 
-function isExpired(expiry) {
+const isExpired = (expiry) => {
     if (!expiry) {
         return false;
     }
     return expiry > Date.now();
 }
 
-function basicValidations(sourceUser) {
+const basicValidations = (sourceUser) => {
     if (!sourceUser) {
         // TODO: user not found > notifyUser
         var message;
@@ -80,4 +86,4 @@ function basicValidations(sourceUser) {
     }
 }
 
-function notifyUser(message) {}
+const notifyUser = (message) => {}
