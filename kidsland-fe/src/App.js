@@ -10,6 +10,7 @@ import { apiGet } from './utils/api';
 import LoadingPage from './components/design/UIStates/LoadingPage';
 import NoData from './components/design/UIStates/NoData';
 import Cart from './components/shop/Cart';
+import { GET_CATEGORIES } from './constants/urls';
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -19,7 +20,7 @@ function App() {
   useEffect(() => {
     if (!isLoaded) {
 
-      apiGet("/api/v1/categories").then((data) => {
+      apiGet(GET_CATEGORIES).then((data) => {
         if (data != null) {
           setCategories(data.categories)
           setIsLoaded(true);

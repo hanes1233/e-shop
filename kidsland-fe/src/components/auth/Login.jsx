@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import cacheManager from '../../utils/CacheManager';
 import { validate } from '../../utils/userValidations';
+import { handleCachedCredentials, handleValidationResult } from '../../utils/redirect';
 
 function Login(props) {
     const [showModal, setShowModal] = useState(props.toggleModal);
@@ -32,8 +33,10 @@ function Login(props) {
             const cachedUser = cacheManager.get(email, password);
             if (cachedUser) {
                 //cachedUser.admin ? //TODO: redirect to admin panel : //TODO: redirect to user panel
+                handleCachedCredentials(cachedUser);
             } else {
-                validate(userData, rememberMe);
+                const validationResult = validate(userData, rememberMe);
+                handleValidationResult(validationResult);
             }
         }
     };

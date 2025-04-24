@@ -10,6 +10,7 @@ import LoginBar from "../navigation/LoginBar";
 import SearchBar from "../search/SearchBar";
 import ShoppingCart from "../design/ShoppingCartLogo";
 import Filter from "../search/Filter";
+import { GET_SUBCATEGORY } from "../../constants/urls";
 import '../../css/ItemGrid.css';
 
 function ItemsTable(props) {
@@ -39,7 +40,7 @@ function ItemsTable(props) {
 
     useEffect(() => {
         const fetchData = () => {
-            apiGet(`/api/subcategory/find${URL}`).then((data) => {
+            apiGet(`${GET_SUBCATEGORY}${URL}`).then((data) => {
                 if (data?.items) {
                     setItems(data.items);
                 } else {
@@ -55,7 +56,7 @@ function ItemsTable(props) {
         if (items === null && retryCount <= 5) {
             const interval = setTimeout(() => {
                 setRetryCount((prev) => prev + 1);
-                apiGet(`/api/subcategory/find${URL}`).then((data) => {
+                apiGet(`${GET_SUBCATEGORY}${URL}`).then((data) => {
                     if (data?.items) {
                         setItems(data.items);
                     }

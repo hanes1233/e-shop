@@ -1,0 +1,4 @@
+export const INVALID_CREDENTIALS = 'INVALID_CREDENTIALS';
+export const FETCH_ERROR = 'FETCH_ERROR';
+export const NOT_FOUND = 'NOT_FOUND';
+export const USER_EXPIRED = 'USER_EXPIRED';
