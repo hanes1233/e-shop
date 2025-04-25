@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../design/Logo";
-import { apiGet } from "../../utils/api";
+import { apiGet } from "../../utils/client";
 import { useNavigate } from "react-router-dom";
 import { Card, Container } from "react-bootstrap";
 import FloatingText from "../design/text/FloatingText";

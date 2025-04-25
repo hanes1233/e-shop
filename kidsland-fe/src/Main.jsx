@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Container from 'react-bootstrap/Container';
 import FloatingText from "./components/design/text/FloatingText";
 import Navigation from "./components/navigation/Navigation";

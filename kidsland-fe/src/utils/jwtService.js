@@ -28,9 +28,11 @@ const checkStorage = (storageType) => {
         if (isTokenValid(parsedToken)) {
             return parsedToken;
         }
+        storageType.clear();
     }
     return null;
 }
 
 const checkLocalStorage = () => checkStorage(localStorage);
+
 const checkSessionStorage = () => checkStorage(sessionStorage);

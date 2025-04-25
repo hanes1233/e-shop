@@ -2,23 +2,24 @@ import { SUCCESS } from "../constants/state"
 import { USER_CACHED } from "../constants/success";
 import { INVALID_CREDENTIALS, FETCH_ERROR, NOT_FOUND, USER_EXPIRED } from "../constants/errors";
 
-export const handleValidationResult = (validationResult) => {
+export const handleValidationResult = (validationResult, navigate) => {
     const STATE = validationResult.STATE;
     const DETAIL = validationResult.DETAIL;
-    STATE === SUCCESS ? handleSuccess(DETAIL) : handleError(DETAIL);
+    const ADMIN = validationResult.ADMIN;
+    STATE === SUCCESS ? handleSuccess(DETAIL, ADMIN, navigate) : handleError(DETAIL, navigate);
 }
 
 export const handleCachedCredentials = (cache) => {
     // TODO: implement
 }
 
-const handleSuccess = (detail) => {
+const handleSuccess = (detail, admin, navigate) => {
     if (detail === USER_CACHED) {
-        // TODO: redirect
+        // TODO: admin ? navigate(someAdminUrl) : navigate(someUserUrl)
     }
 }
 
-const handleError = (detail) => {
+const handleError = (detail, navigate) => {
     // TODO: redirect
     switch (detail) {
         case INVALID_CREDENTIALS: return '';

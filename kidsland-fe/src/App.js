@@ -6,11 +6,14 @@ import Registration from './components/auth/Registration';
 import Category from './components/navigation/Category';
 import ItemsTable from './components/shop/ItemsTable';
 import React, { useEffect, useState } from 'react';
-import { apiGet } from './utils/api';
+import { apiGet } from './utils/client';
 import LoadingPage from './components/design/UIStates/LoadingPage';
 import NoData from './components/design/UIStates/NoData';
 import Cart from './components/shop/Cart';
 import { GET_CATEGORIES } from './constants/urls';
+import UserPanel from './components/design/panel/UserPanel';
+import AdminPanel from './components/design/panel/AdminPanel';
+import SecurityWrapper from './components/auth/SecurityWrapper';
 
 function App() {
   const [categories, setCategories] = useState([]);
@@ -46,6 +49,12 @@ function App() {
           <Route exact path="/" element={<Main categories={categories} />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/profile" element={<UserPanel />} />
+          <Route path="/admin" element={
+            <SecurityWrapper>
+              <AdminPanel />
+            </SecurityWrapper>
+          } />
         </Routes>
         {!categories ? <LoadingPage />
           : <Routes>

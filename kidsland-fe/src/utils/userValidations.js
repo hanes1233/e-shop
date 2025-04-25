@@ -1,10 +1,11 @@
-import { apiGet, apiPost } from "./api";
+import { apiGet, apiPost } from "./client";
 import cacheManager from "./CacheManager";
 import { saveToken } from "./jwtService";
 import { GET_USER, GET_TOKEN } from "../constants/urls";
 import { ERROR, SUCCESS } from "../constants/state";
 import { INVALID_CREDENTIALS, FETCH_ERROR, NOT_FOUND, USER_EXPIRED } from "../constants/errors";
 import { USER_CACHED } from "../constants/success";
+import { cache } from "react";
 
 export const validate = async (data, rememberMe) => {
     // Retrieve credentials from 'data' parameter
@@ -58,7 +59,8 @@ const saveToCache = (sourceUser, password, token) => {
     } catch (error) {
         return constructResult(ERROR, error.message)
     }
-    return constructResult(SUCCESS, USER_CACHED);
+    const isAdmin = validateRole(sourceUser.administrator, sourceUser.readOnly);
+    return constructResult(SUCCESS, USER_CACHED, isAdmin);
 }
 
 const validateRole = (role, readOnly) => {
@@ -98,9 +100,10 @@ const createUser = (password, token, sourceUser) => {
     }
 }
 
-const constructResult = (state, detail) => {
+const constructResult = (state, detail, admin = false) => {
     return {
         STATE: state,
-        DETAIL: detail
+        DETAIL: detail,
+        ADMIN: admin
     }
 }

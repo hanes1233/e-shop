@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import cacheManager from '../../utils/CacheManager';
 import { validate } from '../../utils/userValidations';
-import { handleCachedCredentials, handleValidationResult } from '../../utils/redirect';
+import { handleCachedCredentials, handleValidationResult } from '../../utils/validationResultHandler';
 
 function Login(props) {
     const [showModal, setShowModal] = useState(props.toggleModal);
@@ -36,7 +36,7 @@ function Login(props) {
                 handleCachedCredentials(cachedUser);
             } else {
                 const validationResult = validate(userData, rememberMe);
-                handleValidationResult(validationResult);
+                handleValidationResult(validationResult, navigate);
             }
         }
     };
