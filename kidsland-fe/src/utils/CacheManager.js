@@ -5,12 +5,24 @@ class CacheManager {
         // Set cache expiry
         this.expiry = Date.now() + 60 * 60 * 1000;
         this.cache = new Map();
+        this.secondPhaseCache = new Map();
     }
 
     set(key, value) {
+        // First phase (general) cache
         this.checkExpiration();
         const expiry = Date.now() + 3600 * 1000;
         this.cache.set(key, { value, expiry });
+        console.log('STARTING SECOND PHASE!')
+        // Second phase (internal) cache
+        const jwt = value.token;
+        const admin = value.admin;
+        this.addJwtUserInfo(jwt, admin, expiry);
+    }
+
+    addJwtUserInfo(key, admin, expiry) {
+        this.secondPhaseCache.set(key, { admin, expiry });
+        console.log('UserInfo added for token ' + key);
     }
 
     get(key, password) {
@@ -30,8 +42,16 @@ class CacheManager {
         }
     }
 
+    getCachedUserInfo(key) {
+        return this.secondPhaseCache.get(key);
+    }
+
     delete(key) {
         this.cache.delete(key);
+    }
+
+    deleteJwtUserInfo(key) {
+        this.secondPhaseCache.delete(key);
     }
 
     checkExpiration() {
@@ -43,6 +63,7 @@ class CacheManager {
 
     clear() {
         this.cache.clear();
+        this.secondPhaseCache.clear();
     }
 
     isPasswordMatch(cachedPassword, inputPassword) {

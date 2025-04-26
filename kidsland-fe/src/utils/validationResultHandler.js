@@ -1,5 +1,5 @@
 import { SUCCESS } from "../constants/state"
-import { USER_CACHED } from "../constants/success";
+import { USER_CACHED, USER_NOT_CACHED } from "../constants/success";
 import { INVALID_CREDENTIALS, FETCH_ERROR, NOT_FOUND, USER_EXPIRED } from "../constants/errors";
 
 export const handleValidationResult = (validationResult, navigate) => {
@@ -14,8 +14,8 @@ export const handleCachedCredentials = (cache) => {
 }
 
 const handleSuccess = (detail, admin, navigate) => {
-    if (detail === USER_CACHED) {
-        // TODO: admin ? navigate(someAdminUrl) : navigate(someUserUrl)
+    if (detail === USER_CACHED || detail === USER_NOT_CACHED) {
+        admin ? navigate("/admin") : navigate("/");
     }
 }
 

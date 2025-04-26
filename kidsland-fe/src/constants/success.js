@@ -1,1 +1,2 @@
 export const USER_CACHED = 'USER_CACHED';
+export const USER_NOT_CACHED = 'USER_NOT_CACHED';

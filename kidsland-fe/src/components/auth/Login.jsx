@@ -19,7 +19,7 @@ function Login(props) {
 
     const handleClose = props.handleClose;
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         const form = event.currentTarget;
@@ -35,7 +35,7 @@ function Login(props) {
                 //cachedUser.admin ? //TODO: redirect to admin panel : //TODO: redirect to user panel
                 handleCachedCredentials(cachedUser);
             } else {
-                const validationResult = validate(userData, rememberMe);
+                const validationResult = await validate(userData, rememberMe);
                 handleValidationResult(validationResult, navigate);
             }
         }

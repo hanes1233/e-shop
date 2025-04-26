@@ -39,7 +39,6 @@ export const apiGet = async (url, params) => {
 
     try {
         const data = await fetchData(apiUrl, requestOptions);
-        console.log(data);
         return data;
     } catch (error) {
         return null;

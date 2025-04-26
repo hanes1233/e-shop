@@ -1,3 +1,6 @@
+import cacheManager from "./CacheManager";
+import { validateDataConsistency } from "./userValidations";
+
 export const lookUpForToken = () => {
     const localStorageToken = checkLocalStorage();
     const sessionStorageToken = checkSessionStorage();
@@ -16,6 +19,23 @@ export const saveToken = (token, storage) => {
         sessionStorage.setItem("jwtToken", JSON.stringify(token));
     }
 }
+
+export const findToken = () => {
+    let localToken = checkLocalStorage(localStorage);
+    let sessionToken = checkSessionStorage(sessionStorage);
+
+    if (!localToken && !sessionToken) {
+        return null;
+    } else if (localToken && sessionToken) {
+        if (localToken !== sessionToken) {
+            return validateDataConsistency(localToken, sessionToken);
+        }
+        return localToken;
+    }
+    return localToken ? localToken : sessionToken;
+}
+
+
 
 const isTokenValid = (token) => {
     return Date.now() < token.expiry;

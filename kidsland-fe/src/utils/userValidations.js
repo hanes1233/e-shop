@@ -4,8 +4,7 @@ import { saveToken } from "./jwtService";
 import { GET_USER, GET_TOKEN } from "../constants/urls";
 import { ERROR, SUCCESS } from "../constants/state";
 import { INVALID_CREDENTIALS, FETCH_ERROR, NOT_FOUND, USER_EXPIRED } from "../constants/errors";
-import { USER_CACHED } from "../constants/success";
-import { cache } from "react";
+import { USER_CACHED, USER_NOT_CACHED } from "../constants/success";
 
 export const validate = async (data, rememberMe) => {
     // Retrieve credentials from 'data' parameter
@@ -36,14 +35,31 @@ export const validate = async (data, rememberMe) => {
         if (!fetchedUser) {
             return constructResult(ERROR, FETCH_ERROR);
         } else {
-            // TODO: remove this line when no needed
-            console.log(fetchedUser);
             // If user checked 'rememberMe', save credentials to cache
             if (rememberMe) {
                 return saveToCache(fetchedUser, password, token);
+            } else {
+                const expiry = Date.now() + 20 * 60 * 1000;
+                const isAdmin = validateRole(fetchedUser.administrator, fetchedUser.readOnly);
+                cacheManager.addJwtUserInfo(token.jwt, isAdmin, expiry);
+                return constructResult(SUCCESS, USER_NOT_CACHED, isAdmin);
             }
         }
     }
+}
+
+export const validateDataConsistency = (localToken, sessionToken) => {
+    const localUserInfo = getValidUserInfo(localToken);
+    const sessionUserInfo = getValidUserInfo(sessionToken);
+
+    if (!localUserInfo && !sessionUserInfo) {
+        clearStorages();
+        throw new Error('User(s) with valid token(s) was not saved to cache neither to session data-storage for unknown reason. Both tokens will be removed from current session.');
+    } else if (localUserInfo && sessionUserInfo) {
+        clearStorages();
+        throw new Error(`There are 2 valid tokens in cache and session with different users: Local Token User - ${localUserInfo.userId}, Session Token User - ${sessionUserInfo.userId}. Both tokens will be removed from current session.`);
+    }
+    return localUserInfo ? localToken : sessionToken;
 }
 
 const saveToCache = (sourceUser, password, token) => {
@@ -55,7 +71,9 @@ const saveToCache = (sourceUser, password, token) => {
         const userToCache = createUser(password, token, sourceUser);
 
         // Save user to cache
+        const isAdmin = validateRole(sourceUser.administrator, sourceUser.readOnly)
         cacheManager.set(sourceUser.email, userToCache);
+        cacheManager.addJwtUserInfo(token.jwt, isAdmin);
     } catch (error) {
         return constructResult(ERROR, error.message)
     }
@@ -106,4 +124,22 @@ const constructResult = (state, detail, admin = false) => {
         DETAIL: detail,
         ADMIN: admin
     }
+}
+
+const getValidUserInfo = (token) => {
+    const userInfo = cacheManager.getCachedUserInfo(token.jwt);
+    if (!userInfo) {
+        console.log('userinfo is null for token ' + token.jwt);
+        return null;
+    }
+    if (isExpired(userInfo.expiry)) {
+        cacheManager.deleteJwtUserInfo(token);
+        return null;
+    }
+    return userInfo;
+}
+
+const clearStorages = () => {
+    localStorage.clear();
+    sessionStorage.clear();
 }
