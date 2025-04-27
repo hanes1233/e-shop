@@ -1,4 +1,4 @@
-import { lookUpForToken } from "./jwtService";
+import { findToken } from "./jwtService";
 
 const API_URL = "http://localhost:8080";
 
@@ -28,7 +28,7 @@ export const apiGet = async (url, params) => {
         Object.entries(params || {}).filter(([_, value]) => value != null)
     );
 
-    const token = lookUpForToken();
+    const token = findToken();
     const apiUrl = `${url}?${new URLSearchParams(filteredParams)}`;
     const headers = getHeaders(token);
     const requestOptions = {

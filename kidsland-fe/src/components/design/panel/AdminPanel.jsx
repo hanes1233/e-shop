@@ -1,9 +1,10 @@
 import React from "react";
+import ApiHeader from "../../navigation/api/ApiHeader";
 
 function AdminPanel() {
     return (
         <>
-            <h1>I'm in admin panel</h1>
+            <ApiHeader />
         </>
     )
 }

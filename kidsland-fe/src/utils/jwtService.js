@@ -1,16 +1,4 @@
-import cacheManager from "./CacheManager";
 import { validateDataConsistency } from "./userValidations";
-
-export const lookUpForToken = () => {
-    const localStorageToken = checkLocalStorage();
-    const sessionStorageToken = checkSessionStorage();
-    if (localStorageToken) {
-        return localStorageToken;
-    } else if (sessionStorageToken) {
-        return sessionStorageToken;
-    }
-    return null;
-};
 
 export const saveToken = (token, storage) => {
     if (storage) {

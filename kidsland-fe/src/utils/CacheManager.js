@@ -13,7 +13,6 @@ class CacheManager {
         this.checkExpiration();
         const expiry = Date.now() + 3600 * 1000;
         this.cache.set(key, { value, expiry });
-        console.log('STARTING SECOND PHASE!')
         // Second phase (internal) cache
         const jwt = value.token;
         const admin = value.admin;
@@ -22,7 +21,6 @@ class CacheManager {
 
     addJwtUserInfo(key, admin, expiry) {
         this.secondPhaseCache.set(key, { admin, expiry });
-        console.log('UserInfo added for token ' + key);
     }
 
     get(key, password) {

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, Outlet } from 'react-router-dom';
 import { Button, Col, Container, Row } from "react-bootstrap";
 import "../../css/navigation/Navbar.css";
-import GuestHeader from "./api/GuestHeader";
+import ApiHeader from "./api/ApiHeader";
 
 function Category({ category }) {
     const navigate = useNavigate();
@@ -12,7 +12,7 @@ function Category({ category }) {
     if (!subcategories) {
         return (
             <>
-                <GuestHeader />
+                <ApiHeader />
                 <h3 className="mt-3 ms-5">No data found</h3>
             </>
         );
@@ -24,7 +24,7 @@ function Category({ category }) {
 
     return (
         <>
-            <GuestHeader />
+            <ApiHeader />
             <Container>
                 <h3 className="text-center mb-5">Categories</h3>
                 {subcategories.map((subcategory, index) => {

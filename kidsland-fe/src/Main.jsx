@@ -4,7 +4,7 @@ import FloatingText from "./components/design/text/FloatingText";
 import Navigation from "./components/navigation/Navigation";
 import WallpaperSlideShow from "./components/design/WallpaperSlideShow";
 import Footer from "./components/navigation/Footer";
-import GuestHeader from "./components/navigation/api/GuestHeader";
+import ApiHeader from "./components/navigation/api/ApiHeader";
 
 function Main(props) {
 
@@ -15,7 +15,7 @@ function Main(props) {
             {!categories ? null
                 :
                 <div>
-                    <GuestHeader />
+                    <ApiHeader />
                     <Container>
                         <FloatingText text="Welcome to KidsLand! Everything for your kid in one place" />
                         <WallpaperSlideShow />
