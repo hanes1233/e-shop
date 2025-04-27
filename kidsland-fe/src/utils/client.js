@@ -1,4 +1,5 @@
 import { findToken } from "./jwtService";
+import { getErrorByCode } from "../constants/errors";
 
 const API_URL = "http://localhost:8080";
 
@@ -8,7 +9,10 @@ const fetchData = async (url, requestOptions) => {
     return await fetch(apiUrl, requestOptions)
         .then((response) => {
             if (!response.ok) {
-                throw new Error(`Error response: ${response.status} ${response.statusText}`);
+                const error = new Error(`Error response: ${response.status} ${response.statusText}`);
+                const errorDetail = getErrorByCode(response.status);
+                error.detail = errorDetail;
+                throw error;
             }
 
             const contentType = response.headers.get("Content-Type");

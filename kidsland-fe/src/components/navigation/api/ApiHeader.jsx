@@ -19,7 +19,7 @@ function ApiHeader() {
             <ShoppingCartLogo />
             <Logo />
             {loggedIn ? <Logout /> :  <LoginBar /> }
-            <SearchBar />
+            {loggedIn ? null : <SearchBar />}
         </>
     )
 }

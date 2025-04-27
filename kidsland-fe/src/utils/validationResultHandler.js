@@ -1,6 +1,6 @@
 import { SUCCESS } from "../constants/state"
 import { USER_CACHED, USER_NOT_CACHED } from "../constants/success";
-import { INVALID_CREDENTIALS, FETCH_ERROR, NOT_FOUND, USER_EXPIRED } from "../constants/errors";
+import { INVALID_CREDENTIALS, FETCH_ERROR, USER_NOT_FOUND, USER_EXPIRED, FORBIDDEN } from "../constants/errors";
 
 export const handleValidationResult = (validationResult, navigate) => {
     const STATE = validationResult.STATE;
@@ -21,12 +21,8 @@ const handleSuccess = (detail, admin, navigate) => {
 
 const handleError = (detail, navigate) => {
     // TODO: redirect
-    switch (detail) {
-        case INVALID_CREDENTIALS: return '';
-        case FETCH_ERROR: return '';
-        case NOT_FOUND: return '';
-        case USER_EXPIRED: return '';
-        default: return '';
+    if (detail === FORBIDDEN) {
+        console.log('Im forbidden');
     }
 }
 

@@ -23,7 +23,10 @@ export const findToken = () => {
     return localToken ? localToken : sessionToken;
 }
 
-
+export const clearStorages = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+}
 
 const isTokenValid = (token) => {
     return Date.now() < token.expiry;

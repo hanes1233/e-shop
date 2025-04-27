@@ -2,19 +2,22 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import '../../css/Authorization.css';
 import { useNavigate } from "react-router-dom";
+import { clearStorages } from "../../utils/jwtService";
 
 function Logout() {
     const navigate = useNavigate();
 
-    const handleClick = () => {
-        sessionStorage.clear();
-        navigate('/');
-    }
-
     return (
         <>
             <div className="authorization-container">
-                <Button onClick={handleClick}>Log out</Button>
+                <Button
+                    onClick={() => {
+                        clearStorages();
+                        navigate("/");
+                    }}
+                    style={{ backgroundColor: 'var(--bs-danger-bg-subtle)', color: 'black' }}>
+                    Log out
+                </Button>
             </div>
         </>
     )

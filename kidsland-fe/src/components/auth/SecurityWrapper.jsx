@@ -25,7 +25,10 @@ function SecurityWrapper({ children }) {
         setIsAdmin(false);
     }, []);
 
+    // TODO: redirect to userPanel
     if (isAdmin === null) return null;
+
+    // FIXME: admin verification must be more complex, including BE validations (another fetch as double check?)
 
     return isAdmin ? children : <Navigate to="/login" replace />;
 }
