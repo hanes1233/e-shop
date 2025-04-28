@@ -10,6 +10,8 @@ import { handleCachedCredentials, handleValidationResult } from '../../utils/val
 
 function Login(props) {
     const [showModal, setShowModal] = useState(props.toggleModal);
+    const [showLoginResponse, setShowLoginResponse] = useState(false);
+    const [responseMessage, setResponseMessage] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);

@@ -11,4 +11,4 @@ databaseChangeLog:
             encoding: UTF-8
         - sqlFile:
             path: liquibase/classpath/0.0.3-update-default-valid-to-column.sql
-            encoding: UTF-8c
+            encoding: UTF-8
