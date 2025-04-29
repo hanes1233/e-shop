@@ -6,12 +6,10 @@ import { Card, Container } from "react-bootstrap";
 import FloatingText from "../design/text/FloatingText";
 import Footer from "../navigation/Footer";
 import SandClock from "../design/UIStates/SandClock";
-import LoginBar from "../navigation/LoginBar";
-import SearchBar from "../search/SearchBar";
-import ShoppingCart from "../design/ShoppingCartLogo";
 import Filter from "../search/Filter";
 import { GET_SUBCATEGORY } from "../../constants/urls";
 import '../../css/ItemGrid.css';
+import ApiHeader from "../navigation/api/ApiHeader";
 
 function ItemsTable(props) {
     const [items, setItems] = useState([]);
@@ -19,24 +17,6 @@ function ItemsTable(props) {
     const navigate = useNavigate();
 
     const URL = `${props.url}`;
-
-    const noData = () => {
-        if (retryCount < 6) {
-            return (
-                <>
-                    <LoginBar />
-                    <Container>
-                        <div className="text-center">
-                            <FloatingText text={`Your data is loading... Attempt ${retryCount}`} />
-                        </div>
-                    </Container>
-                    <SandClock />
-                    <Footer />
-                </>
-            )
-        }
-        navigate('/notfound');
-    }
 
     useEffect(() => {
         const fetchData = () => {
@@ -73,11 +53,15 @@ function ItemsTable(props) {
 
     return (
         <>
-            <Logo />
-            <ShoppingCart />
-            <LoginBar />
-            <SearchBar />
-            {!items ? noData() : (
+            <ApiHeader />
+            {!items ? (<>
+                <Container>
+                    <div className="text-center">
+                        <FloatingText text={`Your data is loading... Attempt ${retryCount}`} />
+                    </div>
+                </Container>
+                <SandClock />
+                <Footer /></>) : (
                 <>
                     <Filter />
                     <Container className="item-grid mb-5">

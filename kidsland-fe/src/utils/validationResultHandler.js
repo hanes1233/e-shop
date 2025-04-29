@@ -1,37 +1,22 @@
-import { SUCCESS } from "../constants/state"
 import { USER_CACHED, USER_NOT_CACHED } from "../constants/success";
 import { FORBIDDEN, UNAUTHORIZED } from "../constants/errors";
 
-export const handleValidationResult = (validationResult, navigate) => {
-    const STATE = validationResult.STATE;
-    const DETAIL = validationResult.DETAIL;
-    const ADMIN = validationResult.ADMIN;
-    STATE === SUCCESS ? handleSuccess(DETAIL, ADMIN, navigate) : handleError(DETAIL, navigate);
-}
-
-const handleSuccess = (detail, admin, navigate) => {
+export const handleSuccess = (validationResult, navigate) => {
+    const detail = validationResult.DETAIL;
+    const admin = validationResult.ADMIN;
     if (detail === USER_CACHED || detail === USER_NOT_CACHED) {
         admin ? navigate("/admin") : navigate("/");
     }
 }
 
 export const handleCachedCredentials = (cache) => {
-    // TODO: implement
+    //cachedUser.admin ? //TODO: redirect to admin panel : //TODO: redirect to user panel
 }
 
-const handleError = (detail, navigate) => {
-    // TODO: redirect
+export const buildMessage = (detail) => {
     switch(detail) {
-        case FORBIDDEN: {
-            console.log("forbidden");
-            break;
-        }
-        case UNAUTHORIZED: {
-            console.log("unauthorized");
-            break;
-        }
-        default: break;
+        case FORBIDDEN: return 'You are not allowed to access this resource';
+        case UNAUTHORIZED: return 'Provided email or password is incorrect.';
+        default: return null;
     }
 }
-
-// TODO: implement redirect mechanism

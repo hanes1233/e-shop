@@ -42,7 +42,7 @@ export const validate = async (data, rememberMe) => {
 
     // If user checked 'rememberMe', save credentials to cache
     if (rememberMe) {
-        return saveToCache(fetchedUser, password, token);
+        return saveToCache(fetchedUser, token);
     } else {
         const expiry = Date.now() + 20 * 60 * 1000;
         const isAdmin = validateRole(fetchedUser.administrator, fetchedUser.readOnly);
@@ -73,14 +73,13 @@ export const constructResult = (state, detail, admin = false) => {
     }
 }
 
-const saveToCache = (sourceUser, password, token) => {
+const saveToCache = (sourceUser, token) => {
     try {
         // Validate user credentials and expiry
         basicValidations(sourceUser);
 
         // Create user
-        const userToCache = createUser(password, token, sourceUser);
-
+        const userToCache = createUser(token, sourceUser);
         // Save user to cache
         const isAdmin = validateRole(sourceUser.administrator, sourceUser.readOnly)
         cacheManager.set(sourceUser.email, userToCache);
@@ -120,9 +119,8 @@ const basicValidations = (sourceUser) => {
     }
 }
 
-const createUser = (password, token, sourceUser) => {
+const createUser = (token, sourceUser) => {
     return {
-        password: password,
         token: token,
         admin: validateRole(sourceUser.administrator, sourceUser.readOnly),
         expiry: sourceUser.validTo
@@ -132,7 +130,6 @@ const createUser = (password, token, sourceUser) => {
 const getValidUserInfo = (token) => {
     const userInfo = cacheManager.getCachedUserInfo(token.jwt);
     if (!userInfo) {
-        console.log('userinfo is null for token ' + token.jwt);
         return null;
     }
     if (isExpired(userInfo.expiry)) {

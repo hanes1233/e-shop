@@ -1,17 +1,28 @@
+import { VERIFY_USER } from "../constants/urls";
+import { apiPost } from "./client";
 
 class CacheManager {
+    // Private static instance
+    static instance = null;
 
     constructor() {
-        // Set cache expiry
-        this.expiry = Date.now() + 60 * 60 * 1000;
+        if (CacheManager.instance) {
+            return CacheManager.instance;
+        }
+
+        // Otherwise, initialize the instance
+        this.expiry = Date.now() + 7 * 24 * 60 * 60 * 1000;
         this.cache = new Map();
         this.secondPhaseCache = new Map();
+
+        // Set the static instance to this instance
+        CacheManager.instance = this;
     }
 
     set(key, value) {
         // First phase (general) cache
         this.checkExpiration();
-        const expiry = Date.now() + 3600 * 1000;
+        const expiry = Date.now() + 24 * 60 * 60 * 1000;
         this.cache.set(key, { value, expiry });
         // Second phase (internal) cache
         const jwt = value.token;
@@ -23,17 +34,19 @@ class CacheManager {
         this.secondPhaseCache.set(key, { admin, expiry });
     }
 
-    get(key, password) {
+    async get(key, password) {
         this.checkExpiration();
+        console.log(this.cache);
         const user = this.cache.get(key);
         if (!user) {
             return null;
         }
 
-        const isPasswordMatch = this.isPasswordMatch(user.password, password);
-        const isUserExpired = this.isUserExpired(key,user);
+        const isUserExpired = this.isUserExpired(key, user);
 
-        if (isPasswordMatch && !isUserExpired) {
+        const isUserValid = await this.verifyCredentials(key, password);
+
+        if (isUserValid && !isUserExpired) {
             return user;
         } else {
             return null;
@@ -64,11 +77,17 @@ class CacheManager {
         this.secondPhaseCache.clear();
     }
 
-    isPasswordMatch(cachedPassword, inputPassword) {
-        if (!cachedPassword || !inputPassword) {
+    async verifyCredentials(email, password) {
+        const payload = {
+            email: email,
+            password: password
+        }
+        try {
+            const response = await apiPost(VERIFY_USER, payload);
+            return response.ok;
+        } catch (error) {
             return false;
         }
-        return cachedPassword === inputPassword;
     }
 
     isUserExpired(key,cachedUser) {

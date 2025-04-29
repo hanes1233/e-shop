@@ -5,7 +5,6 @@ import com.kidsland.kidsland.data.repository.UserRepository;
 import com.kidsland.kidsland.dto.LoginUserDTO;
 import com.kidsland.kidsland.dto.RegisterUserDTO;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,7 +40,7 @@ public class AuthenticationService {
         return userRepository.save(user);
     }
 
-    public String authenticate(LoginUserDTO input) throws AuthenticationException {
+    public String authenticate(LoginUserDTO input) {
         // Authenticate the user
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -54,7 +53,6 @@ public class AuthenticationService {
         UserDetails user = userRepository.findByEmail(input.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // TODO: where password check is? 
         // Generate and return the JWT token for the authenticated user
         return jwtService.generateToken(user);
     }

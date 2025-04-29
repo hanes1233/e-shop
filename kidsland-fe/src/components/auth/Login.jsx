@@ -6,16 +6,17 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import cacheManager from '../../utils/CacheManager';
 import { validate } from '../../utils/userValidations';
-import { handleCachedCredentials, handleValidationResult } from '../../utils/validationResultHandler';
+import { handleCachedCredentials, handleSuccess } from '../../utils/validationResultHandler';
+import AlertMessage from '../design/UIStates/AlertMessage';
+import { SUCCESS } from '../../constants/state';
 
 function Login(props) {
     const [showModal, setShowModal] = useState(props.toggleModal);
-    const [showLoginResponse, setShowLoginResponse] = useState(false);
-    const [responseMessage, setResponseMessage] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [validated, setValidated] = useState(false);
+    const [validationResult, setValidationResult] = useState(null);
 
     const navigate = useNavigate();
 
@@ -32,13 +33,17 @@ function Login(props) {
                 email: email,
                 password: password
             }
-            const cachedUser = cacheManager.get(email, password);
+            const cachedUser = await cacheManager.get(email, password);
             if (cachedUser) {
-                //cachedUser.admin ? //TODO: redirect to admin panel : //TODO: redirect to user panel
                 handleCachedCredentials(cachedUser);
             } else {
                 const validationResult = await validate(userData, rememberMe);
-                handleValidationResult(validationResult, navigate);
+                if (validationResult.STATE === SUCCESS) {
+                    handleSuccess(validationResult, navigate);
+                } else {
+                    setValidationResult(validationResult);
+                    return <AlertMessage validationResult={validationResult}/>
+                }
             }
         }
     };
@@ -48,6 +53,7 @@ function Login(props) {
             className="modal overlay"
             style={{ display: 'block', position: 'fixed' }}
         >
+            {validationResult && <AlertMessage validationResult={validationResult} />}
             <Container>
                 <Modal show={showModal} onHide={handleClose}>
                     <Modal.Header >
