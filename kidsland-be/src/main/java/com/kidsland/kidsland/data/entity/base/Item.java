@@ -1,4 +1,4 @@
-package com.kidsland.kidsland.data.entity;
+package com.kidsland.kidsland.data.entity.base;
 
 import com.kidsland.kidsland.data.entity.subcategories.RelItem;
 
@@ -6,7 +6,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
-public interface ItemEntity extends Serializable {
+public interface Item extends Serializable {
     @Serial
     long serialVersionUID = 1L;
 

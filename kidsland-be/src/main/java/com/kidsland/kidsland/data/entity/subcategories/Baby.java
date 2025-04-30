@@ -1,7 +1,7 @@
 package com.kidsland.kidsland.data.entity.subcategories;
 
 import com.kidsland.kidsland.constants.Color;
-import com.kidsland.kidsland.data.entity.ItemEntity;
+import com.kidsland.kidsland.data.entity.base.Item;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ import java.util.UUID;
 @Entity
 @Accessors(chain = true)
 @Table(name = "baby", schema = "fc")
-public class Baby implements ItemEntity {
+public class Baby implements Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
