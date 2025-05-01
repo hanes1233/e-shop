@@ -1,7 +1,7 @@
 package com.kidsland.kidsland.service.impl;
 
 import com.kidsland.kidsland.data.repository.UserRepository;
-import com.kidsland.kidsland.dto.UserDTO;
+import com.kidsland.kidsland.dto.auth.UserDTO;
 import com.kidsland.kidsland.service.api.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

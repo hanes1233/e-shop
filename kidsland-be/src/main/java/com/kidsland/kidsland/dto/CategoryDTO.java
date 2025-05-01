@@ -1,5 +1,6 @@
 package com.kidsland.kidsland.dto;
 
+import com.kidsland.kidsland.core.dto.AbstractDTO;
 import com.kidsland.kidsland.data.entity.Subcategory;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,9 +10,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class CategoryDTO {
-
-    private Long id;
+public class CategoryDTO extends AbstractDTO {
 
     private String description;
 

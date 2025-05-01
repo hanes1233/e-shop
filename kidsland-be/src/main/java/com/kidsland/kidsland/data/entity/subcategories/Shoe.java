@@ -1,7 +1,8 @@
 package com.kidsland.kidsland.data.entity.subcategories;
 
 import com.kidsland.kidsland.constants.Color;
-import com.kidsland.kidsland.data.entity.ItemEntity;
+import com.kidsland.kidsland.core.entity.AbstractEntity;
+import com.kidsland.kidsland.data.entity.base.Item;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,11 +19,7 @@ import java.util.UUID;
 @Entity
 @Accessors(chain = true)
 @Table(name = "shoes", schema = "fc")
-public class Shoe implements ItemEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class Shoe extends AbstractEntity implements Item {
 
     @OneToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

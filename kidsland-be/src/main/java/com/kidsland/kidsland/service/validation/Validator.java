@@ -13,7 +13,7 @@ import java.util.List;
 @Slf4j
 @Getter
 @Setter
-public class Validator<DTO extends com.kidsland.kidsland.dto.DTO> {
+public class Validator<DTO extends com.kidsland.kidsland.dto.base.DTO> {
 
     private boolean isInvalid;
 

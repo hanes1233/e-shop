@@ -1,5 +1,6 @@
 package com.kidsland.kidsland.data.entity.subcategories;
 
+import com.kidsland.kidsland.core.entity.AbstractEntity;
 import com.kidsland.kidsland.data.entity.Category;
 import com.kidsland.kidsland.data.entity.Subcategory;
 import jakarta.persistence.*;
@@ -8,8 +9,6 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -20,14 +19,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "rel_item", schema = "fc")
-public class RelItem implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class RelItem extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

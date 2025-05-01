@@ -1,6 +1,6 @@
 package com.kidsland.kidsland.rest;
 
-import com.kidsland.kidsland.dto.LoginUserDTO;
+import com.kidsland.kidsland.dto.auth.LoginUserDTO;
 import com.kidsland.kidsland.security.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;

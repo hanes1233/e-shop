@@ -1,6 +1,8 @@
 package com.kidsland.kidsland.dto;
 
 import com.kidsland.kidsland.constants.Color;
+import com.kidsland.kidsland.core.dto.AbstractDTO;
+import com.kidsland.kidsland.dto.base.DTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,9 +11,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class AccessoryDTO implements DTO {
-
-    private Long id;
+public class AccessoryDTO extends AbstractDTO implements DTO {
 
     private RelItemDTO item;
 

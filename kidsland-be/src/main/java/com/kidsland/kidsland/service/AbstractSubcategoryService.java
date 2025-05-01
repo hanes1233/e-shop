@@ -1,6 +1,6 @@
 package com.kidsland.kidsland.service;
 
-import com.kidsland.kidsland.data.entity.ItemEntity;
+import com.kidsland.kidsland.data.entity.base.Item;
 import com.kidsland.kidsland.data.entity.ObjRegistrationRequest;
 import com.kidsland.kidsland.data.entity.subcategories.RelItem;
 import com.kidsland.kidsland.data.repository.ObjErrorRepository;
@@ -19,8 +19,8 @@ import static com.kidsland.kidsland.constants.Status.PROCESSED;
 
 @Slf4j
 public abstract class AbstractSubcategoryService<
-        ITEM extends ItemEntity,
-        DTO extends com.kidsland.kidsland.dto.DTO> extends AbstractResponseService<DTO> {
+        ITEM extends Item,
+        DTO extends com.kidsland.kidsland.dto.base.DTO> extends AbstractResponseService<DTO> {
 
     private final ItemRepository<ITEM> itemRepository;
     private final ObjRegistrationRequestRepository objRegistrationRequestRepository;

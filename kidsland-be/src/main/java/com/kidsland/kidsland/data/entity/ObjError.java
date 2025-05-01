@@ -1,5 +1,6 @@
 package com.kidsland.kidsland.data.entity;
 
+import com.kidsland.kidsland.core.entity.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,11 +13,7 @@ import java.util.UUID;
 @Entity
 @Accessors(chain = true)
 @Table(name = "obj_error", schema = "db")
-public class ObjError {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class ObjError extends AbstractEntity {
 
     @Column(name = "error_content", length = 100)
     private String errorContent;

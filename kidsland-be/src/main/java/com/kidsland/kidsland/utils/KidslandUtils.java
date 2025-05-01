@@ -2,7 +2,7 @@ package com.kidsland.kidsland.utils;
 
 import com.kidsland.kidsland.data.entity.ObjError;
 import com.kidsland.kidsland.data.entity.ObjRegistrationRequest;
-import com.kidsland.kidsland.dto.DTO;
+import com.kidsland.kidsland.dto.base.DTO;
 import com.kidsland.kidsland.dto.response.Error;
 import lombok.experimental.UtilityClass;
 

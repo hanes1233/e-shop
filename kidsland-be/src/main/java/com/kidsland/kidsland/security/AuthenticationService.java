@@ -2,8 +2,8 @@ package com.kidsland.kidsland.security;
 
 import com.kidsland.kidsland.data.entity.User;
 import com.kidsland.kidsland.data.repository.UserRepository;
-import com.kidsland.kidsland.dto.LoginUserDTO;
-import com.kidsland.kidsland.dto.RegisterUserDTO;
+import com.kidsland.kidsland.dto.auth.LoginUserDTO;
+import com.kidsland.kidsland.dto.auth.RegisterUserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

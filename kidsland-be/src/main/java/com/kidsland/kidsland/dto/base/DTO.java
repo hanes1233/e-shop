@@ -1,4 +1,6 @@
-package com.kidsland.kidsland.dto;
+package com.kidsland.kidsland.dto.base;
+
+import com.kidsland.kidsland.dto.RelItemDTO;
 
 import java.util.UUID;
 

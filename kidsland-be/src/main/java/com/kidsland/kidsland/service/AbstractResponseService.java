@@ -18,7 +18,7 @@ import static com.kidsland.kidsland.constants.Status.ERROR;
 
 @RequiredArgsConstructor
 @Slf4j
-public abstract class AbstractResponseService<DTO extends com.kidsland.kidsland.dto.DTO> {
+public abstract class AbstractResponseService<DTO extends com.kidsland.kidsland.dto.base.DTO> {
 
     private final ObjErrorRepository objErrorRepository;
     private final ObjRegistrationRequestRepository objRegistrationRequestRepository;

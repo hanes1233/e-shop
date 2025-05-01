@@ -1,4 +1,4 @@
-package com.kidsland.kidsland.dto;
+package com.kidsland.kidsland.dto.auth;
 
 import java.time.OffsetDateTime;
 

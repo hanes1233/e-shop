@@ -1,6 +1,6 @@
 package com.kidsland.kidsland.rest;
 
-import com.kidsland.kidsland.dto.UserDTO;
+import com.kidsland.kidsland.dto.auth.UserDTO;
 import com.kidsland.kidsland.service.api.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

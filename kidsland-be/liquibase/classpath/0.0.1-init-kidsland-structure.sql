@@ -14,8 +14,8 @@ CREATE TABLE fc.user_h
     administrator BOOLEAN NOT NULL DEFAULT FALSE,
     access_blocked BOOLEAN NOT NULL DEFAULT FALSE,
     read_only BOOLEAN NOT NULL DEFAULT FALSE,
-    valid_from TIMESTAMPTZ NOT NULL DEFAULT '1900-01-01 00:00:00.000 +01:00',
-    valid_to TIMESTAMPTZ NOT NULL DEFAULT '2999-12-31 00:00:00.000 +01:00',
+    valid_from TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    valid_to TIMESTAMPTZ NOT NULL DEFAULT NOW() + INTERVAL '8760 hours',
     tech_create_date TIMESTAMPTZ NOT NULL,
     tech_create_identity_id UUID NOT NULL,
     tech_update_date TIMESTAMPTZ,
@@ -32,7 +32,11 @@ CREATE TABLE fc.category
     hidden BOOLEAN NOT NULL DEFAULT FALSE,
     url VARCHAR (50) NOT NULL,
     category_id UUID NOT NULL DEFAULT gen_random_uuid(),
-    name VARCHAR (30) NOT NULL
+    name VARCHAR (30) NOT NULL,
+    tech_create_date TIMESTAMPTZ NOT NULL,
+    tech_create_identity_id UUID NOT NULL,
+    tech_update_date TIMESTAMPTZ,
+    tech_update_identity_id UUID
 );
 
 CREATE TABLE fc.subcategory
@@ -43,7 +47,11 @@ CREATE TABLE fc.subcategory
     url VARCHAR(50) NOT NULL,
     hidden BOOLEAN NOT NULL DEFAULT FALSE,
     subcategory_id UUID NOT NULL DEFAULT gen_random_uuid(),
-    name VARCHAR(30) NOT NULL
+    name VARCHAR(30) NOT NULL,
+    tech_create_date TIMESTAMPTZ NOT NULL,
+    tech_create_identity_id UUID NOT NULL,
+    tech_update_date TIMESTAMPTZ,
+    tech_update_identity_id UUID
 );
 
 ALTER TABLE fc.subcategory
@@ -64,10 +72,14 @@ CREATE TABLE fc.rel_item
     type VARCHAR(30) NOT NULL,
     quantity INTEGER NOT NULL DEFAULT 0,
     is_available BOOLEAN default FALSE,
-    item_create_date TIMESTAMPTZ NOT NULL DEFAULT '2025-03-03 00:00:00.000 +01:00',
+    item_create_date TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     description VARCHAR(250),
     size INTEGER,
-    item_id UUID NOT NULL DEFAULT gen_random_uuid()
+    item_id UUID NOT NULL DEFAULT gen_random_uuid(),
+    tech_create_date TIMESTAMPTZ NOT NULL,
+    tech_create_identity_id UUID NOT NULL,
+    tech_update_date TIMESTAMPTZ,
+    tech_update_identity_id UUID
 );
 
 ALTER TABLE fc.rel_item
@@ -85,7 +97,11 @@ CREATE TABLE fc.toy
     id             BIGSERIAL PRIMARY KEY,
     item           BIGINT NOT NULL,
     is_available   BOOLEAN default FALSE,
-    toy_id         UUID NOT NULL DEFAULT gen_random_uuid()
+    toy_id         UUID NOT NULL DEFAULT gen_random_uuid(),
+    tech_create_date TIMESTAMPTZ NOT NULL,
+    tech_create_identity_id UUID NOT NULL,
+    tech_update_date TIMESTAMPTZ,
+    tech_update_identity_id UUID
 );
 
 ALTER TABLE fc.toy
@@ -100,7 +116,11 @@ CREATE TABLE fc.dress
     id             BIGSERIAL PRIMARY KEY,
     item           BIGINT NOT NULL,
     seasons        VARCHAR(50) NOT NULL,
-    dress_id       UUID NOT NULL DEFAULT gen_random_uuid()
+    dress_id       UUID NOT NULL DEFAULT gen_random_uuid(),
+    tech_create_date TIMESTAMPTZ NOT NULL,
+    tech_create_identity_id UUID NOT NULL,
+    tech_update_date TIMESTAMPTZ,
+    tech_update_identity_id UUID
 );
 
 ALTER TABLE fc.dress
@@ -116,7 +136,11 @@ CREATE TABLE fc.shoes
     item           BIGINT NOT NULL,
     seasons        VARCHAR(50),
     description    VARCHAR(250),
-    shoes_id       UUID NOT NULL DEFAULT gen_random_uuid()
+    shoes_id       UUID NOT NULL DEFAULT gen_random_uuid(),
+    tech_create_date TIMESTAMPTZ NOT NULL,
+    tech_create_identity_id UUID NOT NULL,
+    tech_update_date TIMESTAMPTZ,
+    tech_update_identity_id UUID
 );
 
 ALTER TABLE fc.shoes
@@ -130,7 +154,11 @@ CREATE TABLE fc.accessories
 (
     id BIGSERIAL PRIMARY KEY,
     item BIGINT NOT NULL,
-    accessories_id UUID NOT NULL DEFAULT gen_random_uuid()
+    accessories_id UUID NOT NULL DEFAULT gen_random_uuid(),
+    tech_create_date TIMESTAMPTZ NOT NULL,
+    tech_create_identity_id UUID NOT NULL,
+    tech_update_date TIMESTAMPTZ,
+    tech_update_identity_id UUID
 );
 
 ALTER TABLE fc.accessories
@@ -144,7 +172,11 @@ CREATE TABLE fc.furniture
 (
   id BIGSERIAL PRIMARY KEY,
   item BIGINT NOT NULL,
-  furniture_id UUID NOT NULL DEFAULT gen_random_uuid()
+  furniture_id UUID NOT NULL DEFAULT gen_random_uuid(),
+  tech_create_date TIMESTAMPTZ NOT NULL,
+  tech_create_identity_id UUID NOT NULL,
+  tech_update_date TIMESTAMPTZ,
+  tech_update_identity_id UUID
 );
 
 ALTER TABLE fc.furniture
@@ -158,7 +190,11 @@ CREATE TABLE fc.baby
 (
     id BIGSERIAL PRIMARY KEY,
     item BIGINT NOT NULL,
-    baby_id UUID NOT NULL DEFAULT gen_random_uuid()
+    baby_id UUID NOT NULL DEFAULT gen_random_uuid(),
+    tech_create_date TIMESTAMPTZ NOT NULL,
+    tech_create_identity_id UUID NOT NULL,
+    tech_update_date TIMESTAMPTZ,
+    tech_update_identity_id UUID
 );
 
 ALTER TABLE fc.baby
@@ -172,7 +208,11 @@ CREATE TABLE fc.sport
 (
     id BIGSERIAL PRIMARY KEY,
     item BIGINT NOT NULL,
-    sport_id UUID NOT NULL DEFAULT gen_random_uuid()
+    sport_id UUID NOT NULL DEFAULT gen_random_uuid(),
+    tech_create_date TIMESTAMPTZ NOT NULL,
+    tech_create_identity_id UUID NOT NULL,
+    tech_update_date TIMESTAMPTZ,
+    tech_update_identity_id UUID
 );
 
 ALTER TABLE fc.sport
@@ -190,7 +230,9 @@ CREATE TABLE db.obj_registration_request
     item BIGINT NOT NULL,
     processing_status INTEGER,
     tech_create_date TIMESTAMPTZ NOT NULL,
-    tech_create_identity_id UUID NOT NULL
+    tech_create_identity_id UUID NOT NULL,
+    tech_update_date TIMESTAMPTZ,
+    tech_update_identity_id UUID
 );
 
 CREATE TABLE db.obj_error
@@ -201,7 +243,11 @@ CREATE TABLE db.obj_error
     request_id BIGINT,
     item_id UUID,
     category_id BIGINT,
-    subcategory_id BIGINT
+    subcategory_id BIGINT,
+    tech_create_date TIMESTAMPTZ NOT NULL,
+    tech_create_identity_id UUID NOT NULL,
+    tech_update_date TIMESTAMPTZ,
+    tech_update_identity_id UUID
 );
 
 ALTER TABLE db.obj_error

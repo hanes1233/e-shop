@@ -1,6 +1,7 @@
 package com.kidsland.kidsland.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kidsland.kidsland.core.entity.AbstractEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,23 +9,13 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "subcategory", schema = "fc")
-public class Subcategory implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "subcategory_id_gen")
-    @SequenceGenerator(name = "subcategory_id_gen", sequenceName = "subcategory_id_seq", allocationSize = 1)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class Subcategory extends AbstractEntity {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

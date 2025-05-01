@@ -3,19 +3,14 @@ package com.kidsland.kidsland.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.auditing.DateTimeProvider;
-import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
-import java.util.UUID;
 
 @Configuration
+@EnableJpaAuditing(auditorAwareRef = "customAuditorAware")
 public class JpaConfig {
-
-    @Bean
-    public AuditorAware<UUID> auditorAware() {
-        return new CustomAuditorAware();
-    }
 
     @Bean(name = "auditingDateTimeProvider")
     public DateTimeProvider dateTimeProvider() {
