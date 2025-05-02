@@ -12,7 +12,7 @@ import NoData from './components/design/UIStates/NoData';
 import Cart from './components/shop/Cart';
 import { GET_CATEGORIES } from './constants/urls';
 import UserPanel from './components/design/panel/UserPanel';
-import AdminPanel from './components/design/panel/AdminPanel';
+import AdminPanel from './components/design/panel/admin/AdminPanel';
 import SecurityWrapper from './components/auth/SecurityWrapper';
 
 function App() {

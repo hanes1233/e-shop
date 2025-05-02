@@ -19,3 +19,12 @@ export const kidslandLogo = <img className="ms-2" src="/icon.png" alt="kidsland-
 // Shopping cart
 export const shoppingCart = <img className="ms-2" src="/icons/shopping-cart.png" alt="shopping-cart-logo" width={45} height={45} />
 export const emptyCart = <img src="/wallpapers/empty-cart.png" alt="empty-cart" />
+
+// Admin panel
+export const settings = <img src="/icons/settings.png" alt="settings-icon" width={70} height={70} />
+export const statistics = <img src="/icons/statistics.png" alt="statistics-icon" width={70} height={70} />
+export const invoice = <img src="/icons/invoice.png" alt="invoice-icon" width={70} height={70} />
+export const inbox = <img src="/icons/inbox.png" alt="inbox-icon" width={70} height={70} />
+export const task = <img src="/icons/task.png" alt="task-icon" width={70} height={70} />
+export const revenue = <img src="/icons/revenue.png" alt="revenue-icon" width={70} height={70} />
+export const manage = <img src="/icons/manage.png" alt="manage-icon" width={70} height={70} />
