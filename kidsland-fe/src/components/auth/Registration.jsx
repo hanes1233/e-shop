@@ -54,7 +54,7 @@ function Registration() {
                                     </Form.Group>
                                 </div>
                             </Collapse>
-                            < Col >
+                            <Col>
                                 <Button className='mx-4' variant="success" type="submit">
                                     Register
                                 </Button>

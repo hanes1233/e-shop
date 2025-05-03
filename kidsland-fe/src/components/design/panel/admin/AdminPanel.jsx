@@ -1,34 +1,34 @@
-import React from "react";
-import ApiHeader from "../../../navigation/api/ApiHeader";
+import React, { useState } from "react";
 import { Container, Nav } from "react-bootstrap";
 import { inbox, invoice, manage, revenue, settings, statistics, task } from "../../../../constants/images";
 
+import Settings from "./menu/Settings";
+import Logout from "../../../auth/Logout";
+import Logo from "../../Logo";
+import ImageWrapper from "../../../../wrappers/ImageWrapper";
+
 function AdminPanel() {
+    const [showSettings, setShowSettings] = useState(false);
 
     // TODO: add statistics on main page (web visitor? sales?) Draw diagram
-    const imageWrapper = (image, description) => {
-        return (
-            <>
-                <div className="me-5 ms-5">
-                    <div className="image-card">{image}</div>
-                    <p className="ms-1 mt-1">{description}</p>
-                </div>
-            </>
-        )
+    const handleSettingsClick = () => {
+        setShowSettings((prev) => !prev);
     }
 
     return (
         <>
-            <ApiHeader />
+            <Settings toggleModal={showSettings} onClose={() => setShowSettings(false)}/>
+            <Logo />
+            <Logout />
             <Container>
                 <Nav>
-                    {imageWrapper(manage, 'Manage')}
-                    {imageWrapper(revenue, 'Revenue')}
-                    {imageWrapper(task, 'Desk')}
-                    {imageWrapper(inbox, 'Inbox')}
-                    {imageWrapper(invoice, 'Invoices')}
-                    {imageWrapper(statistics, 'Statistics')}
-                    {imageWrapper(settings, 'Settings')}
+                    <ImageWrapper image={manage} description={'Manage'} />
+                    <ImageWrapper image={revenue} description={'Revenue'} />
+                    <ImageWrapper image={task} description={'Desk'} />
+                    <ImageWrapper image={inbox} description={'Inbox'} />
+                    <ImageWrapper image={invoice} description={'Invoices'} />
+                    <ImageWrapper image={statistics} description={'Statistics'} />
+                    <ImageWrapper image={settings} description={'Settings'} handleClick={handleSettingsClick} />
                 </Nav>
             </Container>
         </>
