@@ -4,7 +4,7 @@ import { apiGet } from "../../utils/client";
 import { useNavigate } from "react-router-dom";
 import { Card, Container } from "react-bootstrap";
 import FloatingText from "../design/text/FloatingText";
-import Footer from "../navigation/Footer";
+import Footer from "../navigation/api/Footer";
 import SandClock from "../design/UIStates/SandClock";
 import Filter from "../search/Filter";
 import { GET_SUBCATEGORY } from "../../constants/urls";

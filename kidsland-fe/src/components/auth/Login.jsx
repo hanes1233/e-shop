@@ -71,7 +71,8 @@ function Login(props) {
                                         placeholder="Enter email"
                                         required
                                         onChange={(e) => setEmail(e.target.value)}
-                                        isInvalid={validated && !email}
+                                        isInvalid={email !== '' && !email.includes('@') && email.includes('.')}
+                                        isValid={email.includes('@')}
                                     />
                                     <Form.Control.Feedback type="invalid">
                                         Please provide a valid email address.

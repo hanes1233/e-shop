@@ -3,7 +3,7 @@ import Logo from "../Logo";
 import Authorization from "../../auth/Authorization";
 import { Container } from "react-bootstrap";
 import FloatingText from "../text/FloatingText";
-import Footer from "../../navigation/Footer";
+import Footer from "../../navigation/api/Footer";
 import Login from "../../auth/Login";
 
 function NoData() {

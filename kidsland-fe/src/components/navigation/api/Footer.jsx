@@ -1,35 +1,21 @@
-import React from "react";
-import '../../css/navigation/Footer.css';
+import React, { useState } from "react";
+import '../../../css/navigation/Footer.css';
 import { Col, Container, Row } from "react-bootstrap";
-import { facebookImg, instagramImg, kidslandLogo, locationImg, mailImg, twitterImg, youtubeImg } from "../../constants/images";
+import { facebookImg, instagramImg, kidslandLogo, locationImg, mailImg, twitterImg, youtubeImg } from "../../../constants/images";
+import { redirectToSocialMediaPage } from "../../../utils/redirect/socialMedia";
+import Feedback from "../pop-up/Feedback";
 
 function Footer() {
+    const [showFeedback, setShowFeedback] = useState(false);
 
-    const handleClick = (e) => {
+    const handleRedirect = (e) => {
         const elementId = e.currentTarget.id;
-        switch (elementId) {
-            case 'youtube': {
-                window.location.href = 'https://www.youtube.com';
-                break;
-            }
-            case 'twitter': {
-                window.location.href = 'https://www.x.com';
-                break;
-            }
-            case 'instagram': {
-                window.location.href = 'https://www.instagram.com';
-                break;
-            }
-            case 'facebook': {
-                window.location.href = 'https://www.facebook.com';
-                break;
-            }
-            default: return (<h4>Unknown operation</h4>);
-        }
+        redirectToSocialMediaPage(elementId);
     };
 
     return (
         <>
+            <Feedback showModal={showFeedback} handleClose={() => setShowFeedback(false)} />
             <Container className="footer">
                 <Row className="footer-header">
                     <Col>
@@ -56,10 +42,10 @@ function Footer() {
                         <span className="footer-items"><i>Cooperation</i></span>
                     </Col>
                     <Col>
-                        <span id="facebook" className="me-4" onClick={handleClick}>
+                        <span id="facebook" className="me-4" onClick={handleRedirect}>
                             {facebookImg}
                         </span>
-                        <span id="instagram" className="ms-2" onClick={handleClick}>
+                        <span id="instagram" className="ms-2" onClick={handleRedirect}>
                             {instagramImg}
                         </span>
                     </Col>
@@ -75,17 +61,17 @@ function Footer() {
                         <span className="footer-items"><i>Brands ®</i></span>
                     </Col>
                     <Col>
-                        <span id="twitter" className="me-4" onClick={handleClick}>
+                        <span id="twitter" className="me-4" onClick={handleRedirect}>
                             {twitterImg}
                         </span>
-                        <span id="youtube" className="ms-2" onClick={handleClick}>
+                        <span id="youtube" className="ms-2" onClick={handleRedirect}>
                             {youtubeImg}
                         </span>
                     </Col>
                 </Row>
                 <Row className="mb-4">
                     <Col className="col-3">
-                        <span className="footer-items"><i>Feedback</i></span>
+                        <span className="footer-items" onClick={() => setShowFeedback(true)}><i>Feedback</i></span>
                     </Col>
                     <Col className="col-3">
                         <span className="footer-items"><i>Career</i></span>

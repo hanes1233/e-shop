@@ -4,7 +4,7 @@ import Logo from "../Logo";
 import FloatingText from "../text/FloatingText";
 import Authorization from "../../auth/Authorization";
 import Login from "../../auth/Login";
-import Footer from "../../navigation/Footer";
+import Footer from "../../navigation/api/Footer";
 
 function LoadingPage() {
     const [showLogin, setShowLogin] = useState(false);

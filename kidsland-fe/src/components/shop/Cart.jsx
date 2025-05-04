@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../design/Logo";
-import Footer from "../navigation/Footer";
+import Footer from "../navigation/api/Footer";
 import '../../css/cart/Cart.css';
 import FloatingText from "../design/text/FloatingText";
 import { Container } from "react-bootstrap";

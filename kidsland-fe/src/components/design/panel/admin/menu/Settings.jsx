@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal, Nav, Row } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import '../../../../../css/model/Settings.css';
 import ButtonWrapper from "../../../../../wrappers/ButtonWrapper";
 

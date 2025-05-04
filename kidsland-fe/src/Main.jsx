@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import FloatingText from "./components/design/text/FloatingText";
 import Navigation from "./components/navigation/Navigation";
 import WallpaperSlideShow from "./components/design/WallpaperSlideShow";
-import Footer from "./components/navigation/Footer";
+import Footer from "./components/navigation/api/Footer";
 import ApiHeader from "./components/navigation/api/ApiHeader";
 import { useLocation } from "react-router-dom";
 
