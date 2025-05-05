@@ -13,7 +13,7 @@ import java.util.UUID;
 @Entity
 @Accessors(chain = true)
 @Table(name = "obj_error", schema = "db")
-public class ObjError extends AbstractEntity {
+public class KidslandError extends AbstractEntity {
 
     @Column(name = "error_content", length = 100)
     private String errorContent;
@@ -23,7 +23,7 @@ public class ObjError extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "request_id")
-    private ObjRegistrationRequest request;
+    private KidslandRegistrationRequest request;
 
     @Column(name = "item_id")
     private UUID itemId;

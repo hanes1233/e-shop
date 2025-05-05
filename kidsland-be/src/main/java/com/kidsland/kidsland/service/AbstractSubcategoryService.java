@@ -1,10 +1,10 @@
 package com.kidsland.kidsland.service;
 
 import com.kidsland.kidsland.data.entity.base.Item;
-import com.kidsland.kidsland.data.entity.ObjRegistrationRequest;
+import com.kidsland.kidsland.data.entity.KidslandRegistrationRequest;
 import com.kidsland.kidsland.data.entity.subcategories.RelItem;
-import com.kidsland.kidsland.data.repository.ObjErrorRepository;
-import com.kidsland.kidsland.data.repository.ObjRegistrationRequestRepository;
+import com.kidsland.kidsland.data.repository.KidslandErrorRepository;
+import com.kidsland.kidsland.data.repository.KidslandRegistrationRequestRepository;
 import com.kidsland.kidsland.data.repository.RelItemRepository;
 import com.kidsland.kidsland.data.repository.api.ItemRepository;
 import com.kidsland.kidsland.dto.mapper.api.ItemMapper;
@@ -23,23 +23,23 @@ public abstract class AbstractSubcategoryService<
         DTO extends com.kidsland.kidsland.dto.base.DTO> extends AbstractResponseService<DTO> {
 
     private final ItemRepository<ITEM> itemRepository;
-    private final ObjRegistrationRequestRepository objRegistrationRequestRepository;
+    private final KidslandRegistrationRequestRepository kidslandRegistrationRequestRepository;
     private final RelItemRepository relItemRepository;
     private final RelItemMapper relItemMapper;
     protected final ItemMapper<DTO, ITEM> itemMapper;
 
     protected AbstractSubcategoryService
     (
-            ObjErrorRepository objErrorRepository,
-            ObjRegistrationRequestRepository objRegistrationRequestRepository,
+            KidslandErrorRepository kidslandErrorRepository,
+            KidslandRegistrationRequestRepository kidslandRegistrationRequestRepository,
             ItemRepository<ITEM> itemRepository,
             RelItemRepository relItemRepository,
             ItemMapper<DTO, ITEM> itemMapper,
             RelItemMapper relItemMapper
     ) {
-        super(objErrorRepository, objRegistrationRequestRepository);
+        super(kidslandErrorRepository, kidslandRegistrationRequestRepository);
         this.itemRepository = itemRepository;
-        this.objRegistrationRequestRepository = objRegistrationRequestRepository;
+        this.kidslandRegistrationRequestRepository = kidslandRegistrationRequestRepository;
         this.relItemRepository = relItemRepository;
         this.itemMapper = itemMapper;
         this.relItemMapper = relItemMapper;
@@ -56,7 +56,7 @@ public abstract class AbstractSubcategoryService<
 
         // Processing phase
         log.info("Beginning of item registration");
-        ObjRegistrationRequest registrationRequest = createRequest();
+        KidslandRegistrationRequest registrationRequest = createRequest();
         ITEM item = itemMapper.mapToEntity(dto);
         if (isItemExists(item)) {
             log.warn("Registration failed.");
@@ -77,14 +77,14 @@ public abstract class AbstractSubcategoryService<
         }
         registrationRequest.setItem(savedItem.getId());
         registrationRequest.setProcessingStatus(PROCESSED.getCode());
-        objRegistrationRequestRepository.save(registrationRequest);
+        kidslandRegistrationRequestRepository.save(registrationRequest);
         log.info("Item was successfully saved.");
         DTO itemToReturn = itemMapper.mapToDTO(savedItem);
         return constructResponse(itemToReturn);
     }
 
-    protected ObjRegistrationRequest createRequest() {
-        return new ObjRegistrationRequest()
+    protected KidslandRegistrationRequest createRequest() {
+        return new KidslandRegistrationRequest()
                 .setProcessingStatus(CREATED.getCode());
     }
 

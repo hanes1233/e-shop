@@ -1,9 +1,9 @@
 package com.kidsland.kidsland.service;
 
-import com.kidsland.kidsland.data.entity.ObjError;
-import com.kidsland.kidsland.data.entity.ObjRegistrationRequest;
-import com.kidsland.kidsland.data.repository.ObjErrorRepository;
-import com.kidsland.kidsland.data.repository.ObjRegistrationRequestRepository;
+import com.kidsland.kidsland.data.entity.KidslandError;
+import com.kidsland.kidsland.data.entity.KidslandRegistrationRequest;
+import com.kidsland.kidsland.data.repository.KidslandErrorRepository;
+import com.kidsland.kidsland.data.repository.KidslandRegistrationRequestRepository;
 import com.kidsland.kidsland.dto.response.Error;
 import com.kidsland.kidsland.dto.response.ErrorResult;
 import com.kidsland.kidsland.dto.response.Result;
@@ -20,8 +20,8 @@ import static com.kidsland.kidsland.constants.Status.ERROR;
 @Slf4j
 public abstract class AbstractResponseService<DTO extends com.kidsland.kidsland.dto.base.DTO> {
 
-    private final ObjErrorRepository objErrorRepository;
-    private final ObjRegistrationRequestRepository objRegistrationRequestRepository;
+    private final KidslandErrorRepository kidslandErrorRepository;
+    private final KidslandRegistrationRequestRepository kidslandRegistrationRequestRepository;
 
     protected ResponseEntity<Result> constructResponse(DTO dto) {
         if (dto == null) {
@@ -42,16 +42,16 @@ public abstract class AbstractResponseService<DTO extends com.kidsland.kidsland.
 
     protected ResponseEntity<Result> createUnexpectedErrorResponse(
             DTO dto,
-            ObjRegistrationRequest registrationRequest,
+            KidslandRegistrationRequest registrationRequest,
             Exception e) {
         if (dto == null) {
             return createNullItemResponse();
         }
-        objRegistrationRequestRepository.updateStatus(registrationRequest.getId(), ERROR.getCode());
+        kidslandRegistrationRequestRepository.updateStatus(registrationRequest.getId(), ERROR.getCode());
         registrationRequest.setProcessingStatus(ERROR.getCode());
         Result result = new Result();
-        ObjError objError = KidslandUtils.createObjError(dto, registrationRequest, e);
-        objErrorRepository.saveAndFlush(objError);
+        KidslandError kidslandError = KidslandUtils.createObjError(dto, registrationRequest, e);
+        kidslandErrorRepository.saveAndFlush(kidslandError);
 
         Error error = KidslandUtils.createError(dto, e);
         error.setErrorContent("Unexpected error");
@@ -61,7 +61,7 @@ public abstract class AbstractResponseService<DTO extends com.kidsland.kidsland.
 
     protected ResponseEntity<Result> constructDuplicateResponse(
             DTO dto,
-            ObjRegistrationRequest registrationRequest) {
+            KidslandRegistrationRequest registrationRequest) {
         log.warn("Duplicate - item with provided itemId already exists");
 
         // Create Error DTO
@@ -71,8 +71,8 @@ public abstract class AbstractResponseService<DTO extends com.kidsland.kidsland.
 
         // Create and save ObjError
         log.info("Saving error...");
-        ObjError objError = KidslandUtils.createObjError(dto, registrationRequest);
-        objErrorRepository.saveAndFlush(objError);
+        KidslandError kidslandError = KidslandUtils.createObjError(dto, registrationRequest);
+        kidslandErrorRepository.saveAndFlush(kidslandError);
 
         // Create Result DTO
         ErrorResult errorResult = new ErrorResult(List.of(error));

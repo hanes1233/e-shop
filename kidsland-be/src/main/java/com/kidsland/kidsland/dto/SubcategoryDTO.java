@@ -11,8 +11,6 @@ import java.util.UUID;
 @Setter
 public class SubcategoryDTO extends AbstractDTO {
 
-    private Long id;
-
     private Category category;
 
     private String description;

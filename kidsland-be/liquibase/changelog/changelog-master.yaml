@@ -9,3 +9,17 @@ databaseChangeLog:
         - sqlFile:
             path: liquibase/classpath/0.0.2-insert-category-default-data.sql
             encoding: UTF-8
+  - changeSet:
+      id: 2
+      author: pavel
+      changes:
+        - sqlFile:
+            path: liquibase/classpath/0.0.3-init-feedback-table.sql
+            encoding: UTF-8
+  - changeSet:
+      id: 3
+      author: pavel
+      changes:
+        - sqlFile:
+            path: liquibase/classpath/0.0.4-add-columns-feedback.sql
+            encoding: UTF-8

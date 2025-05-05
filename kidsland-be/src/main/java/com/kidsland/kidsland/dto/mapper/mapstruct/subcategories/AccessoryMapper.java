@@ -12,6 +12,10 @@ public interface AccessoryMapper extends ItemMapper<AccessoryDTO, Accessory> {
     @Mapping(target = "item", source = "entity.item")
     AccessoryDTO mapToDTO(Accessory entity);
 
+    @Mapping(target = "techCreateIdentityId", ignore = true)
+    @Mapping(target = "techCreateDate", ignore = true)
+    @Mapping(target = "techUpdateDate", ignore = true)
+    @Mapping(target = "techUpdateIdentityId", ignore = true)
     @Mapping(target = "item", source = "dto.item")
     Accessory mapToEntity(AccessoryDTO dto);
 }

@@ -6,6 +6,7 @@ export const GET_SUBCATEGORY = '/api/subcategory/find';
 // POST
 export const GET_TOKEN = '/api/auth/login';
 export const VERIFY_USER = '/api/auth/validate';
+export const POST_FEEDBACK = '/api/feedback/register'
 // PUT
 
 // DELETE

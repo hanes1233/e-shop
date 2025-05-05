@@ -1,8 +1,8 @@
 package com.kidsland.kidsland.service.impl;
 
 import com.kidsland.kidsland.data.entity.subcategories.Accessory;
-import com.kidsland.kidsland.data.repository.ObjErrorRepository;
-import com.kidsland.kidsland.data.repository.ObjRegistrationRequestRepository;
+import com.kidsland.kidsland.data.repository.KidslandErrorRepository;
+import com.kidsland.kidsland.data.repository.KidslandRegistrationRequestRepository;
 import com.kidsland.kidsland.data.repository.RelItemRepository;
 import com.kidsland.kidsland.data.repository.subcategories.AccessoryRepository;
 import com.kidsland.kidsland.dto.AccessoryDTO;
@@ -33,16 +33,16 @@ public class AccessoryServiceImpl
             (
                 AccessoryRepository itemRepository,
                 AccessoryMapper itemMapper,
-                ObjRegistrationRequestRepository objRegistrationRequestRepository,
-                ObjErrorRepository objErrorRepository,
+                KidslandRegistrationRequestRepository kidslandRegistrationRequestRepository,
+                KidslandErrorRepository kidslandErrorRepository,
                 RelItemRepository relItemRepository,
                 RelItemMapper relItemMapper,
                 AccessoryRepository accessoryRepository,
                 ItemMapper<Accessory, Item> accessoryMapper
             ) {
         super(
-                objErrorRepository,
-                objRegistrationRequestRepository,
+                kidslandErrorRepository,
+                kidslandRegistrationRequestRepository,
                 itemRepository,
                 relItemRepository,
                 itemMapper,

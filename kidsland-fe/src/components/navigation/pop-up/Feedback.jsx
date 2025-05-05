@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Button, CloseButton, Form, InputGroup, Modal } from "react-bootstrap";
+import { done } from "../../../constants/images";
+import { apiPost } from "../../../utils/client";
+import { POST_FEEDBACK } from "../../../constants/urls";
 
 function Feedback(props) {
     const [validated, setValidated] = useState(false);
@@ -24,7 +27,11 @@ function Feedback(props) {
         if (form.checkValidity() === false) {
             setValidated(true);
         } else {
-            // TODO: send feedback to BE
+            const payload = {
+                email: email,
+                message: message
+            }
+            apiPost(POST_FEEDBACK, payload);
             handleClose();
             dropValues();
             setValidated(false);
@@ -42,7 +49,7 @@ function Feedback(props) {
                     <CloseButton className='bg-danger' onClick={handleClose} />
                 </Modal.Header>
                 <Modal.Body>
-                    <Form noValidate onSubmit={handleSubmit}>
+                    <Form validated={validated} onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
                             <InputGroup hasValidation>
@@ -102,9 +109,9 @@ function Feedback(props) {
                 </Modal.Body>
             </Modal>
             <Modal show={showAlert} onHide={() => setShowAlert(false)}>
-                <Modal.Header>
-                    Thank you!
-                </Modal.Header>
+                <Modal.Body>
+                    <div className="text-center fs-4"><b>Thank you!</b> {done}</div>
+                </Modal.Body>
             </Modal>
         </>
     )

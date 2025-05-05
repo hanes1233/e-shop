@@ -1,8 +1,11 @@
 package com.kidsland.kidsland.core.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -11,12 +14,15 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
 @MappedSuperclass
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class AbstractEntity implements Serializable {
     @Serial
@@ -29,7 +35,7 @@ public class AbstractEntity implements Serializable {
 
     @CreatedDate
     @Column(name = "tech_create_date", nullable = false)
-    protected OffsetDateTime techCreateDate;
+    protected LocalDateTime techCreateDate;
 
     @CreatedBy
     @Column(name = "tech_create_identity_id", nullable = false)
@@ -37,7 +43,7 @@ public class AbstractEntity implements Serializable {
 
     @LastModifiedDate
     @Column(name = "tech_update_date")
-    protected OffsetDateTime techUpdateDate;
+    protected LocalDateTime techUpdateDate;
 
     @LastModifiedBy
     @Column(name = "tech_update_identity_id")

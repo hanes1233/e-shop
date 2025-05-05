@@ -3,8 +3,11 @@ package com.kidsland.kidsland.data.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kidsland.kidsland.core.entity.AbstractEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -14,6 +17,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "subcategory", schema = "fc")
 public class Subcategory extends AbstractEntity {
 

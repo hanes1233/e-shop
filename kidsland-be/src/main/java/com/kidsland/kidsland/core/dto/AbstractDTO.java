@@ -4,7 +4,7 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -14,11 +14,11 @@ public class AbstractDTO {
 
     protected Long id;
 
-    protected OffsetDateTime techCreateDate;
+    protected LocalDateTime techCreateDate;
 
     protected UUID techCreateIdentityId;
 
-    protected OffsetDateTime techUpdateDate;
+    protected LocalDateTime techUpdateDate;
 
     protected UUID techUpdateIdentityId;
 }

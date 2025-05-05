@@ -16,7 +16,7 @@ import java.util.Set;
 @Accessors(chain = true)
 @Table(name = "obj_registration_request", schema = "db")
 @EntityListeners(AuditingEntityListener.class)
-public class ObjRegistrationRequest extends AbstractEntity {
+public class KidslandRegistrationRequest extends AbstractEntity {
 
     @Column(name = "item", nullable = false)
     private Long item;
@@ -25,6 +25,6 @@ public class ObjRegistrationRequest extends AbstractEntity {
     private Integer processingStatus;
 
     @OneToMany(mappedBy = "request")
-    private Set<ObjError> objErrors = new LinkedHashSet<>();
+    private Set<KidslandError> kidslandErrors = new LinkedHashSet<>();
 
 }

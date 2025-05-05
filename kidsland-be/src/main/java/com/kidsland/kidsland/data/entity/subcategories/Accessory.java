@@ -4,9 +4,12 @@ import com.kidsland.kidsland.constants.Color;
 import com.kidsland.kidsland.core.entity.AbstractEntity;
 import com.kidsland.kidsland.data.entity.base.Item;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -18,6 +21,9 @@ import java.util.UUID;
 @Setter
 @Entity
 @Accessors(chain = true)
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "accessories", schema = "fc")
 public class Accessory extends AbstractEntity implements Item {
 

@@ -5,6 +5,7 @@ import com.kidsland.kidsland.data.entity.Category;
 import com.kidsland.kidsland.data.entity.Subcategory;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "rel_item", schema = "fc")

@@ -10,5 +10,9 @@ public interface RelItemMapper {
 
     @Mapping(target = "category", source = "relItemDTOToMap.category")
     @Mapping(target = "subcategory", source = "relItemDTOToMap.subcategory")
+    @Mapping(target = "techCreateIdentityId", ignore = true)
+    @Mapping(target = "techCreateDate", ignore = true)
+    @Mapping(target = "techUpdateDate", ignore = true)
+    @Mapping(target = "techUpdateIdentityId", ignore = true)
     RelItem mapToRelItem(RelItemDTO relItemDTOToMap);
 }

@@ -2,8 +2,11 @@ package com.kidsland.kidsland.data.entity;
 
 import com.kidsland.kidsland.core.entity.AbstractEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
@@ -12,6 +15,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "category", schema = "fc")
 public class Category extends AbstractEntity {
 

@@ -1,7 +1,7 @@
 package com.kidsland.kidsland.utils;
 
-import com.kidsland.kidsland.data.entity.ObjError;
-import com.kidsland.kidsland.data.entity.ObjRegistrationRequest;
+import com.kidsland.kidsland.data.entity.KidslandError;
+import com.kidsland.kidsland.data.entity.KidslandRegistrationRequest;
 import com.kidsland.kidsland.dto.base.DTO;
 import com.kidsland.kidsland.dto.response.Error;
 import lombok.experimental.UtilityClass;
@@ -9,15 +9,15 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class KidslandUtils {
 
-    public ObjError createObjError(DTO dto, ObjRegistrationRequest registrationRequest, Exception e) {
-        ObjError objError = createObjError(dto, registrationRequest);
-        objError.setErrorContent(e.getClass().getSimpleName());
-        objError.setStackTrace(e.getMessage());
-        return objError;
+    public KidslandError createObjError(DTO dto, KidslandRegistrationRequest registrationRequest, Exception e) {
+        KidslandError kidslandError = createObjError(dto, registrationRequest);
+        kidslandError.setErrorContent(e.getClass().getSimpleName());
+        kidslandError.setStackTrace(e.getMessage());
+        return kidslandError;
     }
 
-    public ObjError createObjError(DTO dto, ObjRegistrationRequest registrationRequest) {
-        return new ObjError()
+    public KidslandError createObjError(DTO dto, KidslandRegistrationRequest registrationRequest) {
+        return new KidslandError()
                 .setItemId(dto.getItemId())
                 .setRequest(registrationRequest)
                 .setItemId(dto.getItemId())
