@@ -8,6 +8,7 @@ import { emptyCart } from "../../constants/images";
 
 function Cart() {
     const [items, setItems] = useState([]);
+    setItems(null);
 
     return (
         <>

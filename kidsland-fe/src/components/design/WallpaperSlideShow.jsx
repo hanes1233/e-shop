@@ -8,35 +8,35 @@ function WallpaperSlideShow() {
                 <img
                     src='/wallpapers/wallpaper1.jpg'
                     className="img-fluid"
-                    alt="Wallpaper image"
+                    alt="Wallpaper"
                 />
             </Carousel.Item>
             <Carousel.Item interval={10000}>
                 <img
                     src='/wallpapers/wallpaper2.jpg'
                     className="img-fluid"
-                    alt="Wallpaper image"
+                    alt="Wallpaper"
                 />
             </Carousel.Item>
             <Carousel.Item interval={10000}>
                 <img
                     src='/wallpapers/wallpaper3.jpg'
                     className="img-fluid"
-                    alt="Wallpaper image"
+                    alt="Wallpaper"
                 />
             </Carousel.Item>
             <Carousel.Item interval={10000}>
                 <img
                     src='/wallpapers/wallpaper4.jpeg'
                     className="img-fluid"
-                    alt="Wallpaper image"
+                    alt="Wallpaper"
                 />
             </Carousel.Item>
             <Carousel.Item interval={10000}>
                 <img
                     src='/wallpapers/wallpaper1.jpg'
                     className="img-fluid"
-                    alt="Wallpaper image"
+                    alt="Wallpaper"
                 />
             </Carousel.Item>
         </Carousel>

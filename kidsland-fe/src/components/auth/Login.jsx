@@ -11,7 +11,7 @@ import AlertMessage from '../design/UIStates/AlertMessage';
 import { SUCCESS } from '../../constants/state';
 
 function Login(props) {
-    const [showModal, setShowModal] = useState(props.toggleModal);
+    const [showModal] = useState(props.toggleModal);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);

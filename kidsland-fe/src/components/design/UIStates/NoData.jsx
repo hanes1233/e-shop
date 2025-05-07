@@ -30,7 +30,7 @@ function NoData() {
                 <img
                     src='/wallpapers/crying.jpg'
                     className="img-fluid"
-                    alt="Wallpaper image"
+                    alt="wallpaper"
                 />
                 <Footer className='mt-5' />
             </Container>
