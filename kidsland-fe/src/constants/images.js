@@ -4,7 +4,7 @@ export const girlImg = <img className="ms-2" src="/icons/girl.png" width={23} he
 export const tagImg = <img className="ms-2" src="/icons/tag.png" width={23} height={23} alt="tag" />
 
 // Social media
-export const facebookImg = <img className="footer-social-media" src="/icons/facebook.png" atl="facebook-logo" width={30} height={30} />;
+export const facebookImg = <img className="footer-social-media" src="/icons/facebook.png" alt="facebook-logo" width={30} height={30} />;
 export const instagramImg = <img className="footer-social-media" src="/icons/instagram.png" alt="instagram-logo" width={30} height={30} />;
 export const youtubeImg = <img className="footer-social-media" src="/icons/youtube.png" alt="youtube-logo" width={30} height={30} />;
 export const twitterImg = <img className="footer-social-media" src="/icons/twitter.png" alt="twitter-logo" width={30} height={30} />;
