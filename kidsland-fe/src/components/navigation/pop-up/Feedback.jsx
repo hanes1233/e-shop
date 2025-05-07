@@ -32,21 +32,25 @@ function Feedback(props) {
                 message: message
             }
             apiPost(POST_FEEDBACK, payload);
-            handleClose();
-            dropValues();
-            setValidated(false);
+            clear();
             setShowAlert(true);
         }
     };
+
+    const clear = () => {
+        handleClose();
+        dropValues();
+        setValidated(false);
+    }
 
     // TODO: separate EmailControl to separate component?
 
     return (
         <>
-            <Modal show={showModal} onHide={handleClose}>
+            <Modal show={showModal} onHide={clear}>
                 <Modal.Header >
                     <Modal.Title>Tell us about your experience</Modal.Title>
-                    <CloseButton className='bg-danger' onClick={handleClose} />
+                    <CloseButton className='bg-danger' onClick={clear} />
                 </Modal.Header>
                 <Modal.Body>
                     <Form validated={validated} onSubmit={handleSubmit}>
@@ -81,7 +85,7 @@ function Feedback(props) {
                             <InputGroup hasValidation>
                                 <Form.Control
                                     as="textarea"
-                                    rows={8}
+                                    rows={6}
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
                                     placeholder="Type here..."

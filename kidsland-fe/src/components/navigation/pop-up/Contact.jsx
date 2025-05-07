@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { apiPost } from "../../../utils/client";
+import { Button, CloseButton, Form, InputGroup, Modal } from "react-bootstrap";
+import { done } from "../../../constants/images";
 
-function Contact() {
+function Contact(props) {
     const [validated, setValidated] = useState(false);
     const [email, setEmail] = useState('');
+    const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
     const [showAlert, setShowAlert] = useState(false);
+    const [wasTouched, setWasTouched] = useState(false);
 
     const { showModal, handleClose } = props;
 
@@ -14,6 +19,8 @@ function Contact() {
     const dropValues = () => {
         setEmail('');
         setMessage('');
+        setSubject('');
+        setWasTouched(false);
     }
 
     const handleSubmit = (event) => {
@@ -27,22 +34,24 @@ function Contact() {
                 email: email,
                 message: message
             }
-            apiPost(POST_FEEDBACK, payload);
-            handleClose();
-            dropValues();
-            setValidated(false);
+            apiPost('', payload);
+            clear();
             setShowAlert(true);
         }
     };
 
-    // TODO: test FE CI/CD trigger
+    const clear = () => {
+        handleClose();
+        dropValues();
+        setValidated(false);
+    }
 
     return (
         <>
-            <Modal show={showModal} onHide={handleClose}>
+            <Modal show={showModal} onHide={clear}>
                 <Modal.Header >
                     <Modal.Title>Tell us about your experience</Modal.Title>
-                    <CloseButton className='bg-danger' onClick={handleClose} />
+                    <CloseButton className='bg-danger' onClick={clear} />
                 </Modal.Header>
                 <Modal.Body>
                     <Form validated={validated} onSubmit={handleSubmit}>
@@ -71,7 +80,31 @@ function Contact() {
                                 )}
                             </InputGroup>
                         </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicSubject">
+                            <Form.Label>Subject</Form.Label>
+                            <InputGroup hasValidation>
+                                <Form.Control
+                                    type="text"
+                                    value={subject}
+                                    onChange={(e) => setSubject(e.target.value)}
+                                    onBlur={() => setWasTouched(true)}
+                                    isInvalid={wasTouched && !subject}
+                                    isValid={wasTouched && subject}
+                                    required
+                                />
+                                {subject && !wasTouched && (
+                                    <Form.Control.Feedback type="invalid">
+                                        Please enter a subject.
+                                    </Form.Control.Feedback>
+                                )}
 
+                                {subject && wasTouched && (
+                                    <Form.Control.Feedback type="valid">
+                                        Looks good!
+                                    </Form.Control.Feedback>
+                                )}
+                            </InputGroup>
+                        </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicMessage">
                             <Form.Label>Message</Form.Label>
                             <InputGroup hasValidation>

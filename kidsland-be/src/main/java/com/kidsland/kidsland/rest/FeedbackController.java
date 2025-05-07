@@ -22,5 +22,4 @@ public class FeedbackController {
         feedbackService.saveFeedback(feedbackDTO);
         return ResponseEntity.ok().build();
     }
-    // Test CI/CD pipeline BE trigger
 }

@@ -4,9 +4,11 @@ import { Col, Container, Row } from "react-bootstrap";
 import { facebookImg, instagramImg, kidslandLogo, locationImg, mailImg, twitterImg, youtubeImg } from "../../../constants/images";
 import { redirectToSocialMediaPage } from "../../../utils/redirect/socialMedia";
 import Feedback from "../pop-up/Feedback";
+import Contact from "../pop-up/Contact";
 
 function Footer() {
     const [showFeedback, setShowFeedback] = useState(false);
+    const [showContact, setShowContact] = useState(false);
 
     const handleRedirect = (e) => {
         const elementId = e.currentTarget.id;
@@ -16,6 +18,7 @@ function Footer() {
     return (
         <>
             <Feedback showModal={showFeedback} handleClose={() => setShowFeedback(false)} />
+            <Contact showModal={showContact} handleClose={() => setShowContact(false)} />
             <Container className="footer">
                 <Row className="footer-header">
                     <Col>
@@ -33,7 +36,7 @@ function Footer() {
                 </Row>
                 <Row className="mb-4">
                     <Col>
-                        <span className="footer-items"><i>Write us</i> {mailImg}</span>
+                        <span className="footer-items" onClick={() => setShowContact(true)}><i>Write us</i> {mailImg}</span>
                     </Col>
                     <Col>
                         <span className="footer-items"><i>About</i> <b className="ms-1 kidsland">Kidsland ©</b>{kidslandLogo}</span>
