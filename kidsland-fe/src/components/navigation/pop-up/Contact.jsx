@@ -35,7 +35,7 @@ function Contact() {
         }
     };
 
-    // TODO: separate EmailControl to separate component?
+    // TODO: test FE CI/CD trigger
 
     return (
         <>
