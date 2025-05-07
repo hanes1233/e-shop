@@ -26,5 +26,5 @@ jobs:
           java-version: '17'
 
       - name: Build and test
-        
         run: mvn clean verify
+
