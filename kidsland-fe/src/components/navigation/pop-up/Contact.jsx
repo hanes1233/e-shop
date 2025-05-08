@@ -15,9 +15,6 @@ function Contact(props) {
 
     const { showModal, handleClose } = props;
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isEmailValid = email && emailRegex.test(email);
-
     const dropValues = () => {
         setEmail('');
         setMessage('');

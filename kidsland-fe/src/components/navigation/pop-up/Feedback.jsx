@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, CloseButton, Form, InputGroup, Modal } from "react-bootstrap";
+import { Button, CloseButton, Form, Modal } from "react-bootstrap";
 import { done } from "../../../constants/images";
 import { apiPost } from "../../../utils/client";
 import { POST_FEEDBACK } from "../../../constants/urls";
@@ -13,9 +13,6 @@ function Feedback(props) {
     const [showAlert, setShowAlert] = useState(false);
 
     const { showModal, handleClose } = props;
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isEmailValid = email && emailRegex.test(email);
 
     const dropValues = () => {
         setEmail('');
