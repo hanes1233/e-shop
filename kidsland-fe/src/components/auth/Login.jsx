@@ -9,6 +9,7 @@ import { validate } from '../../utils/userValidations';
 import { handleCachedCredentials, handleSuccess } from '../../utils/validationResultHandler';
 import AlertMessage from '../design/UIStates/AlertMessage';
 import { SUCCESS } from '../../constants/state';
+import EmailInput from '../design/form/EmailInput';
 
 function Login(props) {
     const [showModal] = useState(props.toggleModal);
@@ -62,25 +63,7 @@ function Login(props) {
                     </Modal.Header>
                     <Modal.Body>
                         <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <InputGroup hasValidation>
-                                    <Form.Control
-                                        type="email"
-                                        value={email}
-                                        placeholder="Enter email"
-                                        required
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        isInvalid={email !== '' && !email.includes('@') && email.includes('.')}
-                                        isValid={email.includes('@')}
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                        Please provide a valid email address.
-                                    </Form.Control.Feedback>
-                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                </InputGroup>
-                            </Form.Group>
-
+                            <EmailInput email={email} handleChange={(e) => setEmail(e.target.value)} />
                             <Form.Group className="mb-3" controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
                                 <InputGroup hasValidation>

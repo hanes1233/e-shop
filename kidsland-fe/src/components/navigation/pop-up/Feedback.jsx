@@ -3,6 +3,8 @@ import { Button, CloseButton, Form, InputGroup, Modal } from "react-bootstrap";
 import { done } from "../../../constants/images";
 import { apiPost } from "../../../utils/client";
 import { POST_FEEDBACK } from "../../../constants/urls";
+import EmailInput from "../../design/form/EmailInput";
+import MessageInput from "../../design/form/MessageInput";
 
 function Feedback(props) {
     const [validated, setValidated] = useState(false);
@@ -43,8 +45,6 @@ function Feedback(props) {
         setValidated(false);
     }
 
-    // TODO: separate EmailControl to separate component?
-
     return (
         <>
             <Modal show={showModal} onHide={clear}>
@@ -54,56 +54,8 @@ function Feedback(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <Form validated={validated} onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <InputGroup hasValidation>
-                                <Form.Control
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Enter email"
-                                    isInvalid={email && !isEmailValid}
-                                    isValid={email && isEmailValid}
-                                    required
-                                />
-                                {email && !isEmailValid && (
-                                    <Form.Control.Feedback type="invalid">
-                                        Please enter a valid email address.
-                                    </Form.Control.Feedback>
-                                )}
-
-                                {email && isEmailValid && (
-                                    <Form.Control.Feedback type="valid">
-                                        Looks good!
-                                    </Form.Control.Feedback>
-                                )}
-                            </InputGroup>
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formBasicMessage">
-                            <Form.Label>Message</Form.Label>
-                            <InputGroup hasValidation>
-                                <Form.Control
-                                    as="textarea"
-                                    rows={6}
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    placeholder="Type here..."
-                                    minLength={20}
-                                    isInvalid={message && message.length < 20}
-                                    isValid={message && message.length >= 20}
-                                    required
-                                />
-                                {/* Invalid Feedback */}
-                                <Form.Control.Feedback type="invalid">
-                                    Type at least 20 characters.
-                                </Form.Control.Feedback>
-                                {/* Valid Feedback */}
-                                <Form.Control.Feedback type="valid">
-                                    Looks good!
-                                </Form.Control.Feedback>
-                            </InputGroup>
-                        </Form.Group>
+                        <EmailInput email={email} handleChange={(e) => setEmail(e.target.value)} />
+                        <MessageInput message={message} handleChange={(e) => setMessage(e.target.value)} />
                         <div className="d-flex justify-content-center mt-3">
                             <Button variant="primary" type="submit">
                                 Submit

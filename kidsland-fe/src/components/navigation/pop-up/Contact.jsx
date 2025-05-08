@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { apiPost } from "../../../utils/client";
 import { Button, CloseButton, Form, InputGroup, Modal } from "react-bootstrap";
 import { done } from "../../../constants/images";
+import EmailInput from "../../design/form/EmailInput";
+import MessageInput from "../../design/form/MessageInput";
 
 function Contact(props) {
     const [validated, setValidated] = useState(false);
@@ -55,31 +57,7 @@ function Contact(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <Form validated={validated} onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <InputGroup hasValidation>
-                                <Form.Control
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Enter email"
-                                    isInvalid={email && !isEmailValid}
-                                    isValid={email && isEmailValid}
-                                    required
-                                />
-                                {email && !isEmailValid && (
-                                    <Form.Control.Feedback type="invalid">
-                                        Please enter a valid email address.
-                                    </Form.Control.Feedback>
-                                )}
-
-                                {email && isEmailValid && (
-                                    <Form.Control.Feedback type="valid">
-                                        Looks good!
-                                    </Form.Control.Feedback>
-                                )}
-                            </InputGroup>
-                        </Form.Group>
+                        <EmailInput email={email} handleChange={(e) => setEmail(e.target.value)} />
                         <Form.Group className="mb-3" controlId="formBasicSubject">
                             <Form.Label>Subject</Form.Label>
                             <InputGroup hasValidation>
@@ -105,30 +83,7 @@ function Contact(props) {
                                 )}
                             </InputGroup>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicMessage">
-                            <Form.Label>Message</Form.Label>
-                            <InputGroup hasValidation>
-                                <Form.Control
-                                    as="textarea"
-                                    rows={8}
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    placeholder="Type here..."
-                                    minLength={20}
-                                    isInvalid={message && message.length < 20}
-                                    isValid={message && message.length >= 20}
-                                    required
-                                />
-                                {/* Invalid Feedback */}
-                                <Form.Control.Feedback type="invalid">
-                                    Type at least 20 characters.
-                                </Form.Control.Feedback>
-                                {/* Valid Feedback */}
-                                <Form.Control.Feedback type="valid">
-                                    Looks good!
-                                </Form.Control.Feedback>
-                            </InputGroup>
-                        </Form.Group>
+                        <MessageInput message={message} handleChange={(e) => setMessage(e.target.value)} />
                         <div className="d-flex justify-content-center mt-3">
                             <Button variant="primary" type="submit">
                                 Submit
