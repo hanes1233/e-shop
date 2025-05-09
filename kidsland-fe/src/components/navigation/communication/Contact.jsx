@@ -4,6 +4,7 @@ import { Button, CloseButton, Form, InputGroup, Modal } from "react-bootstrap";
 import { done } from "../../../constants/images";
 import EmailInput from "../../design/form/EmailInput";
 import MessageInput from "../../design/form/MessageInput";
+import '../../../css/communication/Contact.css';
 
 function Contact(props) {
     const [validated, setValidated] = useState(false);
@@ -11,7 +12,7 @@ function Contact(props) {
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
     const [showAlert, setShowAlert] = useState(false);
-    const [wasTouched, setWasTouched] = useState(false);
+    const [isFlying, setIsFlying] = useState(false);
 
     const { showModal, handleClose } = props;
 
@@ -19,8 +20,14 @@ function Contact(props) {
         setEmail('');
         setMessage('');
         setSubject('');
-        setWasTouched(false);
     }
+
+    const handleSend = () => {
+        setIsFlying(true);
+        setTimeout(() => {
+            setIsFlying(false);
+        }, 1000);
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -29,13 +36,16 @@ function Contact(props) {
         if (form.checkValidity() === false) {
             setValidated(true);
         } else {
+            handleSend();
             const payload = {
                 email: email,
                 message: message
-            }
-            apiPost('', payload);
-            clear();
-            setShowAlert(true);
+            };
+            // apiPost('', payload);
+            setTimeout(() => {
+                clear();
+                setShowAlert(true);
+            }, 1000);
         }
     };
 
@@ -43,6 +53,7 @@ function Contact(props) {
         handleClose();
         dropValues();
         setValidated(false);
+        setMessage('');
     }
 
     return (
@@ -53,7 +64,7 @@ function Contact(props) {
                     <CloseButton className='bg-danger' onClick={clear} />
                 </Modal.Header>
                 <Modal.Body>
-                    <Form validated={validated} onSubmit={handleSubmit}>
+                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
                         <EmailInput email={email} handleChange={(e) => setEmail(e.target.value)} />
                         <Form.Group className="mb-3" controlId="formBasicSubject">
                             <Form.Label>Subject</Form.Label>
@@ -62,18 +73,16 @@ function Contact(props) {
                                     type="text"
                                     value={subject}
                                     onChange={(e) => setSubject(e.target.value)}
-                                    onBlur={() => setWasTouched(true)}
-                                    isInvalid={wasTouched && !subject}
-                                    isValid={wasTouched && subject}
+                                    isInvalid={subject && subject.length < 3}
+                                    isValid={subject && subject.length > 3}
                                     required
                                 />
-                                {subject && !wasTouched && (
+                                {subject && subject.length < 3 && (
                                     <Form.Control.Feedback type="invalid">
                                         Please enter a subject.
                                     </Form.Control.Feedback>
                                 )}
-
-                                {subject && wasTouched && (
+                                {subject && subject.length > 3 && (
                                     <Form.Control.Feedback type="valid">
                                         Looks good!
                                     </Form.Control.Feedback>
@@ -82,8 +91,15 @@ function Contact(props) {
                         </Form.Group>
                         <MessageInput message={message} handleChange={(e) => setMessage(e.target.value)} />
                         <div className="d-flex justify-content-center mt-3">
-                            <Button variant="primary" type="submit">
-                                Submit
+                            <Button variant="transparent" type="submit">
+                                <img
+                                    src="/icons/paper.png"
+                                    alt="flying-paper"
+                                    width={50}
+                                    height={50}
+                                    className={`paper-plane ${isFlying ? 'fly' : ''}`}
+                                    // onClick={handleSend}
+                                />
                             </Button>
                         </div>
                     </Form>
@@ -91,7 +107,7 @@ function Contact(props) {
             </Modal>
             <Modal show={showAlert} onHide={() => setShowAlert(false)}>
                 <Modal.Body>
-                    <div className="text-center fs-4"><b>Thank you!</b> {done}</div>
+                    <div className="text-center fs-4"><b>Sent</b> {done}</div>
                 </Modal.Body>
             </Modal>
         </>

@@ -30,4 +30,7 @@ export const revenue = <img src="/icons/revenue.png" alt="revenue-icon" width={7
 export const manage = <img src="/icons/manage.png" alt="manage-icon" width={70} height={70} />
 
 // Feedback
-export const done = <img src="/icons/done.png" alt="done-symbol" widht={25} height={25} />
+export const done = <img src="/icons/done.png" alt="done-symbol" width={25} height={25} />
+
+// Communication
+export const flyingPaper = <img src="/icons/paper.png" alt="flying-paper" width={50} height={50} />

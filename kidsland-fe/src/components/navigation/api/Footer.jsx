@@ -3,8 +3,8 @@ import '../../../css/navigation/Footer.css';
 import { Col, Container, Row } from "react-bootstrap";
 import { facebookImg, instagramImg, kidslandLogo, locationImg, mailImg, twitterImg, youtubeImg } from "../../../constants/images";
 import { redirectToSocialMediaPage } from "../../../utils/redirect/socialMedia";
-import Feedback from "../pop-up/Feedback";
-import Contact from "../pop-up/Contact";
+import Feedback from "../communication/Feedback";
+import Contact from "../communication/Contact";
 
 function Footer() {
     const [showFeedback, setShowFeedback] = useState(false);

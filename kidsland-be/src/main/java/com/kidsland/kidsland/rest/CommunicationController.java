@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-public class FeedbackController {
+public class CommunicationController {
 
     private final FeedbackService feedbackService;
 
@@ -22,4 +22,13 @@ public class FeedbackController {
         feedbackService.saveFeedback(feedbackDTO);
         return ResponseEntity.ok().build();
     }
+
+    /*
+    @PostMapping(value = "/api/email/register", produces = {"application/json", "application/xml"})
+    public ResponseEntity<Void> registerEmail(@RequestBody EmailDTO emailDTO) {
+        log.info("Saving email to database...");
+        emailService.saveEmail(emailDTO);
+        return ResponseEntity.ok().build();
+    }
+     */
 }
