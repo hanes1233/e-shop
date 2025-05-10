@@ -1,7 +1,8 @@
 package com.kidsland.kidsland.rest;
 
+import com.kidsland.kidsland.dto.EmailDTO;
 import com.kidsland.kidsland.dto.FeedbackDTO;
-import com.kidsland.kidsland.service.api.FeedbackService;
+import com.kidsland.kidsland.service.api.CommunicationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,21 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CommunicationController {
 
-    private final FeedbackService feedbackService;
+    private final CommunicationService communicationService;
 
     @PostMapping(value = "/api/feedback/register", produces = {"application/json", "application/xml"})
     public ResponseEntity<Void> registerFeedback(@RequestBody FeedbackDTO feedbackDTO) {
         log.info("Saving feedback to database...");
-        feedbackService.saveFeedback(feedbackDTO);
+        communicationService.saveFeedback(feedbackDTO);
         return ResponseEntity.ok().build();
     }
 
-    /*
     @PostMapping(value = "/api/email/register", produces = {"application/json", "application/xml"})
     public ResponseEntity<Void> registerEmail(@RequestBody EmailDTO emailDTO) {
         log.info("Saving email to database...");
-        emailService.saveEmail(emailDTO);
+        communicationService.saveEmail(emailDTO);
         return ResponseEntity.ok().build();
     }
-     */
 }
