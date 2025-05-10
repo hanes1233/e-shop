@@ -32,4 +32,6 @@ public class CommunicationController {
         emailService.saveCommunication(emailDTO);
         return ResponseEntity.ok().build();
     }
+
+    // TODO: test CI/CD pipeline
 }
