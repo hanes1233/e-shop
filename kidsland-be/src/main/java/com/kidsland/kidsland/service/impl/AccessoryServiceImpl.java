@@ -4,16 +4,16 @@ import com.kidsland.kidsland.data.entity.subcategories.Accessory;
 import com.kidsland.kidsland.data.repository.KidslandErrorRepository;
 import com.kidsland.kidsland.data.repository.KidslandRegistrationRequestRepository;
 import com.kidsland.kidsland.data.repository.RelItemRepository;
-import com.kidsland.kidsland.data.repository.subcategories.AccessoryRepository;
-import com.kidsland.kidsland.dto.AccessoryDTO;
+import com.kidsland.kidsland.data.repository.subcategories.AccessoryItemRepository;
+import com.kidsland.kidsland.dto.AccessoryItemDTO;
 import com.kidsland.kidsland.dto.Item;
-import com.kidsland.kidsland.dto.mapper.api.ItemMapper;
+import com.kidsland.kidsland.core.mapper.AbstractMapper;
 import com.kidsland.kidsland.dto.mapper.mapstruct.subcategories.AccessoryMapper;
 import com.kidsland.kidsland.dto.mapper.mapstruct.subcategories.RelItemMapper;
 import com.kidsland.kidsland.dto.response.Error;
 import com.kidsland.kidsland.dto.response.ErrorResult;
 import com.kidsland.kidsland.dto.response.Result;
-import com.kidsland.kidsland.service.AbstractSubcategoryService;
+import com.kidsland.kidsland.service.base.AbstractSubcategoryService;
 import com.kidsland.kidsland.service.api.AccessoryService;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
@@ -24,21 +24,21 @@ import java.util.List;
 
 @Service
 public class AccessoryServiceImpl
-        extends AbstractSubcategoryService<Accessory, AccessoryDTO> implements AccessoryService {
+        extends AbstractSubcategoryService<Accessory, AccessoryItemDTO> implements AccessoryService {
 
-    private final AccessoryRepository accessoryRepository;
-    private final ItemMapper<Accessory, Item> accessoryMapper;
+    private final AccessoryItemRepository accessoryRepository;
+    private final AbstractMapper<Accessory, Item> accessoryMapper;
 
     public AccessoryServiceImpl
             (
-                AccessoryRepository itemRepository,
+                AccessoryItemRepository itemRepository,
                 AccessoryMapper itemMapper,
                 KidslandRegistrationRequestRepository kidslandRegistrationRequestRepository,
                 KidslandErrorRepository kidslandErrorRepository,
                 RelItemRepository relItemRepository,
                 RelItemMapper relItemMapper,
-                AccessoryRepository accessoryRepository,
-                ItemMapper<Accessory, Item> accessoryMapper
+                AccessoryItemRepository accessoryRepository,
+                AbstractMapper<Accessory, Item> accessoryMapper
             ) {
         super(
                 kidslandErrorRepository,
@@ -53,7 +53,7 @@ public class AccessoryServiceImpl
 
     @Override
     @Transactional
-    public ResponseEntity<Result> registerOneAccessory(AccessoryDTO accessoryToRegister) {
+    public ResponseEntity<Result> registerOneAccessory(AccessoryItemDTO accessoryToRegister) {
         if (accessoryToRegister == null) {
             return createNullItemResponse();
         }

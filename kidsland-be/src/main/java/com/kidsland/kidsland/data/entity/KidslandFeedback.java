@@ -1,6 +1,7 @@
 package com.kidsland.kidsland.data.entity;
 
 import com.kidsland.kidsland.core.entity.AbstractEntity;
+import com.kidsland.kidsland.data.entity.base.Communication;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -17,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "obj_feedback", schema = "db")
-public class KidslandFeedback extends AbstractEntity {
+public class KidslandFeedback extends AbstractEntity implements Communication {
 
     @Column(name = "email", nullable = false, length = 50)
     private String email;

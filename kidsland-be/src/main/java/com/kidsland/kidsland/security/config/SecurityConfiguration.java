@@ -35,7 +35,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                         .requestMatchers("/api/v1/categories", "/api/auth/**", "/api/subcategory/find/**",
-                                "/api/feedback/register")
+                                "api/communication/**")
                         .permitAll()
                         .requestMatchers("/api/users/find").hasAnyRole(USER.name(), ADMIN.name())
                         .anyRequest()

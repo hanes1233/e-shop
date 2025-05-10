@@ -5,6 +5,7 @@ import { done } from "../../../constants/images";
 import EmailInput from "../../design/form/EmailInput";
 import MessageInput from "../../design/form/MessageInput";
 import '../../../css/communication/Contact.css';
+import { POST_EMAIL } from "../../../constants/urls";
 
 function Contact(props) {
     const [validated, setValidated] = useState(false);
@@ -39,9 +40,10 @@ function Contact(props) {
             handleSend();
             const payload = {
                 email: email,
+                subject: subject,
                 message: message
             };
-            // apiPost('', payload);
+            apiPost(POST_EMAIL, payload);
             setTimeout(() => {
                 clear();
                 setShowAlert(true);

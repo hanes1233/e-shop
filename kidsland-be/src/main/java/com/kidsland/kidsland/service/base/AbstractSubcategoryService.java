@@ -1,4 +1,4 @@
-package com.kidsland.kidsland.service;
+package com.kidsland.kidsland.service.base;
 
 import com.kidsland.kidsland.data.entity.base.Item;
 import com.kidsland.kidsland.data.entity.KidslandRegistrationRequest;
@@ -6,8 +6,9 @@ import com.kidsland.kidsland.data.entity.subcategories.RelItem;
 import com.kidsland.kidsland.data.repository.KidslandErrorRepository;
 import com.kidsland.kidsland.data.repository.KidslandRegistrationRequestRepository;
 import com.kidsland.kidsland.data.repository.RelItemRepository;
-import com.kidsland.kidsland.data.repository.api.ItemRepository;
-import com.kidsland.kidsland.dto.mapper.api.ItemMapper;
+import com.kidsland.kidsland.data.repository.api.AbstractItemRepository;
+import com.kidsland.kidsland.core.mapper.AbstractMapper;
+import com.kidsland.kidsland.dto.base.ItemDTO;
 import com.kidsland.kidsland.dto.mapper.mapstruct.subcategories.RelItemMapper;
 import com.kidsland.kidsland.dto.response.Result;
 import com.kidsland.kidsland.service.validation.Validator;
@@ -20,28 +21,28 @@ import static com.kidsland.kidsland.constants.Status.PROCESSED;
 @Slf4j
 public abstract class AbstractSubcategoryService<
         ITEM extends Item,
-        DTO extends com.kidsland.kidsland.dto.base.DTO> extends AbstractResponseService<DTO> {
+        DTO extends ItemDTO> extends AbstractResponseService<DTO> {
 
-    private final ItemRepository<ITEM> itemRepository;
+    private final AbstractItemRepository<ITEM> abstractItemRepository;
     private final KidslandRegistrationRequestRepository kidslandRegistrationRequestRepository;
     private final RelItemRepository relItemRepository;
     private final RelItemMapper relItemMapper;
-    protected final ItemMapper<DTO, ITEM> itemMapper;
+    protected final AbstractMapper<DTO, ITEM> abstractMapper;
 
     protected AbstractSubcategoryService
     (
             KidslandErrorRepository kidslandErrorRepository,
             KidslandRegistrationRequestRepository kidslandRegistrationRequestRepository,
-            ItemRepository<ITEM> itemRepository,
+            AbstractItemRepository<ITEM> abstractItemRepository,
             RelItemRepository relItemRepository,
-            ItemMapper<DTO, ITEM> itemMapper,
+            AbstractMapper<DTO, ITEM> abstractMapper,
             RelItemMapper relItemMapper
     ) {
         super(kidslandErrorRepository, kidslandRegistrationRequestRepository);
-        this.itemRepository = itemRepository;
+        this.abstractItemRepository = abstractItemRepository;
         this.kidslandRegistrationRequestRepository = kidslandRegistrationRequestRepository;
         this.relItemRepository = relItemRepository;
-        this.itemMapper = itemMapper;
+        this.abstractMapper = abstractMapper;
         this.relItemMapper = relItemMapper;
     }
 
@@ -57,7 +58,7 @@ public abstract class AbstractSubcategoryService<
         // Processing phase
         log.info("Beginning of item registration");
         KidslandRegistrationRequest registrationRequest = createRequest();
-        ITEM item = itemMapper.mapToEntity(dto);
+        ITEM item = abstractMapper.mapToEntity(dto);
         if (isItemExists(item)) {
             log.warn("Registration failed.");
             return constructDuplicateResponse(dto, registrationRequest);
@@ -70,7 +71,7 @@ public abstract class AbstractSubcategoryService<
             savedRelItem = relItemRepository.save(relItem);
             item.setItem(savedRelItem);
             log.info("Saving item to database...");
-            savedItem = itemRepository.save(item);
+            savedItem = abstractItemRepository.save(item);
         } catch (Exception e) {
             log.warn("Exception caught while saving item with id {} and name {} to database", item.getItemId(), item.getItemName());
             return createUnexpectedErrorResponse(dto, registrationRequest, e);
@@ -79,7 +80,7 @@ public abstract class AbstractSubcategoryService<
         registrationRequest.setProcessingStatus(PROCESSED.getCode());
         kidslandRegistrationRequestRepository.save(registrationRequest);
         log.info("Item was successfully saved.");
-        DTO itemToReturn = itemMapper.mapToDTO(savedItem);
+        DTO itemToReturn = abstractMapper.mapToDTO(savedItem);
         return constructResponse(itemToReturn);
     }
 
@@ -93,6 +94,6 @@ public abstract class AbstractSubcategoryService<
         if (itemId == null) {
             return false;
         }
-        return itemRepository.existsByItemId(itemId);
+        return abstractItemRepository.existsByItemId(itemId);
     }
 }

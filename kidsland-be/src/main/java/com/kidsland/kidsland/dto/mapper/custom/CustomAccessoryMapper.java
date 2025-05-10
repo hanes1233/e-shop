@@ -2,13 +2,13 @@ package com.kidsland.kidsland.dto.mapper.custom;
 
 import com.kidsland.kidsland.data.entity.subcategories.Accessory;
 import com.kidsland.kidsland.dto.Item;
-import com.kidsland.kidsland.dto.mapper.api.ItemMapper;
+import com.kidsland.kidsland.core.mapper.AbstractMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class CustomAccessoryMapper implements ItemMapper<Accessory, Item> {
+public class CustomAccessoryMapper implements AbstractMapper<Accessory, Item> {
     @Override
     public Accessory mapToDTO(Item item) {
         return null;

@@ -1,6 +1,7 @@
 package com.kidsland.kidsland.service.validation;
 
 import com.kidsland.kidsland.dto.RelItemDTO;
+import com.kidsland.kidsland.dto.base.ItemDTO;
 import com.kidsland.kidsland.dto.response.Error;
 import com.kidsland.kidsland.dto.response.ErrorResult;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.util.List;
 @Slf4j
 @Getter
 @Setter
-public class Validator<DTO extends com.kidsland.kidsland.dto.base.DTO> {
+public class Validator<DTO extends ItemDTO> {
 
     private boolean isInvalid;
 

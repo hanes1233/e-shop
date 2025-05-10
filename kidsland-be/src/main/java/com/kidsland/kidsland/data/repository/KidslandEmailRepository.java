@@ -1,9 +1,9 @@
 package com.kidsland.kidsland.data.repository;
 
-import com.kidsland.kidsland.data.entity.KidslandFeedback;
+import com.kidsland.kidsland.data.entity.KidslandEmail;
 import com.kidsland.kidsland.data.repository.api.AbstractCommunicationRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface KidslandFeedbackRepository extends AbstractCommunicationRepository<KidslandFeedback> {
+public interface KidslandEmailRepository extends AbstractCommunicationRepository<KidslandEmail> {
 }

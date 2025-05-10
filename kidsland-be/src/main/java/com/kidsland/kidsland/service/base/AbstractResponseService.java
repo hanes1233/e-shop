@@ -1,9 +1,10 @@
-package com.kidsland.kidsland.service;
+package com.kidsland.kidsland.service.base;
 
 import com.kidsland.kidsland.data.entity.KidslandError;
 import com.kidsland.kidsland.data.entity.KidslandRegistrationRequest;
 import com.kidsland.kidsland.data.repository.KidslandErrorRepository;
 import com.kidsland.kidsland.data.repository.KidslandRegistrationRequestRepository;
+import com.kidsland.kidsland.dto.base.ItemDTO;
 import com.kidsland.kidsland.dto.response.Error;
 import com.kidsland.kidsland.dto.response.ErrorResult;
 import com.kidsland.kidsland.dto.response.Result;
@@ -18,7 +19,7 @@ import static com.kidsland.kidsland.constants.Status.ERROR;
 
 @RequiredArgsConstructor
 @Slf4j
-public abstract class AbstractResponseService<DTO extends com.kidsland.kidsland.dto.base.DTO> {
+public abstract class AbstractResponseService<DTO extends ItemDTO> {
 
     private final KidslandErrorRepository kidslandErrorRepository;
     private final KidslandRegistrationRequestRepository kidslandRegistrationRequestRepository;
@@ -29,7 +30,7 @@ public abstract class AbstractResponseService<DTO extends com.kidsland.kidsland.
         }
         Result result = new Result()
                 .setMessage("Item of type " + dto.getClass().getSimpleName() + " successfully registered.")
-                .setDtos(List.of(dto));
+                .setItemDtos(List.of(dto));
         return ResponseEntity.status(201).body(result);
     }
 

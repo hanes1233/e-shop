@@ -2,9 +2,9 @@ package com.kidsland.kidsland.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.kidsland.kidsland.dto.AccessoryDTO;
+import com.kidsland.kidsland.dto.AccessoryItemDTO;
 import com.kidsland.kidsland.dto.CategoryDTO;
-import com.kidsland.kidsland.dto.base.DTO;
+import com.kidsland.kidsland.dto.base.ItemDTO;
 import com.kidsland.kidsland.dto.Item;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,7 @@ public class Result {
 
     @XmlAttribute
     @JsonFormat
-    private List<AccessoryDTO> accessoryDTOS;
+    private List<AccessoryItemDTO> accessoryDTOS;
 
     @XmlAttribute
     @JsonFormat
@@ -43,7 +43,7 @@ public class Result {
 
     @XmlAttribute
     @JsonFormat
-    private List<DTO> dtos;
+    private List<ItemDTO> itemDtos;
 
     public Result(ErrorResult errorResult) {
         this.errorResult = errorResult;

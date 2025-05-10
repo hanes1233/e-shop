@@ -1,7 +1,7 @@
 package com.kidsland.kidsland.rest;
 
 import com.kidsland.kidsland.data.entity.subcategories.Accessory;
-import com.kidsland.kidsland.dto.AccessoryDTO;
+import com.kidsland.kidsland.dto.AccessoryItemDTO;
 import com.kidsland.kidsland.dto.response.Result;
 import com.kidsland.kidsland.service.api.AccessoryService;
 import lombok.NonNull;
@@ -27,7 +27,7 @@ public class AccessoryController {
 
     @PostMapping(value = "/register/accessory", produces = {"application/json", "application/xml"})
     public ResponseEntity<Result> registerItem(@RequestHeader(value = "X-Correlation-ID", required = false) String correlationId,
-                                               @RequestBody AccessoryDTO accessory) {
+                                               @RequestBody AccessoryItemDTO accessory) {
         return accessoryService.registerOneAccessory(accessory);
     }
 

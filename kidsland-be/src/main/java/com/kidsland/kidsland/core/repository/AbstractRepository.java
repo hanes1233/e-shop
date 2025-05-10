@@ -1,11 +1,9 @@
-package com.kidsland.kidsland.data.repository.api;
+package com.kidsland.kidsland.core.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
-public interface ItemRepository<ITEM> extends JpaRepository<ITEM, Long>, JpaSpecificationExecutor<ITEM> {
-
-    boolean existsByItemId(java.util.UUID itemId);
+public interface AbstractRepository<T> extends JpaRepository<T, Long>, JpaSpecificationExecutor<T> {
 }

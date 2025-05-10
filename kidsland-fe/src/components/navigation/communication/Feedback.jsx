@@ -42,6 +42,8 @@ function Feedback(props) {
         setValidated(false);
     }
 
+    // TODO: implement reviews displaying on the main page ? or in separate page?
+
     return (
         <>
             <Modal show={showModal} onHide={clear}>

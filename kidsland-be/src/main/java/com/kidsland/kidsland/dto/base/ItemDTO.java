@@ -4,7 +4,7 @@ import com.kidsland.kidsland.dto.RelItemDTO;
 
 import java.util.UUID;
 
-public interface DTO {
+public interface ItemDTO {
 
     RelItemDTO getItem();
 
