@@ -1,5 +1,6 @@
 const readline = require('readline');
 const axios = require('axios');
+const getColors = require('./colors');
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -93,7 +94,7 @@ const getRandomObject = () => {
             itemName: "Modern pen",
             brand: "Schooler s.r.o",
             reserved: 0,
-            colors: "RED;BLUE;YELLOW;GREEN;BLACK",
+            colors: getColors(),
             type: "Pen",
             quantity: Math.floor(Math.random() * (150 - 0 + 1)) + 0,
             isAvailable: true,
@@ -110,10 +111,6 @@ const getRandomObject = () => {
         }
     }
     return template;
-}
-
-const generateColors = () => {
-
 }
 
 actionManager();
