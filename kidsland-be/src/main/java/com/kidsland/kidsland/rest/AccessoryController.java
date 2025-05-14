@@ -16,7 +16,7 @@ import static com.kidsland.kidsland.data.repository.specification.ItemSpecificat
 @RequiredArgsConstructor
 @RequestMapping("/api/subcategory")
 public class AccessoryController {
-
+    // TODO: inherit from Api
     private final AccessoryService accessoryService;
 
     @GetMapping(value = "/find/accessories/{url}", produces = {"application/json", "application/xml"})
