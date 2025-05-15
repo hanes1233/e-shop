@@ -62,7 +62,7 @@ const actionManager = () => {
 
         } else if (answer === '-a') {
             rl.question('Perfect! How many times? (type "[count]"): ', (countInput) => {
-                count = validateCount(countInput, answer);
+                count = validateCount(countInput);
                 if (count > 0) {
                     fillAllItems(count);
                     rl.close();
@@ -92,7 +92,7 @@ const retrieveCount = (input) => {
     return input.substring(index);
 };
 
-const validateCount = (input, answer) => {
+const validateCount = (input) => {
     const count = parseInt(input, 10);
     if (!isNaN(count)) {
         return count;
