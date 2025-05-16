@@ -23,3 +23,10 @@ databaseChangeLog:
         - sqlFile:
             path: liquibase/classpath/0.0.4-init-email-table.sql
             encoding: UTF-8
+  - changeSet:
+      id: 4
+      author: pavel
+      changes:
+        - sqlFile:
+            path: liquibase/classpath/0.0.5-insert-read-column-email.sql
+            encoding: UTF-8

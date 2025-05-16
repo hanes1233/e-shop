@@ -2,11 +2,13 @@ package com.kidsland.be.rest;
 
 import com.kidsland.be.dto.EmailDTO;
 import com.kidsland.be.dto.FeedbackDTO;
+import com.kidsland.be.dto.response.Result;
 import com.kidsland.be.service.api.EmailService;
 import com.kidsland.be.service.api.FeedbackService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,5 +35,8 @@ public class CommunicationController {
         return ResponseEntity.ok().build();
     }
 
-    // TODO: test CI/CD pipeline
+    @GetMapping
+    public ResponseEntity<Result> getEmail() {
+        return ResponseEntity.ok().build();
+    }
 }

@@ -28,4 +28,7 @@ public class KidslandEmail extends AbstractEntity implements Communication {
 
     @Column(name = "message", nullable = false, length = Integer.MAX_VALUE)
     private String message;
+
+    @Column(name = "read", nullable = false)
+    private boolean read;
 }

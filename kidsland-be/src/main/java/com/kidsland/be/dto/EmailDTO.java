@@ -14,4 +14,6 @@ public class EmailDTO extends AbstractDTO implements CommunicationDTO {
     private String subject;
 
     private String message;
+
+    private boolean read;
 }

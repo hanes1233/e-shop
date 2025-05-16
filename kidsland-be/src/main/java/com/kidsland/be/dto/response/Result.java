@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.kidsland.be.dto.AccessoryItemDTO;
 import com.kidsland.be.dto.CategoryDTO;
+import com.kidsland.be.dto.EmailDTO;
 import com.kidsland.be.dto.base.ItemDTO;
 import com.kidsland.be.dto.Item;
 import lombok.Getter;
@@ -44,6 +45,10 @@ public class Result {
     @XmlAttribute
     @JsonFormat
     private List<ItemDTO> itemDtos;
+
+    @XmlAttribute
+    @JsonFormat
+    private List<EmailDTO> emails;
 
     public Result(ErrorResult errorResult) {
         this.errorResult = errorResult;
